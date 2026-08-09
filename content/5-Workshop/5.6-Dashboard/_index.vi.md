@@ -21,6 +21,6 @@ Web Dash board gồm hai phần chính:
 
 1. [Backend](../5.6-Dashboard/5.6.1-Backend/)
 2. [Frontend](../5.6-Dashboard/5.6.2-Frontend/)
-3. [Authentication with Cognito](../5.6-Dashboard/5.6.3-Authentication-Cognito/)
+3. [Xác thực với Cognito](../5.6-Dashboard/5.6.3-Authentication-Cognito/)
 
 

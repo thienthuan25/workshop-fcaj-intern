@@ -6,11 +6,11 @@ chapter : false
 pre : " <b> 5.8. </b> "
 ---
 
-In this section, the **CloudCost Insight** project applies a **CI/CD** pipeline using **GitHub Actions** to automatically verify source code quality and deploy **AWS** infrastructure consistently.
+In this section, the CloudCost Insight project applies a CI/CD pipeline using GitHub Actions to automatically verify source code quality and deploy AWS infrastructure consistently.
 
-Each change is made on a separate branch and submitted via a **Pull Request**, which is then automatically checked by the system. This process includes building the **Hugo Workshop**, linting and running unit tests for the **Python Lambda** code, checking formatting and validating **Terraform** configuration, creating a **Terraform plan**, and checking the **JavaScript** syntax of the Dashboard. Changes are only merged into the **main** branch when all tests succeed and are approved.
+Each change is made on a separate branch and submitted via a Pull Request, which is then automatically checked by the system. This process includes: linting and running unit tests for the Python Lambda code, checking formatting and validating Terraform configuration, creating a Terraform plan, and checking the JavaScript syntax of the Dashboard. Changes are only merged into the main branch when all tests succeed and are approved.
 
-After merging, the CD workflow automatically runs **Terraform Apply** via **HCP Terraform** to update the **AWS** infrastructure. This process helps reduce manual deployment risks, detects errors early, and ensures the deployment environment is always consistent with the source code.
+After merging, the CD workflow automatically runs Terraform Apply via HCP Terraform to update the AWS infrastructure. This process helps reduce manual deployment risks, detects errors early, and ensures the deployment environment is always consistent with the source code.
 
 ### Create CI Workflow
 
@@ -168,9 +168,9 @@ def load_lambda_module(module_name: str, relative_path: str):
     return module
 ```
 
-The **conftest.py** file provides the configuration and shared components for the entire unit testing process using **pytest**. The purpose of this file includes setting up a mock environment to ensure that **Lambda** functions use mock environment variables and **AWS credentials** when running tests. This keeps the test system completely isolated, avoiding accidental calls to the real **AWS API** that could incur costs or cause unwanted errors.
+The **conftest.py** file provides the configuration and shared components for the entire unit testing process using pytest. The purpose of this file includes setting up a mock environment to ensure that Lambda functions use mock environment variables and AWS credentials when running tests. This keeps the test system completely isolated, avoiding accidental calls to the real AWS API that could incur costs or cause unwanted errors.
 
-The file also provides the **load_lambda_module** utility, which helps load **Lambda** files independently. Since all **Lambdas** share the same filename **handler.py**, this utility allows importing them under distinct module names to avoid source code conflicts.
+The file also provides the **load_lambda_module** utility, which helps load Lambda files independently. Since all Lambdas share the same filename **handler.py**, this utility allows importing them under distinct module names to avoid source code conflicts.
 
 Next, we create the **test_analyzer.py** file:
 
@@ -280,7 +280,7 @@ def test_classify_severity_returns_critical_for_cost_spike():
     assert any("Cost spike detected" in reason for reason in reasons)
 ```
 
-The **test_analyzer.py** file contains test cases dedicated to the **Lambda Analyzer**. Its task is to verify the cost calculation logic by ensuring the system correctly reads the mock data format, accurately accumulates the total daily cost, and correctly ranks the most expensive services.
+The **test_analyzer.py** file contains test cases dedicated to the Lambda Analyzer. Its task is to verify the cost calculation logic by ensuring the system correctly reads the mock data format, accurately accumulates the total daily cost, and correctly ranks the most expensive services.
 
 This file also ensures the accuracy of the alert mechanism by thoroughly checking the severity classification conditions based on the budget threshold and cost spike relative to the historical average. This is especially important to prevent the risk of false alarms or missing actual cost overrun incidents.
 
@@ -364,9 +364,9 @@ def test_cors_response_returns_json_response():
     assert response["body"] == '{"status": "ok"}'
 ```
 
-The **test_api.py** file focuses on testing the functionalities of the **Lambda API**. Its primary purpose is to test the data extraction logic, ensuring the **API** can accurately parse the mock raw data structure from **Cost Explorer**, extract the correct dates, accurately calculate total costs, and group costs by individual services.
+The **test_api.py** file focuses on testing the functionalities of the Lambda API. Its primary purpose is to test the data extraction logic, ensuring the API can accurately parse the mock raw data structure from Cost Explorer, extract the correct dates, accurately calculate total costs, and group costs by individual services.
 
-This file also ensures the response format by checking whether the **Lambda** function generates the exact result structure required by **API Gateway**. This is crucial to ensure the **Web Dashboard** can read the data without formatting errors.
+This file also ensures the response format by checking whether the Lambda function generates the exact result structure required by API Gateway. This is crucial to ensure the Web Dashboard can read the data without formatting errors.
 
 Next, we create the **test_collector.py** file:
 
@@ -480,13 +480,13 @@ def test_send_event_to_sqs_contains_expected_values():
     assert '"total_cost": 12.34' in call["MessageBody"]
 ```
 
-The **test_collector.py** file tests the entire workflow of the **Lambda Collector**. Because this component interacts directly with **AWS** services, this file uses mocking techniques via **MagicMock** to avoid costs. The primary purpose is to test the **Cost Explorer** connection to ensure the **AWS API** call passes the correct configuration parameters.
+The **test_collector.py** file tests the entire workflow of the Lambda Collector. Because this component interacts directly with AWS services, this file uses mocking techniques via **MagicMock** to avoid costs. The primary purpose is to test the Cost Explorer connection to ensure the AWS API call passes the correct configuration parameters.
 
-The **S3** storage logic check confirms that the analyzed data is correctly written to the desired Bucket and that the system generates an accurate file path.
+The S3 storage logic check confirms that the analyzed data is correctly written to the desired Bucket and that the system generates an accurate file path.
 
-Finally, ensuring the event-driven flow checks the message content sent to the **SQS Queue** to see if it contains all essential data keys so the **Lambda Analyzer** can receive and process it.
+Finally, ensuring the event-driven flow checks the message content sent to the SQS Queue to see if it contains all essential data keys so the Lambda Analyzer can receive and process it.
 
-Next, you need to create the **requirements-dev.txt** file:
+Next, you need to create the **requirements-dev.txt** file in the root directory of the project:
 
 ```text
 boto3>=1.34,<2
@@ -494,7 +494,7 @@ pytest>=8,<10
 ruff>=0.6,<1
 ```
 
-This file is responsible for listing the **Python** libraries exclusively for development and testing. These libraries are not packaged into the actual **AWS Lambda** environment.
+This file is responsible for listing the Python libraries exclusively for development and testing. These libraries are not packaged into the actual AWS Lambda environment.
 
 Then, proceed to create the **pyproject.toml** file:
 
@@ -510,7 +510,7 @@ select = ["E", "F", "I"]
 ignore = ["E501"]
 ```
 
-This file helps standardize and optimize the **CI/CD** workflow. Specific functions include limiting the default test discovery scope to the tests folder to minimize latency. It also defines the target environment version as **Python 3.12** to ensure absolute consistency with the **AWS Lambda** system.
+This file helps standardize and optimize the CI/CD workflow. Specific functions include limiting the default test discovery scope to the tests folder to minimize latency. It also defines the target environment version as **Python 3.12** to ensure absolute consistency with the AWS Lambda system.
 
 Finally, it enables core rule sets to control syntax errors and ensure source code integrity, while disabling the line length limit rule to provide flexibility when declaring complex data structures.
 
@@ -573,11 +573,11 @@ python:
         run: pytest -q
 ```
 
-The purpose of modifying the **python** Job is to upgrade the **CI** system from merely checking for basic errors to a comprehensive source code moderation filter. Previously, this Job only called a syntax checking command, but now we need to bring the Unit Test scripts and configuration tools into actual execution. This new Job will install the necessary tools via the **requirements-dev.txt** file. It will automatically run format checks and immediately flag errors, refusing to allow code merging if flaws are detected. At the same time, it automatically mocks and tests the entire system logic to ensure that new source code does not break old functionalities before deploying to **AWS**.
+The purpose of modifying the **python** Job is to upgrade the CI system from merely checking for basic errors to a comprehensive source code moderation filter. Previously, this Job only called a syntax checking command, but now we need to bring the Unit Test scripts and configuration tools into actual execution. This new Job will install the necessary tools via the **requirements-dev.txt** file. It will automatically run format checks and immediately flag errors, refusing to allow code merging if flaws are detected. At the same time, it automatically mocks and tests the entire system logic to ensure that new source code does not break old functionalities before deploying to AWS.
 
 **3.** Terraform Plan CI
 
-This step will automatically run a **Terraform** plan when you open a **Pull Request** into the main branch. First, we will proceed to check the **HCP Terraform** Workspace. Please go to your Workspace, select **General** under Settings, and confirm the execution mode is **Remote**.
+This step will automatically run a Terraform plan when you open a **Pull Request** into the main branch. First, we will proceed to check the HCP Terraform Workspace. Please go to your Workspace, select **General** under Settings, and confirm the execution mode is **Remote**.
 
 ![Terraform Plan CI](/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/terraformplan_1.png)
 
@@ -589,7 +589,7 @@ Set a description and expiration for the Token, click create, and save this valu
 
 ![Terraform Plan CI](/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/terraformplan_3.png)
 
-The next step is to save the Token in **GitHub Secrets**. Open your **GitHub repository** settings, navigate to Secrets and variables management, and create a new Secret for the repository.
+The next step is to save the Token in **GitHub Secrets**. Open your **GitHub repository** settings, navigate to **Secrets and variables** management, and create a new Secret for the repository.
 
 ![Terraform Plan CI](/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/terraformplan_4.png)
 
@@ -612,7 +612,7 @@ Once configured, we update the **Terraform** Job in the **ci.yml** file:
           terraform plan -input=false -no-color
 ```
 
-Previously, the **Terraform** Job only stopped at checking for typos and basic syntax errors. When adding the test run command, the **CI** system will indicate exactly which **AWS** resources are about to be created, modified, or deleted. This helps the team easily spot destructive changes right from the proposal review stage.
+Previously, the Terraform Job only stopped at checking for typos and basic syntax errors. When adding the test run command, the CI system will indicate exactly which AWS resources are about to be created, modified, or deleted. This helps the team easily spot destructive changes right from the proposal review stage.
 
 Unlike the local initialization step, this step uses the Token to connect directly to **HCP Terraform**. Thus, the plan command can read the current state file, comparing the new source code with the actual infrastructure to provide an absolutely accurate assessment. The integration condition ensures this infrastructure simulation process is only triggered upon a code merge proposal, acting as a final mandatory test before actual implementation.
 
@@ -636,7 +636,7 @@ Then, open a merge proposal from the new branch to the main branch.
 
 ![Terraform Plan CI](/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/terraformplan_7.png)
 
-At this point, the **HCP Terraform** Workspace does not have a value for the mandatory variable because this variable is defined in a hidden file not pushed to the network due to personal data. Therefore, you need to assign a value to this variable directly in the Workspace.
+At this point, the HCP Terraform Workspace does not have a value for the mandatory variable because this variable is defined in a hidden file not pushed to the network due to personal data. Therefore, you need to assign a value to this variable directly in the Workspace.
 
 Go to the Workspace management page, open the Variables section, and add the email address.
 
@@ -656,9 +656,9 @@ A successful merge will display a confirmation message.
 
 ### Create CD Workflow
 
-Because **Terraform** runs remotely on **HCP Terraform**, the **GitHub** system does not directly call **AWS**. The next step requires preparing a protected production environment so the system demands approval before executing the infrastructure apply command.
+Because Terraform runs remotely on HCP Terraform, the GitHub system does not directly call AWS. The next step requires preparing a protected production environment so the system demands approval before executing the infrastructure apply command.
 
-You need to create a production environment on **GitHub** by going to the repository, opening Settings, and choosing to create a new environment.
+You need to create a production environment on GitHub by going to the repository, opening Settings, and choosing to create a new environment.
 
 ![Terraform CD](/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/terraformcd_1.png)
 
@@ -686,7 +686,7 @@ Then confirm success and save the protection rules.
 
 This setup will cause the deployment Job to always wait for approval before it can use the Secret or run the apply command.
 
-Next, you will create an **HCP** Token specifically for the **CD** process. In the **HCP Terraform** dashboard, access your organization and select Team management.
+Next, you will create an HCP Token specifically for the **CD** process. In the HCP Terraform dashboard, access your organization and select **Teams**.
 
 At the owners team page, click on Token management.
 
@@ -700,7 +700,7 @@ Fill in the description, select the expiration, and save the newly created Token
 
 ![HCP Terraform CD](/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/hcptokencd_3.png)
 
-Back in **GitHub**, go to the newly created production environment settings and add a new Secret.
+Back in GitHub, go to the newly created production environment settings and add a new Secret.
 
 ![HCP Terraform CD](/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/hcptokencd_4.png)
 
@@ -711,7 +711,7 @@ Name the Secret, paste the Token value, and save it.
 
 Next, you need to create the **terraform-apply.yml** file in the workflows directory. Luồng công việc này chỉ chạy sau khi mã nguồn được gộp vào nhánh chính.
 
-Nó sẽ chờ bạn phê duyệt ở môi trường production trước khi thực sự triển khai hạ tầng lên **AWS**.
+Nó sẽ chờ bạn phê duyệt ở môi trường production trước khi thực sự triển khai hạ tầng lên AWS.
 
 ```yaml
 name: Terraform Apply
@@ -777,7 +777,7 @@ jobs:
         run: terraform apply -input=false -auto-approve -no-color
 ```
 
-The **Terraform** apply process will create a new plan and then execute it. This avoids applying an outdated plan after you have reviewed the proposal.
+The Terraform apply process will create a new plan and then execute it. This avoids applying an outdated plan after you have reviewed the proposal.
 
 Now you proceed to create a branch and push the changes:
 
@@ -788,7 +788,7 @@ git commit -m "Add protected Terraform apply workflow"
 git push -u origin cd/terraform-apply
 ```
 
-Then, open a merge proposal into the main branch, wait for the system to show all green checks, and click the merge button.
+Then, open **Pull Request**, wait for the system to show all green checks, and click the merge button.
 
 ![Terraform CD](/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/merge_1.png)
 
@@ -796,7 +796,7 @@ Right after merging, navigate to the **GitHub** Actions section to check the app
 
 ![Terraform CD](/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/merge_2.png)
 
-Click on the deployment review section, select the production environment, and confirm approval.
+Click on the **Review deployment**, select the production environment, and confirm approval.
 
 ![Terraform CD](/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/merge_3.png)
 
@@ -810,11 +810,11 @@ Next, you can directly monitor the **HCP Terraform** dashboard to check the exec
 
 ![Terraform CD](/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/merge_7.png)
 
-On the first run, if the current infrastructure already matches the configuration state, the system will report no changes. Conversely, the deployment might create or update **AWS** resources and incur costs, so you must always read the logs carefully before approving.
+On the first run, if the current infrastructure already matches the configuration state, the system will report no changes. Conversely, the deployment might create or update AWS resources and incur costs, so you must always read the logs carefully before approving.
 
-The **GitHub** environment already supports a safe review workflow before granting access to secret variables for deployment.
+The GitHub environment already supports a safe review workflow before granting access to secret variables for deployment.
 
-Finally, we will set up a protection rule for the main branch. Protecting the branch helps prevent the infrastructure from undergoing unverified changes. All changes must go through a merge proposal, pass system checks, and be approved before merging into the main branch. This is extremely important because the merge process can automatically trigger the deployment workflow and alter **AWS** resources. This protection minimizes the risk of erroneous deployments or system disruption.
+Finally, we will set up a protection rule for the main branch. Protecting the branch helps prevent the infrastructure from undergoing unverified changes. All changes must go through a merge proposal, pass system checks, and be approved before merging into the main branch. This is extremely important because the merge process can automatically trigger the deployment workflow and alter AWS resources. This protection minimizes the risk of erroneous deployments or system disruption.
 
 Access the branch settings in the repository and add a classic branch protection rule.
 
@@ -832,9 +832,9 @@ Finally, save the changes. The system will request a re-check if the main branch
 
 We have completed the continuous integration and deployment section for the **CloudCost Insight** project. All changes are now automatically and strictly quality-checked via **GitHub Actions** before being merged.
 
-When the merge process is complete, the system automatically updates the **AWS** infrastructure via **HCP Terraform**.
+When the merge process is complete, the system automatically updates the AWS infrastructure via HCP Terraform.
 
-The combination with **GitHub's** protected environment ensures the deployment is always safe, consistent, and minimizes manual operations.
+The combination with GitHub's protected environment ensures the deployment is always safe, consistent, and minimizes manual operations.
 
 ### Next Content
 

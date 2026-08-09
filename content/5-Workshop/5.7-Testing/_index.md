@@ -260,7 +260,6 @@ In this section, we will check that the Analyzer fully logs errors on CloudWatch
 History files are only used to calculate the average cost level to detect cost spikes, not mandatory data to process the current day's cost. For example, for 2026-06-18 with a cost of $9.00, the Analyzer needs:
 
 - The main file: `2026-06-18.json`: This is mandatory data. If this file does not exist, the Analyzer does not know what the cost for the day to analyze is → the record fails and must be retried.
-
 - History files from 2026-06-17 backwards: This is supplementary data to calculate the 14-day average. If missing, the Analyzer still knows the cost for 2026-06-18 is $9.00, can still compare it with the $10.00 budget threshold, and can still conclude NORMAL.
 
 This allows the system to still operate in the first days after deployment when there isn't enough 14 days of historical data. As data accumulates, the Analyzer will begin calculating the average and trigger the cost spike detection rule.
@@ -295,7 +294,6 @@ cost-data/year=2026/month=07/day=03/cost_2026-07-03.json
 ![Testing](/workshop-fcaj-intern/images/5-Workshop/5.7-Testing/partial_12.png)
 
 - The message with **itemIdentifier** as **test-s3-not-found-001** cannot be processed because the Analyzer cannot read the corresponding data file from Amazon S3. Lambda returns this message ID in the **batchItemFailures** array to notify Amazon SQS that only this message needs to be kept for retry.
-
 - We can view its Log:
 
 ![Testing](/workshop-fcaj-intern/images/5-Workshop/5.7-Testing/partial_13.png)
@@ -325,7 +323,6 @@ Upload the `cost_2099-01-01.json` file to this folder:
 **3.** Create an event on Lambda:
 
 - Access Lambda, select **cloudcost-insight-analyzer**.
-
 - Open the **Test** tab and create an event as follows:
 
 ```json
@@ -340,7 +337,6 @@ Upload the `cost_2099-01-01.json` file to this folder:
 ```
 
 - Click **Test**.
-
 - Expected result: Returns the following response;
 
 ![Testing](/workshop-fcaj-intern/images/5-Workshop/5.7-Testing/invalid_5.png)
@@ -360,7 +356,6 @@ When the error event in step 3 causes the **Analyzer** to throw an error and a m
 ![Testing](/workshop-fcaj-intern/images/5-Workshop/5.7-Testing/partial_10.png)
 
 - Expected result: **cloudcost-insight-analyzer-errors** and **cloudcost-insight-dlq-has-messages** are in the **In alarm** state.
-
 - Notification email.
 
 ![Testing](/workshop-fcaj-intern/images/5-Workshop/5.7-Testing/alarm_1.png)
@@ -435,7 +430,6 @@ curl -i "$API_ENDPOINT"
 ![Testing](/workshop-fcaj-intern/images/5-Workshop/5.7-Testing/cognito_6.png)
 
 - The 401 Unauthorized status code indicates the request is not authenticated so it is not allowed to access the API. Because the curl command does not send the Authorization: Bearer <JWT> header, the API Gateway does not forward the request to the Lambda to process cost data.
-
 - The www-authenticate: Bearer header indicates the API requires the client to provide a Bearer Token, specifically a JWT issued by Amazon Cognito after a user successfully logs in. This result verifies the JWT Authorizer has been configured and is operating correctly, preventing unauthenticated access to cost data on the Dashboard.
 
 **4.** Test API call with valid Cognito JWT:

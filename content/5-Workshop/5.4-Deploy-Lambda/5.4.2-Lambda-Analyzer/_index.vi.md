@@ -36,11 +36,10 @@ Hàm này tự động kích hoạt mỗi khi nhận được tin nhắn báo c�
 1. **Truy xuất dữ liệu**: Nó lấy đường dẫn file từ tin nhắn SQS, sau đó tiến hành lấy chi phí từ kho lưu trữ từ S3 về để đọc.
 2. **Đánh giá thông minh**: Hàm sẽ tính tổng chi phí trong ngày và liệt kê top 5 dịch vụ tốn kém nhất. Nâng cao hơn, hàm còn tự động đọc lại các file cũ trên S3 để tính ra mức chi phí trung bình trong 7 ngày gần nhất.
 3. **Ra quyết đinh cảnh báo**: Nó sẽ đối chiếu chi phí hiện tại với hai điều kiện:
-
 - Có vượt giới hạn ngân sách cố định không?
 - Có tăng vọt bất thường so với mức trung bình lịch sử không?
 
-    Nếu có bất cứ điều kiện nào được thỏa mãn thì nó sẽ gửi cảnh báo chi tiết qua Email đến người dùng.
+Nếu có bất cứ điều kiện nào được thỏa mãn thì nó sẽ gửi cảnh báo chi tiết qua Email đến người dùng.
 
 ```python
 """ 

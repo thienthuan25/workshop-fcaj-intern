@@ -8,7 +8,7 @@ pre : " <b> 5.3.8 </b> "
 
 Trước khi tiến hành triển khai hạ tầng, chúng ta cần tạo thêm một file có tên là `terraform/teraform.tfvars`.
 
-Ở phần đầu tiên, chúng ta đã tạo file `variables.tf` để khai báo danh sách các biến (như tên dự án, môi trường, email...) và đặt các giá trị mặc định cho chúng. File `terraform.tfvars` chính là nới chúng ta điền các giá trị thực tế mà bạn muốn áp dụng cho dự án. Việc tách biệt này giúp bộ code Terraform trở nên linh hoạt và có thể tái sử dụng. Khi bạn muốn đưa code này cho người khác chạy, hoặc muốn đổi sang tài khoản email khác, đổi tên dự án, bạn chỉ cần sửa file `terraform.tfvars` này mà không sợ làm hỏng các đoạn code cấu hình hạ tầng phức tạp ở những file khác. Terraform sẽ tự động tìm và nạp các giá trị từ file có tên `.tfvars` này khi chạy.
+Ở phần đầu tiên, chúng ta đã tạo file `variables.tf` để khai báo danh sách các biến (như tên dự án, môi trường, email...) và đặt các giá trị mặc định cho chúng. File `terraform.tfvars` chính là nơi chúng ta điền các giá trị thực tế mà bạn muốn áp dụng cho dự án. Việc tách biệt này giúp bộ code Terraform trở nên linh hoạt và có thể tái sử dụng. Khi bạn muốn đưa code này cho người khác chạy, hoặc muốn đổi sang tài khoản email khác, đổi tên dự án, bạn chỉ cần sửa file `terraform.tfvars` này mà không sợ làm hỏng các đoạn code cấu hình hạ tầng phức tạp ở những file khác. Terraform sẽ tự động tìm và nạp các giá trị từ file có tên `.tfvars` này khi chạy.
 
 ```hcl
 # important
@@ -46,7 +46,7 @@ terraform apply
 
 **4.** Kiểm tra và xác nhận Email.
 
-    Sau khi triển khai, bạn hãy kiểm tra các tài nguyên đã được tạo trên AWS Console.
+Sau khi triển khai, bạn hãy kiểm tra các tài nguyên đã được tạo trên AWS Console.
 
 - S3 Bucket:
 

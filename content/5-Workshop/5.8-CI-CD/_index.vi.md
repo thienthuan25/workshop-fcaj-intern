@@ -6,11 +6,11 @@ chapter : false
 pre : " <b> 5.8. </b> "
 ---
 
-Trong phần này, dự án **CloudCost Insight** áp dụng quy trình **CI/CD** bằng **GitHub Actions** nhằm tự động kiểm tra chất lượng mã nguồn và triển khai hạ tầng **AWS** một cách nhất quán.
+Trong phần này, dự án CloudCost Insight áp dụng quy trình CI/CD bằng GitHub Actions nhằm tự động kiểm tra chất lượng mã nguồn và triển khai hạ tầng AWS một cách nhất quán.
 
-Mỗi thay đổi được thực hiện trên nhánh riêng và gửi qua **Pull Request** sẽ được hệ thống tự động kiểm tra. Quá trình này bao gồm việc xây dựng **Hugo Workshop**, lint và chạy unit test cho mã **Python Lambda**, kiểm tra định dạng và xác thực cấu hình **Terraform**, tạo **Terraform plan**, đồng thời kiểm tra cú pháp **JavaScript** của Dashboard. Thay đổi chỉ được merge vào nhánh **main** khi tất cả các bài kiểm tra đều thành công và được phê duyệt.
+Mỗi thay đổi được thực hiện trên nhánh riêng và gửi qua Pull Request sẽ được hệ thống tự động kiểm tra. Quá trình này bao gồm: lint và chạy unit test cho mã Python Lambda, kiểm tra định dạng và xác thực cấu hình Terraform, tạo Terraform plan, đồng thời kiểm tra cú pháp JavaScript của Dashboard. Thay đổi chỉ được merge vào nhánh main khi tất cả các bài kiểm tra đều thành công và được phê duyệt.
 
-Sau khi gộp mã, workflow CD tự động chạy **Terraform Apply** thông qua **HCP Terraform** để cập nhật hạ tầng **AWS**. Quy trình này giúp giảm rủi ro triển khai thủ công, phát hiện lỗi sớm và bảo đảm môi trường triển khai luôn nhất quán với mã nguồn.
+Sau khi gộp mã, workflow CD tự động chạy Terraform Apply thông qua HCP Terraform để cập nhật hạ tầng AWS. Quy trình này giúp giảm rủi ro triển khai thủ công, phát hiện lỗi sớm và bảo đảm môi trường triển khai luôn nhất quán với mã nguồn.
 
 ### Tạo Workflow CI
 
@@ -168,9 +168,9 @@ def load_lambda_module(module_name: str, relative_path: str):
     return module
 ```
 
-File **conftest.py** cung cấp cấu hình và các thành phần dùng chung cho toàn bộ quá trình unit test bằng **pytest**. Mục đích của file này bao gồm việc thiết lập môi trường ảo để đảm bảo các hàm **Lambda** khi chạy test sẽ sử dụng các biến môi trường và **AWS credentials** giả. Điều này giúp hệ thống test hoàn toàn cô lập, không gọi nhầm **API** thật của **AWS** gây phát sinh chi phí hay lỗi không mong muốn.
+File **conftest.py** cung cấp cấu hình và các thành phần dùng chung cho toàn bộ quá trình unit test bằng pytest. Mục đích của file này bao gồm việc thiết lập môi trường ảo để đảm bảo các hàm Lambda khi chạy test sẽ sử dụng các biến môi trường và AWS credentials giả. Điều này giúp hệ thống test hoàn toàn cô lập, không gọi nhầm API thật của AWS gây phát sinh chi phí hay lỗi không mong muốn.
 
-File cũng cung cấp tiện ích **load_lambda_module** giúp tải các file **Lambda** một cách độc lập. Do các **Lambda** đều dùng chung tên file là **handler.py**, tiện ích này giúp import chúng dưới các tên module riêng biệt để tránh xung đột mã nguồn.
+File cũng cung cấp tiện ích **load_lambda_module** giúp tải các file Lambda một cách độc lập. Do các Lambda đều dùng chung tên file là **handler.py**, tiện ích này giúp import chúng dưới các tên module riêng biệt để tránh xung đột mã nguồn.
 
 Tiếp theo, chúng ta tạo file **test_analyzer.py**:
 
@@ -280,7 +280,7 @@ def test_classify_severity_returns_critical_for_cost_spike():
     assert any("Cost spike detected" in reason for reason in reasons)
 ```
 
-File **test_analyzer.py** chứa các kịch bản kiểm thử dành riêng cho **Lambda Analyzer**. Nhiệm vụ của nó là kiểm chứng logic tính toán chi phí bằng cách đảm bảo hệ thống đọc đúng định dạng dữ liệu giả lập, cộng dồn chính xác tổng chi phí trong ngày và xếp hạng đúng các dịch vụ tiêu tốn nhiều tiền nhất.
+File **test_analyzer.py** chứa các kịch bản kiểm thử dành riêng cho Lambda Analyzer. Nhiệm vụ của nó là kiểm chứng logic tính toán chi phí bằng cách đảm bảo hệ thống đọc đúng định dạng dữ liệu giả lập, cộng dồn chính xác tổng chi phí trong ngày và xếp hạng đúng các dịch vụ tiêu tốn nhiều tiền nhất.
 
 File này cũng đảm bảo tính chính xác của cơ chế cảnh báo thông qua việc kiểm tra kỹ lưỡng các điều kiện phân loại mức độ nghiêm trọng dựa trên ngưỡng ngân sách và mức độ tăng đột biến so với trung bình lịch sử. Điều này đặc biệt quan trọng để ngăn ngừa rủi ro báo động giả hoặc bỏ sót các sự cố vượt chi phí thực sự.
 
@@ -364,9 +364,9 @@ def test_cors_response_returns_json_response():
     assert response["body"] == '{"status": "ok"}'
 ```
 
-File **test_api.py** tập trung kiểm thử các chức năng của **Lambda API**. Mục đích chính là kiểm tra logic trích xuất dữ liệu, đảm bảo **API** có thể phân tích chính xác cấu trúc dữ liệu thô giả lập từ **Cost Explorer**, lấy đúng ngày tháng, tính toán chuẩn xác tổng chi phí và nhóm chi phí theo từng dịch vụ riêng biệt.
+File **test_api.py** tập trung kiểm thử các chức năng của Lambda API. Mục đích chính là kiểm tra logic trích xuất dữ liệu, đảm bảo API có thể phân tích chính xác cấu trúc dữ liệu thô giả lập từ Cost Explorer, lấy đúng ngày tháng, tính toán chuẩn xác tổng chi phí và nhóm chi phí theo từng dịch vụ riêng biệt.
 
-File này cũng đảm bảo định dạng phản hồi bằng cách kiểm tra xem hàm **Lambda** có tạo ra đúng cấu trúc kết quả mà **API Gateway** yêu cầu hay không. Việc này rất quan trọng để đảm bảo **Web Dashboard** có thể đọc được dữ liệu mà không gặp lỗi định dạng.
+File này cũng đảm bảo định dạng phản hồi bằng cách kiểm tra xem hàm Lambda có tạo ra đúng cấu trúc kết quả mà API Gateway yêu cầu hay không. Việc này rất quan trọng để đảm bảo Web Dashboard có thể đọc được dữ liệu mà không gặp lỗi định dạng.
 
 Tiếp theo, chúng ta tạo file **test_collector.py**:
 
@@ -480,13 +480,13 @@ def test_send_event_to_sqs_contains_expected_values():
     assert '"total_cost": 12.34' in call["MessageBody"]
 ```
 
-File **test_collector.py** kiểm tra toàn bộ chuỗi quy trình làm việc của **Lambda Collector**. Vì đây là thành phần tương tác trực tiếp với các dịch vụ **AWS**, file này sử dụng kỹ thuật giả lập thông qua **MagicMock** để không tốn phí. Mục đích chính là kiểm tra kết nối **Cost Explorer** nhằm đảm bảo hàm gọi **API AWS** truyền đúng các tham số cấu hình.
+File **test_collector.py** kiểm tra toàn bộ chuỗi quy trình làm việc của Lambda Collector. Vì đây là thành phần tương tác trực tiếp với các dịch vụ AWS, file này sử dụng kỹ thuật giả lập thông qua **MagicMock** để không tốn phí. Mục đích chính là kiểm tra kết nối Cost Explorer nhằm đảm bảo hàm gọi API AWS truyền đúng các tham số cấu hình.
 
-Quá trình kiểm tra logic lưu trữ **S3** xác nhận dữ liệu phân tích được ghi đúng vào Bucket mong muốn và hệ thống sinh ra đường dẫn file chuẩn xác.
+Quá trình kiểm tra logic lưu trữ S3 xác nhận dữ liệu phân tích được ghi đúng vào Bucket mong muốn và hệ thống sinh ra đường dẫn file chuẩn xác.
 
-Cuối cùng, việc đảm bảo luồng sự kiện kiểm tra nội dung tin nhắn gửi vào **SQS Queue** xem có chứa đầy đủ các khóa dữ liệu thiết yếu để **Lambda Analyzer** có thể tiếp nhận và xử lý.
+Cuối cùng, việc đảm bảo luồng sự kiện kiểm tra nội dung tin nhắn gửi vào SQS Queue xem có chứa đầy đủ các khóa dữ liệu thiết yếu để Lambda Analyzer có thể tiếp nhận và xử lý.
 
-Kế tiếp, bạn cần tạo file **requirements-dev.txt**:
+Kế tiếp, bạn cần tạo file **requirements-dev.txt** ở thư mục gốc của dự án:
 
 ```text
 boto3>=1.34,<2
@@ -494,7 +494,7 @@ pytest>=8,<10
 ruff>=0.6,<1
 ```
 
-File này có nhiệm vụ liệt kê các thư viện **Python** chỉ dành riêng cho quá trình phát triển và kiểm thử. Những thư viện này không được đóng gói lên môi trường **AWS Lambda** thực tế.
+File này có nhiệm vụ liệt kê các thư viện Python chỉ dành riêng cho quá trình phát triển và kiểm thử. Những thư viện này không được đóng gói lên môi trường AWS Lambda thực tế.
 
 Sau đó, tiến hành tạo file **pyproject.toml**:
 
@@ -510,7 +510,7 @@ select = ["E", "F", "I"]
 ignore = ["E501"]
 ```
 
-File này giúp chuẩn hóa và tối ưu quy trình **CI/CD**. Chức năng cụ thể bao gồm giới hạn phạm vi tìm kiếm kiểm thử mặc định tại thư mục tests để giảm thiểu độ trễ. Nó cũng xác định phiên bản môi trường đích là **Python 3.12** nhằm đảm bảo sự đồng nhất tuyệt đối với hệ thống **AWS Lambda**.
+File này giúp chuẩn hóa và tối ưu quy trình CI/CD. Chức năng cụ thể bao gồm giới hạn phạm vi tìm kiếm kiểm thử mặc định tại thư mục tests để giảm thiểu độ trễ. Nó cũng xác định phiên bản môi trường đích là **Python 3.12** nhằm đảm bảo sự đồng nhất tuyệt đối với hệ thống AWS Lambda.
 
 Cuối cùng, kích hoạt các tập quy tắc cốt lõi nhằm kiểm soát lỗi cú pháp và đảm bảo tính toàn vẹn của mã nguồn, đồng thời vô hiệu hóa quy tắc giới hạn độ dài dòng để tạo sự linh hoạt khi khai báo các cấu trúc dữ liệu phức tạp.
 
@@ -573,11 +573,11 @@ python:
         run: pytest -q
 ```
 
-Mục đích của việc sửa đổi Job **python** là để nâng cấp hệ thống **CI** từ việc chỉ kiểm tra lỗi cơ bản lên thành một bộ lọc kiểm duyệt mã nguồn toàn diện. Trước đây Job này chỉ gọi lệnh kiểm tra lỗi cú pháp, nhưng nay chúng ta cần mang các kịch bản Unit Test và công cụ cấu hình vào chạy thực tế. Job mới này sẽ cài đặt các công cụ cần thiết thông qua file **requirements-dev.txt**. Nó sẽ tự động chạy kiểm tra định dạng và lập tức đánh dấu lỗi, từ chối cho phép gộp code nếu phát hiện sai sót. Đồng thời, nó tự động giả lập và kiểm tra toàn bộ logic của hệ thống để đảm bảo mã nguồn mới không phá vỡ các chức năng cũ trước khi triển khai lên **AWS**.
+Mục đích của việc sửa đổi Job **python** là để nâng cấp hệ thống CI từ việc chỉ kiểm tra lỗi cơ bản lên thành một bộ lọc kiểm duyệt mã nguồn toàn diện. Trước đây Job này chỉ gọi lệnh kiểm tra lỗi cú pháp, nhưng nay chúng ta cần mang các kịch bản Unit Test và công cụ cấu hình vào chạy thực tế. Job mới này sẽ cài đặt các công cụ cần thiết thông qua file **requirements-dev.txt**. Nó sẽ tự động chạy kiểm tra định dạng và lập tức đánh dấu lỗi, từ chối cho phép gộp code nếu phát hiện sai sót. Đồng thời, nó tự động giả lập và kiểm tra toàn bộ logic của hệ thống để đảm bảo mã nguồn mới không phá vỡ các chức năng cũ trước khi triển khai lên AWS.
 
 **3.** Terraform Plan CI
 
-Bước này sẽ tự động chạy lên kế hoạch **Terraform** khi bạn mở **Pull Request** vào nhánh chính. Đầu tiên, chúng ta sẽ tiến hành kiểm tra Workspace **HCP Terraform**. Bạn hãy vào Workspace của bạn, chọn **General** trong phần Cài đặt và xác nhận chế độ thực thi là **Remote**.
+Bước này sẽ tự động chạy lên kế hoạch Terraform khi bạn mở **Pull Request** vào nhánh chính. Đầu tiên, chúng ta sẽ tiến hành kiểm tra Workspace HCP Terraform. Bạn hãy vào Workspace của bạn, chọn **General** trong phần Cài đặt và xác nhận chế độ thực thi là **Remote**.
 
 ![Terraform Plan CI](/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/terraformplan_1.png)
 
@@ -589,7 +589,7 @@ Tiếp theo, bạn cần tạo Token cho **HCP Terraform API**. Truy cập phầ
 
 ![Terraform Plan CI](/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/terraformplan_3.png)
 
-Bước kế tiếp là lưu Token vào **GitHub Secret**. Bạn mở cài đặt **GitHub repository**, điều hướng đến phần quản lý Secret và biến số, sau đó tạo một Secret mới cho kho lưu trữ.
+Bước kế tiếp là lưu Token vào **GitHub Secret**. Bạn mở cài đặt **GitHub repository**, điều hướng đến phần quản lý **Secret and variables**, sau đó tạo một Secret mới cho kho lưu trữ.
 
 ![Terraform Plan CI](/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/terraformplan_4.png)
 
@@ -612,9 +612,9 @@ Sau khi đã cấu hình xong, chúng ta cập nhật Job **Terraform** trong fi
           terraform plan -input=false -no-color
 ```
 
-Trước đây, Job **Terraform** chỉ dừng lại ở mức kiểm tra lỗi đánh máy và cú pháp cơ bản. Khi thêm lệnh chạy thử nghiệm, hệ thống **CI** sẽ chỉ ra chính xác những tài nguyên **AWS** nào sắp bị tạo mới, sửa đổi hoặc xóa bỏ. Việc này giúp chúng ta dễ dàng phát hiện các thay đổi phá hủy ngay từ giai đoạn xem xét đề xuất.
+Trước đây, Job **Terraform** chỉ dừng lại ở mức kiểm tra lỗi đánh máy và cú pháp cơ bản. Khi thêm lệnh chạy thử nghiệm, hệ thống CI sẽ chỉ ra chính xác những tài nguyên AWS nào sắp bị tạo mới, sửa đổi hoặc xóa bỏ. Việc này giúp chúng ta dễ dàng phát hiện các thay đổi phá hủy ngay từ giai đoạn xem xét đề xuất.
 
-Khác với bước khởi tạo cục bộ, bước này sử dụng Token để kết nối trực tiếp với **HCP Terraform**. Nhờ vậy, lệnh lập kế hoạch có thể đọc được file trạng thái hiện tại, so sánh mã nguồn mới với hạ tầng thực tế để đưa ra bản đánh giá chính xác tuyệt đối. Điều kiện tích hợp đảm bảo rằng quy trình mô phỏng hạ tầng này chỉ được kích hoạt khi có đề xuất gộp code, đóng vai trò như một bài test cuối cùng bắt buộc trước khi áp dụng thực tế.
+Khác với bước khởi tạo cục bộ, bước này sử dụng Token để kết nối trực tiếp với HCP Terraform. Nhờ vậy, lệnh lập kế hoạch có thể đọc được file trạng thái hiện tại, so sánh mã nguồn mới với hạ tầng thực tế để đưa ra bản đánh giá chính xác tuyệt đối. Điều kiện tích hợp đảm bảo rằng quy trình mô phỏng hạ tầng này chỉ được kích hoạt khi có đề xuất gộp code, đóng vai trò như một bài test cuối cùng bắt buộc trước khi áp dụng thực tế.
 
 Bây giờ chúng ta sẽ tiến hành kiểm tra bằng cách tạo đề xuất mới. Bạn tạo nhánh mới:
 
@@ -656,9 +656,9 @@ Quá trình gộp mã thành công sẽ hiện thông báo xác nhận.
 
 ### Tạo Workflow CD
 
-Vì **Terraform** chạy từ xa trên **HCP Terraform**, hệ thống **GitHub** không trực tiếp gọi **AWS**. Bước tiếp theo yêu cầu chuẩn bị môi trường sản xuất được bảo vệ để hệ thống yêu cầu phê duyệt trước khi thực thi lệnh áp dụng hạ tầng.
+Vì Terraform chạy từ xa trên HCP Terraform, hệ thống GitHub không trực tiếp gọi AWS. Bước tiếp theo yêu cầu chuẩn bị môi trường sản xuất được bảo vệ để hệ thống yêu cầu phê duyệt trước khi thực thi lệnh áp dụng hạ tầng.
 
-Bạn cần tạo môi trường sản xuất trên **GitHub** bằng cách vào kho lưu trữ, mở phần Cài đặt và chọn tạo môi trường mới.
+Bạn cần tạo môi trường sản xuất trên GitHub bằng cách vào kho lưu trữ, mở phần Cài đặt và chọn tạo môi trường mới.
 
 ![Terraform CD](/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/terraformcd_1.png)
 
@@ -686,7 +686,7 @@ Sau đó xác nhận thành công và lưu lại các quy tắc bảo vệ.
 
 Thiết lập này sẽ khiến Job triển khai luôn chờ phê duyệt trước khi có thể dùng Secret hay chạy lệnh áp dụng.
 
-Tiếp theo, bạn sẽ tạo Token **HCP** dành riêng cho quá trình **CD**. Trong bảng điều khiển **HCP Terraform**, bạn truy cập vào tổ chức của mình và chọn mục Quản lý nhóm.
+Tiếp theo, bạn sẽ tạo Token HCP dành riêng cho quá trình **CD**. Trong bảng điều khiển HCP Terraform, bạn truy cập vào tổ chức của mình và chọn mục **Teams**.
 
 Tại trang của nhóm chủ sở hữu, bạn nhấn vào phần quản lý Token.
 
@@ -700,7 +700,7 @@ Bạn điền mô tả, chọn thời hạn và lưu lại giá trị Token vừ
 
 ![HCP Terraform CD](/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/hcptokencd_3.png)
 
-Trở lại **GitHub**, bạn vào cài đặt môi trường production vừa tạo và thêm Secret mới.
+Trở lại GitHub, bạn vào cài đặt môi trường production vừa tạo và thêm Secret mới.
 
 ![HCP Terraform CD](/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/hcptokencd_4.png)
 
@@ -711,7 +711,7 @@ Trở lại **GitHub**, bạn vào cài đặt môi trường production vừa t
 
 Kế tiếp, bạn cần tạo file **terraform-apply.yml** trong thư mục luồng công việc. Luồng công việc này chỉ chạy sau khi mã nguồn được gộp vào nhánh chính.
 
-Nó sẽ chờ bạn phê duyệt ở môi trường production trước khi thực sự triển khai hạ tầng lên **AWS**.
+Nó sẽ chờ bạn phê duyệt ở môi trường production trước khi thực sự triển khai hạ tầng lên AWS.
 
 ```yaml
 name: Terraform Apply
@@ -777,7 +777,7 @@ jobs:
         run: terraform apply -input=false -auto-approve -no-color
 ```
 
-Quá trình áp dụng **Terraform** sẽ tạo kế hoạch mới rồi thực thi. Việc này giúp tránh tình trạng áp dụng một kế hoạch đã cũ sau khi bạn xem xét đề xuất.
+Quá trình áp dụng Terraform sẽ tạo kế hoạch mới rồi thực thi. Việc này giúp tránh tình trạng áp dụng một kế hoạch đã cũ sau khi bạn xem xét đề xuất.
 
 Bây giờ bạn tiến hành tạo nhánh và đẩy thay đổi lên:
 
@@ -788,7 +788,7 @@ git commit -m "Add protected Terraform apply workflow"
 git push -u origin cd/terraform-apply
 ```
 
-Tiếp đó, bạn mở đề xuất gộp mã vào nhánh chính, chờ hệ thống kiểm tra xanh toàn bộ rồi nhấn nút gộp.
+Tiếp đó, bạn mở **Pull Request**, chờ hệ thống kiểm tra xanh toàn bộ rồi nhấn nút gộp.
 
 ![Terraform CD](/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/merge_1.png)
 
@@ -796,7 +796,7 @@ Ngay sau khi gộp, bạn điều hướng sang phần hành động của **Git
 
 ![Terraform CD](/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/merge_2.png)
 
-Bạn nhấn vào phần xét duyệt triển khai, chọn môi trường production và xác nhận phê duyệt.
+Bạn nhấn vào phần **Review deployment**, chọn môi trường production và xác nhận phê duyệt.
 
 ![Terraform CD](/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/merge_3.png)
 
@@ -810,11 +810,11 @@ Tiếp theo, bạn có thể theo dõi trực tiếp trên bảng điều khiể
 
 ![Terraform CD](/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/merge_7.png)
 
-Ở lần chạy đầu tiên, nếu hạ tầng hiện tại đã khớp với trạng thái cấu hình, hệ thống sẽ báo không có thay đổi. Ngược lại, việc triển khai có thể tạo hoặc cập nhật tài nguyên **AWS** và phát sinh chi phí, vì vậy bạn luôn phải đọc kỹ nhật ký trước khi phê duyệt.
+Ở lần chạy đầu tiên, nếu hạ tầng hiện tại đã khớp với trạng thái cấu hình, hệ thống sẽ báo không có thay đổi. Ngược lại, việc triển khai có thể tạo hoặc cập nhật tài nguyên AWS và phát sinh chi phí, vì vậy bạn luôn phải đọc kỹ nhật ký trước khi phê duyệt.
 
-Môi trường **GitHub** đã hỗ trợ luồng đánh giá an toàn trước khi cấp quyền truy cập biến bí mật để triển khai.
+Môi trường GitHub đã hỗ trợ luồng đánh giá an toàn trước khi cấp quyền truy cập biến bí mật để triển khai.
 
-Cuối cùng, chúng ta sẽ thiết lập quy tắc bảo vệ cho nhánh chính. Việc bảo vệ nhánh giúp ngăn ngừa hạ tầng khỏi các thay đổi chưa được kiểm tra kỹ lưỡng. Mọi thay đổi bắt buộc phải đi qua đề xuất gộp mã, vượt qua các kiểm tra hệ thống và được phê duyệt trước khi sáp nhập vào nhánh chính. Điều này cực kỳ quan trọng vì quá trình gộp mã có thể tự động kích hoạt luồng triển khai và thay đổi tài nguyên **AWS**. Sự bảo vệ này giảm thiểu rủi ro triển khai sai sót hoặc làm gián đoạn hệ thống.
+Cuối cùng, chúng ta sẽ thiết lập quy tắc bảo vệ cho nhánh chính. Việc bảo vệ nhánh giúp ngăn ngừa hạ tầng khỏi các thay đổi chưa được kiểm tra kỹ lưỡng. Mọi thay đổi bắt buộc phải đi qua đề xuất gộp mã, vượt qua các kiểm tra hệ thống và được phê duyệt trước khi sáp nhập vào nhánh chính. Điều này cực kỳ quan trọng vì quá trình gộp mã có thể tự động kích hoạt luồng triển khai và thay đổi tài nguyên AWS. Sự bảo vệ này giảm thiểu rủi ro triển khai sai sót hoặc làm gián đoạn hệ thống.
 
 Bạn truy cập phần cài đặt nhánh trong kho lưu trữ và thêm quy tắc bảo vệ truyền thống.
 
@@ -832,9 +832,9 @@ Sau cùng, bạn nhấn lưu lại các thay đổi. Hệ thống sẽ yêu cầ
 
 Chúng ta đã hoàn thành phần tích hợp và triển khai liên tục cho dự án **CloudCost Insight**. Mọi thay đổi giờ đây đều được tự động kiểm tra chất lượng chặt chẽ qua **GitHub Actions** trước khi được sáp nhập.
 
-Khi quá trình sáp nhập hoàn tất, hệ thống tự động cập nhật hạ tầng **AWS** qua **HCP Terraform**.
+Khi quá trình sáp nhập hoàn tất, hệ thống tự động cập nhật hạ tầng AWS qua HCP Terraform.
 
-Sự kết hợp với môi trường bảo vệ của **GitHub** đảm bảo việc triển khai luôn an toàn, nhất quán và hạn chế tối đa thao tác thủ công.
+Sự kết hợp với môi trường bảo vệ của GitHub đảm bảo việc triển khai luôn an toàn, nhất quán và hạn chế tối đa thao tác thủ công.
 
 ### Nội dung tiếp theo
 

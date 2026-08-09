@@ -47,7 +47,7 @@ terraform apply
 
 **4.** Verify the deployed resources and confirm the email subscription.
 
-    After the deployment is complete, verify that the following resources have been created successfully in the AWS Management Console.
+After the deployment is complete, verify that the following resources have been created successfully in the AWS Management Console.
 
 - S3 Bucket:
 

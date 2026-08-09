@@ -285,7 +285,7 @@ output "api_function_name" {
 
 **1.** Before deploying the API, we need to ensure that cost data already exists in the S3 bucket. Cost data is available only after it has been collected over a 24-hour period. Normally, if you have just deployed the system, no cost data will be available yet. In this case, we can use a script to generate simulated data:
 
-- Create the file `terraform/test/test_data.py` to generate sample data. This script simulates cost data and uploads it to the S3 bucket.
+- Create the file `terraform/generate-simulated-data/simulated_data.py` to generate sample data. This script simulates cost data and uploads it to the S3 bucket.
 
 ```python
 import sys
@@ -442,8 +442,6 @@ python3 test/test_data.py <BUCKET_NAME>
 ![Script](/workshop-fcaj-intern/images/5-Workshop/5.6-Dashboard/5.6.1-Backend/backend_10.png)
 
 ![Script](/workshop-fcaj-intern/images/5-Workshop/5.6-Dashboard/5.6.1-Backend/backend_11.png)
-
-![Script](/workshop-fcaj-intern/images/5-Workshop/5.6-Dashboard/5.6.1-Backend/backend_12.png)
 
 **6.** After verifying that everything works correctly, retrieve the API endpoint URL:
 

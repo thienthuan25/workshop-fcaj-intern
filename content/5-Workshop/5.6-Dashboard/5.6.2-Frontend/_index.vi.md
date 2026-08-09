@@ -602,19 +602,11 @@ resource "aws_s3_object" "style" {
 
 # upload script.js lên S3
 locals {
-  rendered_script = replace(
-    replace(
-      replace(
+    rendered_script = replace (
         file("${path.module}/web/script.js"),
         "REPLACE_MY_API_ENDPOINT",
         "${trim(aws_apigatewayv2_stage.default.invoke_url, "/")}/costs"
-      ),
-      "REPLACE_MY_COGNITO_DOMAIN",
-      "https://${aws_cognito_user_pool_domain.dashboard.domain}.auth.${var.aws_region}.amazoncognito.com"
-    ),
-    "REPLACE_MY_COGNITO_CLIENT_ID",
-    aws_cognito_user_pool_client.dashboard.id
-  )
+    )
 }
 
 resource "aws_s3_object" "script" {
