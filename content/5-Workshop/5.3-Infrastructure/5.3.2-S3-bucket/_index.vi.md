@@ -18,6 +18,7 @@ Trong phần này, chúng ta sẽ tạo file `terraform/s3.tf` để định ngh
 # Tên của Bucket được tạo ra sẽ có dạng: <project_name>-cost-data-<aws_account_id> để đảm bảo không bị trùng lặp.
 resource "aws_s3_bucket" "cost_data" {
   bucket        = "${var.project_name}-cost-data-${data.aws_caller_identity.current.account_id}"
+  force_destroy = true
 }
 
 # Chặn mọi quyền truy cập công khai vào bucket từ internet.

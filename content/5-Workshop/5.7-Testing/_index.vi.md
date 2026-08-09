@@ -260,7 +260,6 @@ Trong phần này, chúng ta sẽ kiểm tra việc Analyzer ghi nhận lỗi đ
 File lịch sử chỉ được dùng để tính mức chi phí trung bình nhằm phát hiện chi phí tăng đột biến, không phải dữ liệu bắt buộc để xử lý chi phí của ngày hiện tại. Ví dụ, với ngày 18-06-2026 có chi phí là $9.00, Analyzer cần:
 
 - File chính: `2026-06-18.json`: Đây là dữ liệu bắt buộc. Nếu file này không tồn tại, Analyzer không biết chi phí ngày cần phân tích là bao nhiêu → record thất bại và phải retry.
-
 - Các file lịch sử từ ngày 17-06-2026 trở về trước: Đây là dữ liệu bổ sung để tính trung bình 14 ngày. Nếu thiếu, Analyzer vẫn biết chi phí ngày 18-06-2026 là $9.00, vẫn so sánh được với ngưỡng ngân sách $10.00, nên vẫn có thể kết luận NORMAL.
 
 Điều này giúp hệ thống vẫn hoạt động vào những ngày đầu tiên sau khi triển khai, khi chưa có đủ 14 ngày dữ liệu lịch sử. Khi dữ liệu tích lũy dần, Analyzer sẽ bắt đầu tính trung bình và kích hoạt quy tắc phát hiện chi phí tăng đột biến.
@@ -295,7 +294,6 @@ cost-data/year=2026/month=07/day=03/cost_2026-07-03.json
 ![Testing](/workshop-fcaj-intern/images/5-Workshop/5.7-Testing/partial_12.png)
 
 - Message có **itemIdentifier** là **test-s3-not-found-001** không thể được xử lý do Analyzer không đọc được file dữ liệu tương ứng từ Amazon S3. Lambda trả message ID này trong mảng **batchItemFailures** để thông báo cho Amazon SQS rằng chỉ message này cần được giữ lại để retry.
-
 - Chúng ta có thể xem Log của nó:
 
 ![Testing](/workshop-fcaj-intern/images/5-Workshop/5.7-Testing/partial_13.png)
@@ -325,7 +323,6 @@ Upload file `cost_2099-01-01.json` vào thư mục này:
 **3.** Tạo event trên Lambda:
 
 - Truy cập vào Lambda, chọn **cloudcost-insight-analyzer**.
-
 - Mở Tab **Test** và tạo event như sau:
 
 ```json
@@ -340,13 +337,11 @@ Upload file `cost_2099-01-01.json` vào thư mục này:
 ```
 
 - Bấm chọn **Test**.
-
 - Kết quả mong đợi: Trả về response sau;
 
 ![Testing](/workshop-fcaj-intern/images/5-Workshop/5.7-Testing/invalid_5.png)
 
 - Message có **itemIdentifier** là **corrupt-history-test** không thể được xử lý do nội dung file `2099-01-01.json` sai cú pháp JSON. Lambda trả message ID này trong mảng **batchItemFailures** để thông báo cho Amazon SQS rằng chỉ message này cần được giữ lại để retry.
-
 - Chúng ta có thể xem Log của nó:
 
 ![Testing](/workshop-fcaj-intern/images/5-Workshop/5.7-Testing/invalid_6.png)
@@ -435,7 +430,6 @@ curl -i "$API_ENDPOINT"
 ![Testing](/workshop-fcaj-intern/images/5-Workshop/5.7-Testing/cognito_6.png)
 
 - Mã trạng thái 401 Unauthorized cho biết request chưa được xác thực nên không được phép truy cập API. Do lệnh curl không gửi header Authorization: Bearer <JWT>, API Gateway không chuyển request đến Lambda xử lý dữ liệu chi phí.
-
 - Header www-authenticate: Bearer cho biết API yêu cầu client cung cấp Bearer Token, cụ thể là JWT được Amazon Cognito cấp sau khi người dùng đăng nhập thành công. Kết quả này xác nhận JWT Authorizer đã được cấu hình và hoạt động đúng, giúp ngăn các truy cập không xác thực vào dữ liệu chi phí trên Dashboard.
 
 **4.** Kiểm thử gọi API bằng JWT Cognito hợp lệ:

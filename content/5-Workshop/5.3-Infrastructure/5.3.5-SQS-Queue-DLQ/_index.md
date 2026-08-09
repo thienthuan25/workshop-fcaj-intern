@@ -8,10 +8,9 @@ pre : " <b> 5.3.5 </b> "
 
 Next, we will create the `lambda/sqs.tf` file. This file provisions the **Amazon Simple Queue Service** (SQS), including a primary queue and a **Dead Letter Queue (DLQ)**.
 
-Instead of allowing the Lambda Collector function to invoke the Lambda Analyzer function directly, we place Amazon SQS between them to act as a message buffer.
+Instead of allowing the Lambda Collector function to invoke the Lambda Analyzer function directly, we place Amazon SQS between them to act as a message buffer:
 
 - **Prevent data loss:** After the Collector retrieves cost data, it only needs to send a message to the SQS queue and complete its task. The Analyzer then reads messages from the queue and processes them at its own pace. If the Analyzer is overloaded or temporarily unavailable, the messages remain safely stored in the queue until they can be processed.
-
 - **Handle processing failures safely:** If a message cannot be processed successfully after three retry attempts, it is automatically moved to a separate queue called the **Dead Letter Queue**. This prevents the system from becoming stuck on the same failed message and allows administrators to inspect failed messages later to identify the root cause.
 
 ```hcl

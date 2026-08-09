@@ -26,6 +26,7 @@ Frontend sử dụng **Authorization Code Flow với PKCE**. Đây là cơ chế
 - Tạo **Amazon Cognito User Pool** để quản lý người dùng.
 - Tạo **App Client** cho Web Dashboard.
 - Tạo **Cognito Domain** cung cấp trang đăng nhập.
+- Tích hợp **Cognito** vào Frontend.
 - Cấu hình **API Gateway JWT Authorizer**.
 - Chỉ cho phép access token hợp lệ gọi **GET /costs**.
 
@@ -113,7 +114,7 @@ resource "aws_apigatewayv2_authorizer" "dashboard_jwt" {
 }
 ```
 
-**2.** Cập nhật resource `aws_apigatewayv2_route.costs`:
+Cập nhật resource `aws_apigatewayv2_route.costs`:
 
 ```hcl
 # Request gọi "GET /costs" phải có JWT hợp lệ
@@ -128,7 +129,7 @@ resource "aws_apigatewayv2_route" "costs" {
 
 Lúc này **API Gateway** chỉ chuyển request đến Lambda khi token Cognito hợp lệ.
 
-**3.** Cập nhật output trong file `terraform/outputs.tf`:
+**2.** Cập nhật output trong file `terraform/outputs.tf`:
 
 ```hcl
 output "user_pool_id" {
@@ -145,9 +146,170 @@ output "cognito_hosted_ui_url" {
 }
 ```
 
+### Tạo Cognito Domain
+
+Để sử dụng được giao diện đăng nhập sẵn có (Hosted UI) của Cognito, chúng ta cần đăng ký một tên miền duy nhất. Tên miền này sẽ là nơi chuyển hướng người dùng khi họ nhấn nút **Đăng nhập**.
+
+Mở file `terraform/cognito.tf` và cập nhật `resource "aws_cognito_user_pool_client.dashboard"` như sau:
+
+```hcl
+resource "aws_cognito_user_pool_client" "dashboard" {
+  name         = "${var.project_name}-dashboard-web"
+  user_pool_id = aws_cognito_user_pool.dashboard.id
+
+  generate_secret = false
+  explicit_auth_flows = [
+    "ALLOW_USER_SRP_AUTH",
+    "ALLOW_REFRESH_TOKEN_AUTH",
+    "ALLOW_USER_PASSWORD_AUTH"
+  ]
+
+  # Hosted UI sử dụng OAuth authorization-code flow. Public browser client
+  # không có client secret; frontend tạo PKCE verifier cho mỗi lần đăng nhập.
+  allowed_oauth_flows_user_pool_client = true
+  allowed_oauth_flows                  = ["code"]
+  allowed_oauth_scopes                 = ["openid", "email", "profile"]
+  supported_identity_providers         = ["COGNITO"]
+  callback_urls = [
+    "https://${aws_cloudfront_distribution.web.domain_name}/"
+  ]
+  logout_urls = [
+    "https://${aws_cloudfront_distribution.web.domain_name}/"
+  ]
+}
+
+# Amazon Cognito managed login (Hosted UI) domain.
+resource "aws_cognito_user_pool_domain" "dashboard" {
+  domain       = "${var.project_name}-${data.aws_caller_identity.current.account_id}"
+  user_pool_id = aws_cognito_user_pool.dashboard.id
+}
+```
+
 ### Tích hợp xác thực vào Web Dashboard
 
-Để Frontend có thể tự động chuyển hướng người dùng đến trang đăng nhập **Cognito** và đính kèm Token khi gọi API, chúng ta cần cập nhật file `terraform/web/script.js` với nội dung chính xác như sau:
+Để Frontend có thể tự động chuyển hướng người dùng đến trang đăng nhập **Cognito** và đính kèm Token khi gọi API, chúng ta cần cập nhật file `terraform/web_hosting.tf` và sửa lại khối `locals` như sau để Terraform chèn các biến này vào `script.js`:
+
+```hcl
+# upload script.js lên S3
+locals {
+  rendered_script = replace(
+    replace(
+      replace(
+        file("${path.module}/web/script.js"),
+        "REPLACE_MY_API_ENDPOINT",
+        "${trim(aws_apigatewayv2_stage.default.invoke_url, "/")}/costs"
+      ),
+      "REPLACE_MY_COGNITO_DOMAIN",
+      "https://${aws_cognito_user_pool_domain.dashboard.domain}.auth.${var.aws_region}.amazoncognito.com"
+    ),
+    "REPLACE_MY_COGNITO_CLIENT_ID",
+    aws_cognito_user_pool_client.dashboard.id
+  )
+}
+```
+
+Mở file `index.html` và thêm nút **Sign in** và **Sign out** cho trang Web:
+
+```html
+<button id="login-button">Sign in</button>
+<button id="logout-button" style="display:none;">Sign out</button>
+```
+
+Nội dung chính xác của file `index.html` như sau:
+
+```html
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CloudCost Insight — Dashboard</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <header>
+        <div>
+            <h1>☁️ CloudCost Insight</h1>
+            <p id="header-subtitle">AWS Cost Monitoring &amp; Alert Dashboard — Near Real-Time</p>
+        </div>
+        <div class="header-controls">
+            <button id="login-button">Sign in</button>
+            <button id="logout-button" style="display:none;">Sign out</button>
+            <button id="lang-toggle">🇻🇳 VI</button>
+            <button id="theme-toggle">🌙</button>
+        </div>
+    </header>
+
+    <div id="status" class="status">Loading cost data...</div>
+
+    <div id="content" style="display:none;">
+        <!-- KPI -->
+        <div class="kpi-row">
+            <div class="kpi-card">
+                <div class="label" id="label-total">Total Cost (Period)</div>
+                <div class="value" id="kpi-total">$0.00</div>
+            </div>
+            <div class="kpi-card">
+                <div class="label" id="label-threshold">Alert Threshold/Day</div>
+                <div class="value" id="kpi-threshold">$0.00</div>
+            </div>
+            <div class="kpi-card">
+                <div class="label" id="label-days">Monitored Days</div>
+                <div class="value" id="kpi-days">0</div>
+            </div>
+            <div class="kpi-card">
+                <div class="label" id="label-anomalies">Anomalous Days</div>
+                <div class="value danger" id="kpi-anomalies">0</div>
+            </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="chart-grid">
+            <div class="chart-card full-width">
+                <h3 id="title-trend">📈 Daily Cost Trend (Threshold Line + Anomaly Markers)</h3>
+                <canvas id="trendChart" height="90"></canvas>
+            </div>
+            <div class="chart-card">
+                <h3 id="title-service">🍩 Cost Share by Service</h3>
+                <div class="chart-small">
+                    <canvas id="serviceChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <h3 id="title-top">📊 Top Cost Services</h3>
+                <canvas id="topChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript riêng -->
+    <script src="script.js"></script>
+</body>
+
+</html>
+```
+
+Cập nhật CSS cho button **Sign in** và **Sign out**, bạn có thể làm như sau:
+
+```css
+#login-button,
+#logout-button {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+```
+
+Sau đó, cập nhật file `scripts.js` với chính xác nội dung như sau:
 
 ```JavaScript
 const API_ENDPOINT = "REPLACE_MY_API_ENDPOINT";
@@ -497,6 +659,12 @@ logoutButton.addEventListener("click", signOut);
 initializeDashboard();
 ```
 
+Đến đây, chúng ta đã hoàn tất việc thiết lập cơ chế xác thực bảo mật với **Amazon Cognito** cho Web Dashboard. Chúng ta cần triển khai lại bằng dòng lệnh:
+
+```bash
+terraform apply
+```
+
 ### Nội dung tiếp theo
 
-- [Kiểm thử hệ thống](5-Workshop/5.7-Testing/)
+- [Kiểm thử hệ thống](5-Workshop/5.7-Testing)

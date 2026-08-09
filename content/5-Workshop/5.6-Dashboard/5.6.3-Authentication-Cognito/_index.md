@@ -26,6 +26,7 @@ The frontend uses **Authorization Code Flow with PKCE**. This mechanism is suita
 - Create an **Amazon Cognito User Pool** to manage users.
 - Create an **App Client** for the Web Dashboard.
 - Create a **Cognito Domain** to provide the login page.
+- Integrate **Cognito** into the Frontend.
 - Configure an **API Gateway JWT Authorizer**.
 - Allow only valid access tokens to call **GET /costs**.
 
@@ -113,7 +114,7 @@ resource "aws_apigatewayv2_authorizer" "dashboard_jwt" {
 }
 ```
 
-**2.** Update the `aws_apigatewayv2_route.costs` resource:
+Update the `aws_apigatewayv2_route.costs` resource:
 
 ```hcl
 # Requests calling "GET /costs" must have a valid JWT
@@ -128,7 +129,7 @@ resource "aws_apigatewayv2_route" "costs" {
 
 Now, **API Gateway** will only forward requests to Lambda when the Cognito token is valid.
 
-**3.** Update output in the `terraform/outputs.tf` file:
+**2.** Update output in the `terraform/outputs.tf` file:
 
 ```hcl
 output "user_pool_id" {
@@ -145,9 +146,170 @@ output "cognito_hosted_ui_url" {
 }
 ```
 
+### Create Cognito Domain
+
+To use the Cognito Hosted UI, we need to register a unique domain name. This domain will be the redirection destination when users click the **Sign In** button.
+
+Open the file `terraform/cognito.tf` and update `resource "aws_cognito_user_pool_client.dashboard"` as follows:
+
+```hcl
+resource "aws_cognito_user_pool_client" "dashboard" {
+  name         = "${var.project_name}-dashboard-web"
+  user_pool_id = aws_cognito_user_pool.dashboard.id
+
+  generate_secret = false
+  explicit_auth_flows = [
+    "ALLOW_USER_SRP_AUTH",
+    "ALLOW_REFRESH_TOKEN_AUTH",
+    "ALLOW_USER_PASSWORD_AUTH"
+  ]
+
+  # Hosted UI uses OAuth authorization-code flow. Public browser clients
+  # don't have a client secret; the frontend generates a PKCE verifier for each login.
+  allowed_oauth_flows_user_pool_client = true
+  allowed_oauth_flows                  = ["code"]
+  allowed_oauth_scopes                 = ["openid", "email", "profile"]
+  supported_identity_providers         = ["COGNITO"]
+  callback_urls = [
+    "https://${aws_cloudfront_distribution.web.domain_name}/"
+  ]
+  logout_urls = [
+    "https://${aws_cloudfront_distribution.web.domain_name}/"
+  ]
+}
+
+# Amazon Cognito managed login (Hosted UI) domain.
+resource "aws_cognito_user_pool_domain" "dashboard" {
+  domain       = "${var.project_name}-${data.aws_caller_identity.current.account_id}"
+  user_pool_id = aws_cognito_user_pool.dashboard.id
+}
+```
+
 ### Integrate authentication into the Web Dashboard
 
-For the Frontend to automatically redirect users to the **Cognito** login page and attach the Token when calling the API, we need to update the `terraform/web/script.js` file with the exact content below:
+To allow the Frontend to automatically redirect users to the **Cognito** login page and attach the Token when calling APIs, we need to update the `terraform/web_hosting.tf` file and modify the `local` block as follows for Terraform to inject these variables into `script.js`:
+
+```hcl
+# upload script.js to S3
+locals {
+  rendered_script = replace(
+    replace(
+      replace(
+        file("${path.module}/web/script.js"),
+        "REPLACE_MY_API_ENDPOINT",
+        "${trim(aws_apigatewayv2_stage.default.invoke_url, "/")}/costs"
+      ),
+      "REPLACE_MY_COGNITO_DOMAIN",
+      "https://${aws_cognito_user_pool_domain.dashboard.domain}.auth.${var.aws_region}.amazoncognito.com"
+    ),
+    "REPLACE_MY_COGNITO_CLIENT_ID",
+    aws_cognito_user_pool_client.dashboard.id
+  )
+}
+```
+
+Open the `index.html` file and add **Sign in** and **Sign out** buttons to the Web page:
+
+```html
+<button id="login-button">Sign in</button>
+<button id="logout-button" style="display:none;">Sign out</button>
+```
+
+The exact content of the `index.html` file is as follows:
+
+```html
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CloudCost Insight — Dashboard</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <header>
+        <div>
+            <h1>☁️ CloudCost Insight</h1>
+            <p id="header-subtitle">AWS Cost Monitoring &amp; Alert Dashboard — Near Real-Time</p>
+        </div>
+        <div class="header-controls">
+            <button id="login-button">Sign in</button>
+            <button id="logout-button" style="display:none;">Sign out</button>
+            <button id="lang-toggle">🇻🇳 VI</button>
+            <button id="theme-toggle">🌙</button>
+        </div>
+    </header>
+
+    <div id="status" class="status">Loading cost data...</div>
+
+    <div id="content" style="display:none;">
+        <!-- KPI -->
+        <div class="kpi-row">
+            <div class="kpi-card">
+                <div class="label" id="label-total">Total Cost (Period)</div>
+                <div class="value" id="kpi-total">$0.00</div>
+            </div>
+            <div class="kpi-card">
+                <div class="label" id="label-threshold">Alert Threshold/Day</div>
+                <div class="value" id="kpi-threshold">$0.00</div>
+            </div>
+            <div class="kpi-card">
+                <div class="label" id="label-days">Monitored Days</div>
+                <div class="value" id="kpi-days">0</div>
+            </div>
+            <div class="kpi-card">
+                <div class="label" id="label-anomalies">Anomalous Days</div>
+                <div class="value danger" id="kpi-anomalies">0</div>
+            </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="chart-grid">
+            <div class="chart-card full-width">
+                <h3 id="title-trend">📈 Daily Cost Trend (Threshold Line + Anomaly Markers)</h3>
+                <canvas id="trendChart" height="90"></canvas>
+            </div>
+            <div class="chart-card">
+                <h3 id="title-service">🍩 Cost Share by Service</h3>
+                <div class="chart-small">
+                    <canvas id="serviceChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <h3 id="title-top">📊 Top Cost Services</h3>
+                <canvas id="topChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript riêng -->
+    <script src="script.js"></script>
+</body>
+
+</html>
+```
+
+Update CSS for the **Sign in** and **Sign out** buttons as follows:
+
+```css
+#login-button,
+#logout-button {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+```
+
+Then, update the `scripts.js` file with the exact content as follows:
 
 ```JavaScript
 const API_ENDPOINT = "REPLACE_MY_API_ENDPOINT";
@@ -495,6 +657,12 @@ async function initializeDashboard() {
 loginButton.addEventListener("click", signIn);
 logoutButton.addEventListener("click", signOut);
 initializeDashboard();
+```
+
+Here, we have completed setting up the security authentication mechanism with **Amazon Cognito** for the Web Dashboard. We need to redeploy via the command line:
+
+```bash
+terraform apply
 ```
 
 ### Next steps
