@@ -309,6 +309,224 @@ Update CSS for the **Sign in** and **Sign out** buttons as follows:
 }
 ```
 
+The content of the `style.css` file is exactly as follows:
+
+```css
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg-color: #f0f2f5;
+    --text-color: #1a202c;
+    --card-bg: #fff;
+    --label-color: #718096;
+    --heading-color: #2d3748;
+    --border-color: #e2e8f0;
+    --table-head-bg: #f7fafc;
+    --shadow-color: rgba(0, 0, 0, 0.08);
+    --header-bg: linear-gradient(135deg, #232f3e, #ff9900);
+}
+
+body.dark-mode {
+    --bg-color: #1a202c;
+    --text-color: #ffffff;
+    --card-bg: #2d3748;
+    --label-color: #a0aec0;
+    --heading-color: #ffffff;
+    --border-color: #4a5568;
+    --table-head-bg: #374151;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: var(--bg-color);
+    color: var(--text-color);
+    padding: 24px;
+    transition: background 0.3s, color 0.3s;
+}
+
+header {
+    background: var(--header-bg);
+    color: #fff;
+    padding: 20px 28px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+#theme-toggle,
+#lang-toggle,
+#login-button,
+#logout-button {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+
+#theme-toggle:hover,
+#lang-toggle:hover,
+#login-button:hover,
+#logout-button:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+header h1 {
+    font-size: 24px;
+}
+
+header p {
+    opacity: 0.9;
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+.kpi-row {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+
+.kpi-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 20px 24px;
+    flex: 1;
+    min-width: 200px;
+    box-shadow: 0 1px 4px var(--shadow-color);
+    transition: background 0.3s, box-shadow 0.3s;
+}
+
+.kpi-card .label {
+    font-size: 13px;
+    color: var(--label-color);
+}
+
+.kpi-card .value {
+    font-size: 28px;
+    font-weight: 700;
+    margin-top: 6px;
+}
+
+.kpi-card .value.danger {
+    color: #e53e3e;
+}
+
+.chart-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+.chart-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 1px 4px var(--shadow-color);
+    transition: background 0.3s, box-shadow 0.3s;
+}
+
+.chart-card h3 {
+    font-size: 16px;
+    margin-bottom: 16px;
+    color: var(--heading-color);
+}
+
+.full-width {
+    grid-column: 1 / -1;
+}
+
+.alert-history {
+    min-height: 250px;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+th,
+td {
+    padding: 12px 10px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+th {
+    color: var(--label-color);
+    background: var(--table-head-bg);
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 999px;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.status-badge.warning {
+    background: #dd6b20;
+}
+
+.status-badge.critical {
+    background: #e53e3e;
+}
+
+.no-alerts {
+    color: #38a169;
+    padding: 16px 0;
+}
+
+.status {
+    text-align: center;
+    padding: 40px;
+    color: #718096;
+}
+
+@media (max-width: 900px) {
+    body {
+        padding: 16px;
+    }
+
+    header {
+        padding: 18px;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .chart-grid {
+        grid-template-columns: 1fr;
+    }
+}
+```
+
 Then, update the `scripts.js` file with the exact content as follows:
 
 ```JavaScript
@@ -323,8 +541,14 @@ const logoutButton = document.getElementById("logout-button");
 
 function base64Url(bytes) {
     let value = "";
-    bytes.forEach((byte) => { value += String.fromCharCode(byte); });
-    return btoa(value).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/g, "");
+    bytes.forEach((byte) => {
+        value += String.fromCharCode(byte);
+    });
+
+    return btoa(value)
+        .replace(/\+/g, "-")
+        .replace(/\//g, "_")
+        .replace(/=+$/g, "");
 }
 
 function randomValue(size = 32) {
@@ -334,7 +558,11 @@ function randomValue(size = 32) {
 }
 
 async function createCodeChallenge(verifier) {
-    const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(verifier));
+    const digest = await crypto.subtle.digest(
+        "SHA-256",
+        new TextEncoder().encode(verifier),
+    );
+
     return base64Url(new Uint8Array(digest));
 }
 
@@ -342,6 +570,7 @@ async function signIn() {
     const verifier = randomValue(64);
     const state = randomValue(32);
     const challenge = await createCodeChallenge(verifier);
+
     sessionStorage.setItem("pkce_verifier", verifier);
     sessionStorage.setItem("oauth_state", state);
 
@@ -354,12 +583,18 @@ async function signIn() {
         code_challenge_method: "S256",
         code_challenge: challenge,
     });
-    window.location.assign(COGNITO_DOMAIN + "/oauth2/authorize?" + params.toString());
+
+    window.location.assign(
+        `${COGNITO_DOMAIN}/oauth2/authorize?${params.toString()}`,
+    );
 }
 
 async function exchangeAuthorizationCode(code) {
     const verifier = sessionStorage.getItem("pkce_verifier");
-    if (!verifier) throw new Error("Login session expired. Please sign in again.");
+
+    if (!verifier) {
+        throw new Error("Login session expired. Please sign in again.");
+    }
 
     const body = new URLSearchParams({
         grant_type: "authorization_code",
@@ -368,32 +603,47 @@ async function exchangeAuthorizationCode(code) {
         redirect_uri: REDIRECT_URI,
         code_verifier: verifier,
     });
-    const response = await fetch(COGNITO_DOMAIN + "/oauth2/token", {
+
+    const response = await fetch(`${COGNITO_DOMAIN}/oauth2/token`, {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
         body,
     });
+
     const tokens = await response.json();
-    if (!response.ok) throw new Error(tokens.error_description || tokens.error || "Token exchange failed");
+
+    if (!response.ok) {
+        throw new Error(
+            tokens.error_description || tokens.error || "Token exchange failed",
+        );
+    }
 
     sessionStorage.setItem("id_token", tokens.id_token);
     sessionStorage.removeItem("pkce_verifier");
     sessionStorage.removeItem("oauth_state");
+
     return tokens.id_token;
 }
 
 async function getAuthenticatedToken() {
     const url = new URL(window.location.href);
     const code = url.searchParams.get("code");
-    if (!code) return sessionStorage.getItem("id_token");
+
+    if (!code) {
+        return sessionStorage.getItem("id_token");
+    }
 
     const expectedState = sessionStorage.getItem("oauth_state");
+
     if (!expectedState || url.searchParams.get("state") !== expectedState) {
         throw new Error("Invalid login state. Please sign in again.");
     }
 
     const token = await exchangeAuthorizationCode(code);
     window.history.replaceState({}, document.title, REDIRECT_URI);
+
     return token;
 }
 
@@ -406,43 +656,58 @@ function signOut() {
     sessionStorage.removeItem("id_token");
     sessionStorage.removeItem("pkce_verifier");
     sessionStorage.removeItem("oauth_state");
-    const params = new URLSearchParams({ client_id: COGNITO_CLIENT_ID, logout_uri: REDIRECT_URI });
-    window.location.assign(COGNITO_DOMAIN + "/logout?" + params.toString());
+
+    const params = new URLSearchParams({
+        client_id: COGNITO_CLIENT_ID,
+        logout_uri: REDIRECT_URI,
+    });
+
+    window.location.assign(`${COGNITO_DOMAIN}/logout?${params.toString()}`);
 }
 
 // EN/VI
 const translations = {
     en: {
-        subtitle: "AWS Cost Monitoring & Alert Dashboard — Near Real-Time",
+        subtitle: "AWS Cost Monitoring & Alert Dashboard",
         labelTotal: "Total Cost (Period)",
         labelThreshold: "Alert Threshold/Day",
         labelDays: "Monitored Days",
         labelAnomalies: "Anomalous Days",
         titleTrend: "📈 Daily Cost Trend (Threshold Line + Anomaly Markers)",
-        titleService: "🍩 Cost Share by Service",
+        titleAlert: "🚨 Alert History",
         titleTop: "📊 Top Cost Services",
-        loading: "Loading cost data...",
         dailyCost: "Daily Cost",
         budgetThreshold: "Budget Threshold",
         cost: "Cost ($)",
+        date: "Date",
+        status: "Status",
+        reason: "Reason",
+        warningReason: "Budget threshold exceeded",
+        criticalReason: "Cost spike detected",
+        noAlerts: "No abnormal cost days were detected.",
         error: "Error loading data: ",
         signIn: "Sign in",
         signOut: "Sign out",
         authenticationRequired: "Please sign in to view cost data.",
     },
     vi: {
-        subtitle: "Bảng giám sát & cảnh báo chi phí AWS — Thời gian gần thực",
+        subtitle: "Bảng giám sát & cảnh báo chi phí AWS",
         labelTotal: "Tổng chi phí (kỳ)",
         labelThreshold: "Ngưỡng cảnh báo/ngày",
         labelDays: "Số ngày theo dõi",
         labelAnomalies: "Số ngày bất thường",
         titleTrend: "📈 Xu hướng chi phí theo ngày (đường ngưỡng + đánh dấu bất thường)",
-        titleService: "🍩 Tỷ trọng theo dịch vụ",
+        titleAlert: "🚨 Lịch sử cảnh báo",
         titleTop: "📊 Top dịch vụ tốn chi phí",
-        loading: "Đang tải dữ liệu chi phí...",
         dailyCost: "Chi phí/ngày",
         budgetThreshold: "Ngưỡng ngân sách",
         cost: "Chi phí ($)",
+        date: "Ngày",
+        status: "Trạng thái",
+        reason: "Lý do",
+        warningReason: "Vượt ngưỡng ngân sách",
+        criticalReason: "Phát hiện chi phí tăng đột biến",
+        noAlerts: "Không phát hiện ngày có chi phí bất thường.",
         error: "Lỗi tải dữ liệu: ",
         signIn: "Đăng nhập",
         signOut: "Đăng xuất",
@@ -450,47 +715,49 @@ const translations = {
     },
 };
 
-// Current language
 let currentLang = "en";
 let latestData = null;
 let charts = {};
 
-// Colors by status
-const statusColor = (s) =>
-    s === "CRITICAL" ? "#e53e3e" : s === "WARNING" ? "#dd6b20" : "#38a169";
+const statusColor = (status) =>
+    status === "CRITICAL"
+        ? "#e53e3e"
+        : status === "WARNING"
+            ? "#dd6b20"
+            : "#38a169";
 
-// Apply language to static labels (non-chart)
 function applyStaticText() {
     const t = translations[currentLang];
+
     document.getElementById("header-subtitle").textContent = t.subtitle;
     document.getElementById("label-total").textContent = t.labelTotal;
     document.getElementById("label-threshold").textContent = t.labelThreshold;
     document.getElementById("label-days").textContent = t.labelDays;
     document.getElementById("label-anomalies").textContent = t.labelAnomalies;
     document.getElementById("title-trend").textContent = t.titleTrend;
-    document.getElementById("title-service").textContent = t.titleService;
+    document.getElementById("title-alert").textContent = t.titleAlert;
     document.getElementById("title-top").textContent = t.titleTop;
     loginButton.textContent = t.signIn;
     logoutButton.textContent = t.signOut;
 
     const status = document.getElementById("status");
+
     if (status.dataset.translationKey === "authenticationRequired") {
         status.textContent = t.authenticationRequired;
     }
 }
 
-// Re-render charts based on language
 function renderCharts(data) {
     const t = translations[currentLang];
 
-    Object.values(charts).forEach(c => c && c.destroy());
+    Object.values(charts).forEach((chart) => chart && chart.destroy());
+    charts = {};
 
-    const labels = data.daily_costs.map(d => d.date);
-    const totals = data.daily_costs.map(d => d.total);
-    const colors = data.daily_costs.map(d => statusColor(d.status));
+    const labels = data.daily_costs.map((day) => day.date);
+    const totals = data.daily_costs.map((day) => day.total);
+    const colors = data.daily_costs.map((day) => statusColor(day.status));
     const threshold = Number(data.threshold);
 
-    // Trend chart
     charts.trend = new Chart(document.getElementById("trendChart"), {
         type: "line",
         data: {
@@ -500,7 +767,7 @@ function renderCharts(data) {
                     label: t.dailyCost,
                     data: totals,
                     borderColor: "#3182ce",
-                    backgroundColor: "rgba(49,130,206,0.1)",
+                    backgroundColor: "rgba(49, 130, 206, 0.1)",
                     fill: true,
                     tension: 0.3,
                     pointBackgroundColor: colors,
@@ -519,143 +786,207 @@ function renderCharts(data) {
         options: {
             responsive: true,
             plugins: {
-                legend: { position: "top" },
+                legend: {
+                    position: "top",
+                },
                 tooltip: {
                     callbacks: {
-                        label: function (context) {
+                        label(context) {
                             const label = context.dataset.label || "";
-                            let value = context.parsed.y;
-                            if (value === null || value === undefined) value = context.parsed;
-                            return label + ": $" + Number(value).toFixed(2);
-                        }
-                    }
-                }
-            }
+                            return `${label}: $${Number(context.parsed.y).toFixed(2)}`;
+                        },
+                    },
+                },
+            },
         },
     });
 
-    // Donut chart
-    charts.service = new Chart(document.getElementById("serviceChart"), {
-        type: "doughnut",
-        data: {
-            labels: data.top_services.map(s => s.service),
-            datasets: [{
-                data: data.top_services.map(s => s.cost),
-                backgroundColor: ["#ff9900", "#3182ce", "#38a169", "#e53e3e", "#805ad5", "#dd6b20", "#00a4a6", "#d53f8c", "#718096", "#2b6cb0"],
-            }],
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: { position: "bottom" },
-                tooltip: {
-                    callbacks: {
-                        label: function (context) {
-                            return (context.label || "") + ": $" + context.parsed.toFixed(2);
-                        }
-                    }
-                }
-            }
-        },
-    });
-
-    // Top services chart
     charts.top = new Chart(document.getElementById("topChart"), {
         type: "bar",
         data: {
-            labels: data.top_services.map(s => s.service),
-            datasets: [{
-                label: t.cost,
-                data: data.top_services.map(s => s.cost),
-                backgroundColor: "#ff9900",
-            }],
+            labels: data.top_services.map((service) => service.service),
+            datasets: [
+                {
+                    label: t.cost,
+                    data: data.top_services.map((service) => service.cost),
+                    backgroundColor: "#ff9900",
+                },
+            ],
         },
         options: {
             indexAxis: "y",
             responsive: true,
             plugins: {
-                legend: { display: false },
+                legend: {
+                    display: false,
+                },
                 tooltip: {
                     callbacks: {
-                        label: function (context) {
-                            const label = context.dataset.label || "";
-                            let value = context.parsed.x;
-                            if (value === null || value === undefined) value = context.parsed;
-                            return label + ": $" + Number(value).toFixed(2);
-                        }
-                    }
-                }
-            }
+                        label(context) {
+                            return `${t.cost}: $${Number(context.parsed.x).toFixed(2)}`;
+                        },
+                    },
+                },
+            },
         },
     });
 }
 
+function renderAlertHistory(data) {
+    const t = translations[currentLang];
+    const container = document.getElementById("alert-history");
+
+    const anomalies = data.daily_costs.filter(
+        (day) => day.status !== "NORMAL",
+    );
+
+    if (anomalies.length === 0) {
+        container.innerHTML = `<p class="no-alerts">✅ ${t.noAlerts}</p>`;
+        return;
+    }
+
+    const rows = anomalies
+        .slice()
+        .reverse()
+        .map((day) => {
+            const reason =
+                day.status === "CRITICAL"
+                    ? t.criticalReason
+                    : t.warningReason;
+
+            return `
+                <tr>
+                    <td>${day.date}</td>
+                    <td>$${Number(day.total).toFixed(2)}</td>
+                    <td>
+                        <span class="status-badge ${day.status.toLowerCase()}">
+                            ${day.status}
+                        </span>
+                    </td>
+                    <td>${reason}</td>
+                </tr>
+            `;
+        })
+        .join("");
+
+    container.innerHTML = `
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>${t.date}</th>
+                        <th>${t.cost}</th>
+                        <th>${t.status}</th>
+                        <th>${t.reason}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${rows}
+                </tbody>
+            </table>
+        </div>
+    `;
+}
+
+function renderDashboard(data) {
+    document.getElementById("kpi-total").textContent =
+        `$${Number(data.grand_total).toFixed(2)}`;
+    document.getElementById("kpi-threshold").textContent =
+        `$${Number(data.threshold).toFixed(2)}`;
+    document.getElementById("kpi-days").textContent = data.days_count;
+
+    const anomalies = data.daily_costs.filter(
+        (day) => day.status !== "NORMAL",
+    ).length;
+
+    document.getElementById("kpi-anomalies").textContent = anomalies;
+
+    applyStaticText();
+    renderCharts(data);
+    renderAlertHistory(data);
+}
+
 async function loadDashboard(idToken) {
     try {
-        const res = await fetch(API_ENDPOINT, { headers: { Authorization: "Bearer " + idToken } });
-        if (!res.ok) throw new Error("HTTP " + res.status);
-        const data = await res.json();
-        latestData = data;
+        const response = await fetch(API_ENDPOINT, {
+            headers: {
+                Authorization: `Bearer ${idToken}`,
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+
+        latestData = await response.json();
 
         document.getElementById("status").style.display = "none";
         document.getElementById("content").style.display = "block";
 
-        // KPI
-        document.getElementById("kpi-total").textContent = "$" + data.grand_total.toFixed(2);
-        document.getElementById("kpi-threshold").textContent = "$" + Number(data.threshold).toFixed(2);
-        document.getElementById("kpi-days").textContent = data.days_count;
-        const anomalies = data.daily_costs.filter(d => d.status !== "NORMAL").length;
-        document.getElementById("kpi-anomalies").textContent = anomalies;
-
-        applyStaticText();
-        renderCharts(data);
-
-    } catch (err) {
+        renderDashboard(latestData);
+    } catch (error) {
         document.getElementById("status").textContent =
-            "❌ " + translations[currentLang].error + err.message;
+            `❌ ${translations[currentLang].error}${error.message}`;
     }
 }
 
-// Language toggle button
 const langToggle = document.getElementById("lang-toggle");
+
 langToggle.addEventListener("click", () => {
     currentLang = currentLang === "vi" ? "en" : "vi";
-    langToggle.textContent = currentLang === "vi" ? "VI" : "EN";
-    applyStaticText();
-    if (latestData) renderCharts(latestData); // re-render charts with new language labels
+    langToggle.textContent = currentLang === "vi" ? "EN" : "🇻🇳 VI";
+
+    if (latestData) {
+        renderDashboard(latestData);
+    } else {
+        applyStaticText();
+    }
 });
 
-// Dark mode button
 const themeToggle = document.getElementById("theme-toggle");
+
 themeToggle.addEventListener("click", () => {
     document.body.classList.toggle("dark-mode");
-    themeToggle.textContent = document.body.classList.contains("dark-mode") ? "☀️" : "🌙";
-    Chart.defaults.color = document.body.classList.contains("dark-mode") ? "#ffffff" : "#666";
-    Object.values(charts).forEach(c => c && c.update());
+
+    themeToggle.textContent = document.body.classList.contains("dark-mode")
+        ? "☀️"
+        : "🌙";
+
+    Chart.defaults.color = document.body.classList.contains("dark-mode")
+        ? "#ffffff"
+        : "#666";
+
+    Object.values(charts).forEach((chart) => chart && chart.update());
 });
 
-// Initialize dashboard after Cognito returns a valid JWT.
 async function initializeDashboard() {
     applyStaticText();
+
     try {
         const token = await getAuthenticatedToken();
+
         showAuthenticationState(Boolean(token));
+
         if (!token) {
             const status = document.getElementById("status");
             status.dataset.translationKey = "authenticationRequired";
             status.textContent = translations[currentLang].authenticationRequired;
             return;
         }
+
         await loadDashboard(token);
-    } catch (err) {
+    } catch (error) {
         sessionStorage.removeItem("id_token");
         showAuthenticationState(false);
-        document.getElementById("status").textContent = "Authentication error: " + err.message;
+
+        document.getElementById("status").textContent =
+            `Authentication error: ${error.message}`;
     }
 }
 
 loginButton.addEventListener("click", signIn);
 logoutButton.addEventListener("click", signOut);
+
 initializeDashboard();
 ```
 
