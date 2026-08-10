@@ -28,7 +28,7 @@ Chương trình tạo điều kiện tốt cho thực tập sinh với thời gi
 
 ### Góc Chia sẻ
 
-Điều mình hài lòng nhất là được chứng kiến sự nghiêm túc và chỉn chu trong cách làm việc tại văn phòng. Tinh thần làm việc chuyên nghiệp của mọi người đã thúc đẩy động lực học tập và mong muốn thăng tiến của mình trong tương lai.
+Điều mình hài lòng nhất là được chứng kiến sự nghiêm túc và chỉnh chu trong cách làm việc tại văn phòng. Tinh thần làm việc chuyên nghiệp của mọi người đã thúc đẩy động lực học tập và mong muốn thăng tiến của mình trong tương lai.
 
 Mình nghĩ công ty có thể cải thiện về vấn đề đăng ký lên văn phòng. Có lẽ vì số lượng sinh viên khá đông nên việc sắp xếp cho mỗi bạn lên văn phòng hằng tuần khá khó khăn, dẫn đến thời gian được lên văn phòng của mỗi người bị hạn chế.
 
