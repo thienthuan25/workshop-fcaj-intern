@@ -11,6 +11,8 @@
     --card-bg: #fff;
     --label-color: #718096;
     --heading-color: #2d3748;
+    --border-color: #e2e8f0;
+    --table-head-bg: #f7fafc;
     --shadow-color: rgba(0, 0, 0, 0.08);
     --header-bg: linear-gradient(135deg, #232f3e, #ff9900);
 }
@@ -21,11 +23,13 @@ body.dark-mode {
     --card-bg: #2d3748;
     --label-color: #a0aec0;
     --heading-color: #ffffff;
+    --border-color: #4a5568;
+    --table-head-bg: #374151;
     --shadow-color: rgba(0, 0, 0, 0.3);
 }
 
 body {
-    font-family: 'Segoe UI', Arial, sans-serif;
+    font-family: "Segoe UI", Arial, sans-serif;
     background: var(--bg-color);
     color: var(--text-color);
     padding: 24px;
@@ -112,13 +116,9 @@ header p {
     color: #e53e3e;
 }
 
-.kpi-card .value.ok {
-    color: #38a169;
-}
-
 .chart-grid {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 24px;
 }
 
@@ -140,9 +140,54 @@ header p {
     grid-column: 1 / -1;
 }
 
-.chart-small {
-    max-width: 850px;
-    margin: 0 auto;
+.alert-history {
+    min-height: 250px;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+th,
+td {
+    padding: 12px 10px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+th {
+    color: var(--label-color);
+    background: var(--table-head-bg);
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 999px;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.status-badge.warning {
+    background: #dd6b20;
+}
+
+.status-badge.critical {
+    background: #e53e3e;
+}
+
+.no-alerts {
+    color: #38a169;
+    padding: 16px 0;
 }
 
 .status {
@@ -152,6 +197,17 @@ header p {
 }
 
 @media (max-width: 900px) {
+    body {
+        padding: 16px;
+    }
+
+    header {
+        padding: 18px;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 16px;
+    }
+
     .chart-grid {
         grid-template-columns: 1fr;
     }

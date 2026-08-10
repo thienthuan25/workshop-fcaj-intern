@@ -29,7 +29,7 @@ Chúng ta sẽ tạo giao diện Web trong thư mục `terraform/web`.
     <header>
         <div>
             <h1>☁️ CloudCost Insight</h1>
-            <p id="header-subtitle">AWS Cost Monitoring &amp; Alert Dashboard — Near Real-Time</p>
+            <p id="header-subtitle">AWS Cost Monitoring &amp; Alert Dashboard</p>
         </div>
         <div class="header-controls">
             <button id="lang-toggle">🇻🇳 VI</button>
@@ -60,18 +60,17 @@ Chúng ta sẽ tạo giao diện Web trong thư mục `terraform/web`.
             </div>
         </div>
 
-        <!-- Charts -->
         <div class="chart-grid">
             <div class="chart-card full-width">
                 <h3 id="title-trend">📈 Daily Cost Trend (Threshold Line + Anomaly Markers)</h3>
                 <canvas id="trendChart" height="90"></canvas>
             </div>
+
             <div class="chart-card">
-                <h3 id="title-service">🍩 Cost Share by Service</h3>
-                <div class="chart-small">
-                    <canvas id="serviceChart"></canvas>
-                </div>
+                <h3 id="title-alert">🚨 Alert History</h3>
+                <div id="alert-history" class="alert-history"></div>
             </div>
+
             <div class="chart-card">
                 <h3 id="title-top">📊 Top Cost Services</h3>
                 <canvas id="topChart"></canvas>
@@ -79,7 +78,6 @@ Chúng ta sẽ tạo giao diện Web trong thư mục `terraform/web`.
         </div>
     </div>
 
-    <!-- JavaScript riêng -->
     <script src="script.js"></script>
 </body>
 
@@ -101,6 +99,8 @@ Chúng ta sẽ tạo giao diện Web trong thư mục `terraform/web`.
     --card-bg: #fff;
     --label-color: #718096;
     --heading-color: #2d3748;
+    --border-color: #e2e8f0;
+    --table-head-bg: #f7fafc;
     --shadow-color: rgba(0, 0, 0, 0.08);
     --header-bg: linear-gradient(135deg, #232f3e, #ff9900);
 }
@@ -111,11 +111,13 @@ body.dark-mode {
     --card-bg: #2d3748;
     --label-color: #a0aec0;
     --heading-color: #ffffff;
+    --border-color: #4a5568;
+    --table-head-bg: #374151;
     --shadow-color: rgba(0, 0, 0, 0.3);
 }
 
 body {
-    font-family: 'Segoe UI', Arial, sans-serif;
+    font-family: "Segoe UI", Arial, sans-serif;
     background: var(--bg-color);
     color: var(--text-color);
     padding: 24px;
@@ -198,13 +200,9 @@ header p {
     color: #e53e3e;
 }
 
-.kpi-card .value.ok {
-    color: #38a169;
-}
-
 .chart-grid {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 24px;
 }
 
@@ -226,9 +224,54 @@ header p {
     grid-column: 1 / -1;
 }
 
-.chart-small {
-    max-width: 850px;
-    margin: 0 auto;
+.alert-history {
+    min-height: 250px;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+th,
+td {
+    padding: 12px 10px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+th {
+    color: var(--label-color);
+    background: var(--table-head-bg);
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 999px;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.status-badge.warning {
+    background: #dd6b20;
+}
+
+.status-badge.critical {
+    background: #e53e3e;
+}
+
+.no-alerts {
+    color: #38a169;
+    padding: 16px 0;
 }
 
 .status {
@@ -238,6 +281,17 @@ header p {
 }
 
 @media (max-width: 900px) {
+    body {
+        padding: 16px;
+    }
+
+    header {
+        padding: 18px;
+        align-items: flex-start;
+        gap: 16px;
+        flex-direction: column;
+    }
+
     .chart-grid {
         grid-template-columns: 1fr;
     }
@@ -258,12 +312,18 @@ const translations = {
         labelDays: "Monitored Days",
         labelAnomalies: "Anomalous Days",
         titleTrend: "📈 Daily Cost Trend (Threshold Line + Anomaly Markers)",
-        titleService: "🍩 Cost Share by Service",
+        titleAlert: "🚨 Alert History",
         titleTop: "📊 Top Cost Services",
         loading: "Loading cost data...",
         dailyCost: "Daily Cost",
         budgetThreshold: "Budget Threshold",
         cost: "Cost ($)",
+        date: "Date",
+        status: "Status",
+        reason: "Reason",
+        noAlerts: "No abnormal cost days were detected.",
+        warningReason: "Budget threshold exceeded",
+        criticalReason: "Cost spike detected",
         error: "Error loading data: ",
     },
     vi: {
@@ -273,50 +333,53 @@ const translations = {
         labelDays: "Số ngày theo dõi",
         labelAnomalies: "Số ngày bất thường",
         titleTrend: "📈 Xu hướng chi phí theo ngày (đường ngưỡng + đánh dấu bất thường)",
-        titleService: "🍩 Tỷ trọng theo dịch vụ",
+        titleAlert: "🚨 Lịch sử cảnh báo",
         titleTop: "📊 Top dịch vụ tốn chi phí",
         loading: "Đang tải dữ liệu chi phí...",
         dailyCost: "Chi phí/ngày",
         budgetThreshold: "Ngưỡng ngân sách",
         cost: "Chi phí ($)",
+        date: "Ngày",
+        status: "Trạng thái",
+        reason: "Lý do",
+        noAlerts: "Không phát hiện ngày có chi phí bất thường.",
+        warningReason: "Vượt ngưỡng ngân sách",
+        criticalReason: "Phát hiện chi phí tăng đột biến",
         error: "Lỗi tải dữ liệu: ",
     },
 };
 
-// Ngôn ngữ hiện tại
 let currentLang = "en";
 let latestData = null;
 let charts = {};
 
-// Màu theo trạng thái
-const statusColor = (s) =>
-    s === "CRITICAL" ? "#e53e3e" : s === "WARNING" ? "#dd6b20" : "#38a169";
+const statusColor = (status) =>
+    status === "CRITICAL" ? "#e53e3e" : status === "WARNING" ? "#dd6b20" : "#38a169";
 
-// Áp dụng ngôn ngữ vào các nhãn tĩnh (không phải biểu đồ)
 function applyStaticText() {
     const t = translations[currentLang];
+
     document.getElementById("header-subtitle").textContent = t.subtitle;
     document.getElementById("label-total").textContent = t.labelTotal;
     document.getElementById("label-threshold").textContent = t.labelThreshold;
     document.getElementById("label-days").textContent = t.labelDays;
     document.getElementById("label-anomalies").textContent = t.labelAnomalies;
     document.getElementById("title-trend").textContent = t.titleTrend;
-    document.getElementById("title-service").textContent = t.titleService;
+    document.getElementById("title-alert").textContent = t.titleAlert;
     document.getElementById("title-top").textContent = t.titleTop;
 }
 
-// Vẽ lại các biểu đồ theo ngôn ngữ
 function renderCharts(data) {
     const t = translations[currentLang];
 
-    Object.values(charts).forEach(c => c && c.destroy());
+    Object.values(charts).forEach((chart) => chart && chart.destroy());
+    charts = {};
 
-    const labels = data.daily_costs.map(d => d.date);
-    const totals = data.daily_costs.map(d => d.total);
-    const colors = data.daily_costs.map(d => statusColor(d.status));
+    const labels = data.daily_costs.map((day) => day.date);
+    const totals = data.daily_costs.map((day) => day.total);
+    const colors = data.daily_costs.map((day) => statusColor(day.status));
     const threshold = Number(data.threshold);
 
-    // Biểu đồ xu hướng
     charts.trend = new Chart(document.getElementById("trendChart"), {
         type: "line",
         data: {
@@ -326,7 +389,7 @@ function renderCharts(data) {
                     label: t.dailyCost,
                     data: totals,
                     borderColor: "#3182ce",
-                    backgroundColor: "rgba(49,130,206,0.1)",
+                    backgroundColor: "rgba(49, 130, 206, 0.1)",
                     fill: true,
                     tension: 0.3,
                     pointBackgroundColor: colors,
@@ -348,53 +411,27 @@ function renderCharts(data) {
                 legend: { position: "top" },
                 tooltip: {
                     callbacks: {
-                        label: function (context) {
+                        label(context) {
                             const label = context.dataset.label || "";
-                            let value = context.parsed.y;
-                            if (value === null || value === undefined) value = context.parsed;
-                            return label + ": $" + Number(value).toFixed(2);
-                        }
-                    }
-                }
-            }
+                            return `${label}: $${Number(context.parsed.y).toFixed(2)}`;
+                        },
+                    },
+                },
+            },
         },
     });
 
-    // Biểu đồ donut
-    charts.service = new Chart(document.getElementById("serviceChart"), {
-        type: "doughnut",
-        data: {
-            labels: data.top_services.map(s => s.service),
-            datasets: [{
-                data: data.top_services.map(s => s.cost),
-                backgroundColor: ["#ff9900", "#3182ce", "#38a169", "#e53e3e", "#805ad5", "#dd6b20", "#00a4a6", "#d53f8c", "#718096", "#2b6cb0"],
-            }],
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: { position: "bottom" },
-                tooltip: {
-                    callbacks: {
-                        label: function (context) {
-                            return (context.label || "") + ": $" + context.parsed.toFixed(2);
-                        }
-                    }
-                }
-            }
-        },
-    });
-
-    // Biểu đồ top dịch vụ
     charts.top = new Chart(document.getElementById("topChart"), {
         type: "bar",
         data: {
-            labels: data.top_services.map(s => s.service),
-            datasets: [{
-                label: t.cost,
-                data: data.top_services.map(s => s.cost),
-                backgroundColor: "#ff9900",
-            }],
+            labels: data.top_services.map((service) => service.service),
+            datasets: [
+                {
+                    label: t.cost,
+                    data: data.top_services.map((service) => service.cost),
+                    backgroundColor: "#ff9900",
+                },
+            ],
         },
         options: {
             indexAxis: "y",
@@ -403,69 +440,142 @@ function renderCharts(data) {
                 legend: { display: false },
                 tooltip: {
                     callbacks: {
-                        label: function (context) {
-                            const label = context.dataset.label || "";
-                            let value = context.parsed.x;
-                            if (value === null || value === undefined) value = context.parsed;
-                            return label + ": $" + Number(value).toFixed(2);
-                        }
-                    }
-                }
-            }
+                        label(context) {
+                            return `${t.cost}: $${Number(context.parsed.x).toFixed(2)}`;
+                        },
+                    },
+                },
+            },
         },
     });
 }
 
+function renderAlertHistory(data) {
+    const t = translations[currentLang];
+    const container = document.getElementById("alert-history");
+
+    const anomalies = data.daily_costs.filter((day) => day.status !== "NORMAL");
+
+    if (anomalies.length === 0) {
+        container.innerHTML = `<p class="no-alerts">✅ ${t.noAlerts}</p>`;
+        return;
+    }
+
+    const rows = anomalies
+        .slice()
+        .reverse()
+        .map((day) => {
+            const reason =
+                day.status === "CRITICAL" ? t.criticalReason : t.warningReason;
+
+            return `
+                <tr>
+                    <td>${day.date}</td>
+                    <td>$${Number(day.total).toFixed(2)}</td>
+                    <td>
+                        <span class="status-badge ${day.status.toLowerCase()}">
+                            ${day.status}
+                        </span>
+                    </td>
+                    <td>${reason}</td>
+                </tr>
+            `;
+        })
+        .join("");
+
+    container.innerHTML = `
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>${t.date}</th>
+                        <th>${t.cost}</th>
+                        <th>${t.status}</th>
+                        <th>${t.reason}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${rows}
+                </tbody>
+            </table>
+        </div>
+    `;
+}
+
+function renderDashboard(data) {
+    document.getElementById("kpi-total").textContent =
+        `$${Number(data.grand_total).toFixed(2)}`;
+    document.getElementById("kpi-threshold").textContent =
+        `$${Number(data.threshold).toFixed(2)}`;
+    document.getElementById("kpi-days").textContent = data.days_count;
+
+    const anomalies = data.daily_costs.filter((day) => day.status !== "NORMAL").length;
+    document.getElementById("kpi-anomalies").textContent = anomalies;
+
+    applyStaticText();
+    renderCharts(data);
+    renderAlertHistory(data);
+}
+
 async function loadDashboard() {
     try {
-        const res = await fetch(API_ENDPOINT);
-        if (!res.ok) throw new Error("HTTP " + res.status);
-        const data = await res.json();
-        latestData = data;
+        const response = await fetch(API_ENDPOINT);
+
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+
+        latestData = await response.json();
 
         document.getElementById("status").style.display = "none";
         document.getElementById("content").style.display = "block";
 
-        // KPI
-        document.getElementById("kpi-total").textContent = "$" + data.grand_total.toFixed(2);
-        document.getElementById("kpi-threshold").textContent = "$" + Number(data.threshold).toFixed(2);
-        document.getElementById("kpi-days").textContent = data.days_count;
-        const anomalies = data.daily_costs.filter(d => d.status !== "NORMAL").length;
-        document.getElementById("kpi-anomalies").textContent = anomalies;
-
-        applyStaticText();
-        renderCharts(data);
-
-    } catch (err) {
+        renderDashboard(latestData);
+    } catch (error) {
         document.getElementById("status").textContent =
-            "❌ " + translations[currentLang].error + err.message;
+            `❌ ${translations[currentLang].error}${error.message}`;
     }
 }
 
-// Nút chuyển ngôn ngữ
 const langToggle = document.getElementById("lang-toggle");
+
 langToggle.addEventListener("click", () => {
     currentLang = currentLang === "vi" ? "en" : "vi";
-    langToggle.textContent = currentLang === "vi" ? "VI" : "EN";
-    applyStaticText();
-    if (latestData) renderCharts(latestData); // vẽ lại biểu đồ với nhãn ngôn ngữ mới
+    langToggle.textContent = currentLang === "vi" ? "VI" : "🇻🇳 VI";
+
+    if (latestData) {
+        renderDashboard(latestData);
+    } else {
+        applyStaticText();
+    }
 });
 
-// Nút dark mode
 const themeToggle = document.getElementById("theme-toggle");
+
 themeToggle.addEventListener("click", () => {
     document.body.classList.toggle("dark-mode");
-    themeToggle.textContent = document.body.classList.contains("dark-mode") ? "☀️" : "🌙";
-    Chart.defaults.color = document.body.classList.contains("dark-mode") ? "#ffffff" : "#666";
-    Object.values(charts).forEach(c => c && c.update());
+
+    themeToggle.textContent = document.body.classList.contains("dark-mode")
+        ? "☀️"
+        : "🌙";
+
+    Chart.defaults.color = document.body.classList.contains("dark-mode")
+        ? "#ffffff"
+        : "#666";
+
+    Object.values(charts).forEach((chart) => chart && chart.update());
 });
 
-// Khởi tạo nhãn ngôn ngữ ban đầu
 applyStaticText();
 loadDashboard();
 ```
 
-Giao diện gồm nhiều biểu đồ xu hướng chi phí kèm đường ngưỡng và đánh dấu ngày bất thường, biểu đồ tỷ trọng theo dịch vụ, và các chỉ số KPI tổng quan. Ngoài ra còn có chức năng chuyển đổi giao diện sáng tối và chuyển đổi ngôn ngữ Anh Việt.
+Giao diện gồm:
+- Đăng nhập/đăng xuất bằng Cognito.
+- Hiển thị KPI: tổng chi phí, ngưỡng, số ngày theo dõi, số ngày bất thường.
+- Biểu đồ xu hướng chi phí, kèm đường ngưỡng và màu trạng thái bất thường.
+- Lịch sử cảnh báo giúp xác định nhanh ngày, chi phí, mức cảnh báo và lý do.
+- Top dịch vụ tốn chi phí nhất.
 
 ![Dashboard](/workshop-fcaj-intern/images/5-Workshop/5.6-Dashboard/5.6.2-Frontend/frontend_1.png)
 
@@ -657,9 +767,9 @@ terraform output web_dashboard_url
 
 ![Dashboard](/workshop-fcaj-intern/images/5-Workshop/5.6-Dashboard/5.6.2-Frontend/frontend_3.png)
 
-![Dashboard](/workshop-fcaj-intern/images/5-Workshop/5.6-Dashboard/5.6.2-Frontend/frontend_4.png)
+![Dashboard](/workshop-fcaj-intern/images/5-Workshop/5.6-Dashboard/5.6.2-Frontend/frontend_8.png)
 
-Giao diện thể hiện được **tổng chi phí**, **ngưỡng cảnh báo**, **số ngày theo dõi**, **số ngày bất thường**, và 3 biểu đồ trực quan.
+Giao diện thể hiện được **Tổng chi phí**, **Ngưỡng cảnh báo**, **Số ngày theo dõi**, **Số ngày bất thường**, 2 biểu đồ trực quan và lịch sử cảnh báo.
 
 **Biểu đồ 1: Xu hướng chi phí theo ngày (Trend Chart):**
 
@@ -671,16 +781,13 @@ Giao diện thể hiện được **tổng chi phí**, **ngưỡng cảnh báo**
 - Nét đứt màu đỏ: đây là đường ngang cố định, thể hiện ngưỡng ngân sách. Nếu chi phí vượt lên trên đường này thì vượt ngưỡng.
 - Vùng nền màu xanh: được tô dưới đường màu xanh thể hiện xu hướng.
 
-**Biểu đồ 2: Tỷ trọng theo dịch vụ (Service Chart):**
+**Lịch sử cảnh báo**
 
-![Dashboard](/workshop-fcaj-intern/images/5-Workshop/5.6-Dashboard/5.6.2-Frontend/frontend_6.png)
+![Dashboard](/workshop-fcaj-intern/images/5-Workshop/5.6-Dashboard/5.6.2-Frontend/frontend_9.png)
 
-- Mỗi phần của hình tròn là chi phí của mỗi dịch vụ. Phần càng lớn chứng tỏ chi phí của dịch vụ đó càng cao.
-- Trên mỗi phần có tên các dịch vụ nếu chúng ta chọn vào.
-- Mỗi dịch vụ là một màu riêng biệt.
-- Danh sách dịch vụ + màu tương ứng ở phía dưới biểu đồ.
+- Lịch sử cảnh báo thể hiện các ngày mà chi phí vượt ngưỡng, mức cảnh báo và lý do.
 
-**Biểu đồ 3: Top dịch vụ (Bar Chart):**
+**Biểu đồ 2: Top dịch vụ (Bar Chart):**
 
 ![Dashboard](/workshop-fcaj-intern/images/5-Workshop/5.6-Dashboard/5.6.2-Frontend/frontend_7.png)
 

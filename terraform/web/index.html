@@ -14,7 +14,7 @@
     <header>
         <div>
             <h1>☁️ CloudCost Insight</h1>
-            <p id="header-subtitle">AWS Cost Monitoring &amp; Alert Dashboard — Near Real-Time</p>
+            <p id="header-subtitle">AWS Cost Monitoring &amp; Alert Dashboard</p>
         </div>
         <div class="header-controls">
             <button id="login-button">Sign in</button>
@@ -47,18 +47,17 @@
             </div>
         </div>
 
-        <!-- Charts -->
         <div class="chart-grid">
             <div class="chart-card full-width">
                 <h3 id="title-trend">📈 Daily Cost Trend (Threshold Line + Anomaly Markers)</h3>
                 <canvas id="trendChart" height="90"></canvas>
             </div>
+
             <div class="chart-card">
-                <h3 id="title-service">🍩 Cost Share by Service</h3>
-                <div class="chart-small">
-                    <canvas id="serviceChart"></canvas>
-                </div>
+                <h3 id="title-alert">🚨 Alert History</h3>
+                <div id="alert-history" class="alert-history"></div>
             </div>
+
             <div class="chart-card">
                 <h3 id="title-top">📊 Top Cost Services</h3>
                 <canvas id="topChart"></canvas>
@@ -66,7 +65,6 @@
         </div>
     </div>
 
-    <!-- JavaScript riêng -->
     <script src="script.js"></script>
 </body>
 
