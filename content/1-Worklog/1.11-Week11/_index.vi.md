@@ -14,7 +14,7 @@ pre: " <b> 1.11. </b> "
 * Cấu hình branch protection cho `main` nhằm bảo đảm thay đổi phải thông qua Pull Request và kiểm tra CI.
 * Triển khai lại, kiểm thử toàn bộ hệ thống và khắc phục các lỗi phát sinh.
 * Bắt đầu triển khai viết Workshop theo hướng dẫn từng bước dựa trên quá trình triển khai, kiểm thử và CI/CD thực tế.
-* Theo dõi và tổng hợp tiến độ viết Workshop của các thành viên trong nhóm.
+* Theo dõi và tổng hợp tiến độ viết Workshop của thành viên trong nhóm.
 * Duy trì phối hợp cùng nhóm: trao đổi kế hoạch trước khi làm và tổng hợp kết quả sau mỗi ngày.
 
 ### Các công việc triển khai trong tuần:

@@ -65,7 +65,6 @@ Chủ đề này tập trung vào vai trò của **Amazon CloudFront** không ch
 Các nội dung chính bao gồm:
 
 1. Khả năng bảo mật nâng cao:
-
 - **VPC Private Origin**: Tạo đường truyền riêng biệt từ **CloudFront** vào **private subnet**, giúp ẩn hạ tầng **backend** khỏi internet công cộng.
 - **Mutual TLS**: Yêu cầu xác thực chứng chỉ từ cả hai phía (client và server), phù hợp cho các hệ thống tài chính hoặc nội dung bản quyền.
 - **Chặn tấn công theo khu vực/IP**: Giảm tải cho server bằng cách chặn các truy cập độc hại ngay tại lớp **Edge** trước khi chúng chạm tới **Origin**.
