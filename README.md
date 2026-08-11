@@ -26,37 +26,7 @@ The repository is divided into two main parts:
 - `tests/`: Python test files for validating Lambda functions.
 - `pyproject.toml` / `requirements-dev.txt`: Python project configuration and dependencies.
 
-## 🛠️ Prerequisites
+## 🚀 Deployment & Usage
 
-To work with this repository, you will need:
-- [Hugo Extended](https://gohugo.io/installation/) (version 0.134.3 or higher recommended).
-- [Terraform](https://developer.hashicorp.com/terraform/downloads) for provisioning AWS infrastructure.
-- [Python 3.12](https://www.python.org/) for AWS Lambda functions and testing.
-- [AWS CLI](https://aws.amazon.com/cli/) configured with appropriate credentials.
-
-## 🚀 Getting Started
-
-### Running the Documentation Site Locally
-
-1. Ensure Hugo is installed on your machine.
-2. Run the Hugo development server in the root directory:
-   ```bash
-   hugo server -D
-   ```
-3. Open your browser and navigate to `http://localhost:1313/` to view the site.
-
-### Deploying the Infrastructure
-
-1. Navigate to the Terraform directory:
-   ```bash
-   cd terraform
-   ```
-2. Initialize the Terraform workspace:
-   ```bash
-   terraform init
-   ```
-3. Review and apply the configuration (you will be prompted to confirm):
-   ```bash
-   terraform plan
-   terraform apply
-   ```
+- **Documentation Site**: The Hugo site is automatically built and deployed via **GitHub Pages**. You can view the live site through the repository's GitHub Pages link.
+- **Infrastructure**: The Terraform code and Lambda functions provided in this repository are part of the workshop modules. Participants are expected to write and deploy this code on their own AWS accounts following the workshop instructions.
