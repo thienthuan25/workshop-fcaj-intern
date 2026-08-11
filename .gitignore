@@ -20,3 +20,5 @@ crash.log
 .venv/
 __pycache__/
 *.py[cod]
+
+README.vi.md
