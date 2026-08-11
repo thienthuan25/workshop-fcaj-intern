@@ -24,7 +24,7 @@ variable "spike_multiplier" {
 variable "history_days" {
   description = "Number of historical days used to calculate the average cost (for spike detection)"
   type        = number
-  default     = 14 # Calculate the average cost over the last 14 days.
+  default     = 7 # Calculate the average cost over the last 7 days.
 }
 ```
 
@@ -69,7 +69,7 @@ COST_THRESHOLD = float(os.environ.get("COST_THRESHOLD", "10"))
 SPIKE_MULTIPLIER = float(os.environ.get("SPIKE_MULTIPLIER", "1.5"))
 
 # Number of historical days used to calculate the average
-HISTORY_DAYS = int(os.environ.get("HISTORY_DAYS", "14"))
+HISTORY_DAYS = int(os.environ.get("HISTORY_DAYS", "7"))
 
 s3_client = boto3.client("s3")
 sns_client = boto3.client("sns")

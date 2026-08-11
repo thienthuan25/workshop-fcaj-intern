@@ -45,5 +45,5 @@ variable "spike_multiplier" {
 variable "history_days" {
   description = "Number of historical days used to calculate the average cost (for spike detection)"
   type        = number
-  default     = 14
+  default     = 7
 }

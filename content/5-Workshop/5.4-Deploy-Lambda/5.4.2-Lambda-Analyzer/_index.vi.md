@@ -23,7 +23,7 @@ variable "spike_multiplier" {
 variable "history_days" {
   description = "Number of historical days used to calculate the average cost (for spike detection)"
   type        = number
-  default     = 14 # tính trung bình chi phí của 14 ngày gần nhất
+  default     = 7 # tính trung bình chi phí của 7 ngày gần nhất
 }
 ```
 
@@ -78,7 +78,7 @@ COST_THRESHOLD = float(os.environ.get("COST_THRESHOLD_USD", "10"))
 # Hệ số tăng đột biến: chi phí > trung bình * hệ số này  => bất thường
 SPIKE_MULTIPLIER = float(os.environ.get("SPIKE_MULTIPLIER", "1.5"))
 # Số ngày lịch sử dùng để tính trung bình
-HISTORY_DAYS = int(os.environ.get("HISTORY_DAYS", "14"))
+HISTORY_DAYS = int(os.environ.get("HISTORY_DAYS", "7"))
 
 s3_client = boto3.client("s3")
 sns_client = boto3.client("sns")
