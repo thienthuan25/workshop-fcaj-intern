@@ -12,7 +12,7 @@ Trong phần này, chúng ta sẽ bảo vệ CloudCost Insight Dashboard bằng 
 
 Luồng xác thực hoạt động như sau:
 
-1. Người dùng đăng nhập **Dashboard CloudFront**.
+1. Người dùng đăng nhập Dashboard CloudFront.
 2. **Cognito** trả về trang đăng nhập.
 3. Người dùng nhập username/password -> **Cognito** xác thực.
 4. **Cognito** cấp **JWT** (ID Token, Access Token).
