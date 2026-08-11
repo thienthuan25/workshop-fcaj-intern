@@ -2,7 +2,7 @@
 
 This repository contains the source code for an Internship Report (Báo cáo thực tập) and a Workshop template, built using **Hugo** and **Terraform** for AWS infrastructure.
 
-## 🌟 Overview
+## Overview
 
 The repository is divided into two main parts:
 
@@ -17,7 +17,7 @@ The repository is divided into two main parts:
    - Contains Terraform configurations to deploy serverless AWS infrastructure.
    - Features include AWS Lambda functions (written in Python), S3 buckets, SQS queues, CloudWatch logs, and SNS topics for processing data and cost alerts.
 
-## 📂 Repository Structure
+## Repository Structure
 
 - `content/`: Contains the Markdown files for the Hugo site, organized into sections like Blogs, Events, and Workshop modules.
 - `config.toml`: The main configuration file for the Hugo site.
@@ -26,7 +26,7 @@ The repository is divided into two main parts:
 - `tests/`: Python test files for validating Lambda functions.
 - `pyproject.toml` / `requirements-dev.txt`: Python project configuration and dependencies.
 
-## 🚀 Deployment & Usage
+## Deployment & Usage
 
 - **Documentation Site**: The Hugo site is automatically built and deployed via **GitHub Pages**. You can view the live site through the repository's GitHub Pages link.
 - **Infrastructure**: The Terraform code and Lambda functions provided in this repository are part of the workshop modules. Participants are expected to write and deploy this code on their own AWS accounts following the workshop instructions.
