@@ -15,7 +15,7 @@ Web Dash board gồm hai phần chính:
 - **Backend** gồm một hàm Lambda API đọc dữ liệu chi phí từ S3 và một API Gateway để expose endpoint cho Web gọi.
 - **Frontend** là một trang Web tĩnh dùng `Chart.js` để vẽ biểu đồ, được host lên S3 và phân phối qua CloudFront.
 
-![Dashboard](/workshop-fcaj-intern/images/5-Workshop/2-Proposal/diagram_architecture.png)
+![Dashboard](/workshop-fcaj-intern/images/2-Proposal/diagram_architecture.png)
 
 ### Nội dung
 

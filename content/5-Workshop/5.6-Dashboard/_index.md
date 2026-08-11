@@ -15,7 +15,7 @@ The Web Dashboard consists of two main components:
 - **Backend** includes a Lambda API function that reads cost data from S3 and an API Gateway that exposes an endpoint for the web application.
 - **Frontend** is a static website that uses `Chart.js` to render charts. It is hosted on Amazon S3 and distributed through CloudFront.
 
-![Dashboard](/workshop-fcaj-intern/images/5-Workshop/2-Proposal/diagram_architecture.png)
+![Dashboard](/workshop-fcaj-intern/images/2-Proposal/diagram_architecture.png)
 
 ### Content
 
