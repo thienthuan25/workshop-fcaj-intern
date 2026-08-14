@@ -1,0 +1,767 @@
+<!doctype html><html lang=vi class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.134.3"><meta name=description content><meta name=author content="thienlh@thienlu.com"><link rel=icon href=/workshop-fcaj-intern/images/favicon.png type=image/png><title>Frontend :: Báo cáo thực tập</title>
+<link href=/workshop-fcaj-intern/css/nucleus.css?1786693547 rel=stylesheet><link href=/workshop-fcaj-intern/css/fontawesome-all.min.css?1786693547 rel=stylesheet><link href=/workshop-fcaj-intern/css/hybrid.css?1786693547 rel=stylesheet><link href=/workshop-fcaj-intern/css/featherlight.min.css?1786693547 rel=stylesheet><link href=/workshop-fcaj-intern/css/perfect-scrollbar.min.css?1786693547 rel=stylesheet><link href=/workshop-fcaj-intern/css/auto-complete.css?1786693547 rel=stylesheet><link href=/workshop-fcaj-intern/css/atom-one-dark-reasonable.css?1786693547 rel=stylesheet><link href=/workshop-fcaj-intern/css/theme.css?1786693547 rel=stylesheet><link href=/workshop-fcaj-intern/css/hugo-theme.css?1786693547 rel=stylesheet><link href=/workshop-fcaj-intern/css/theme-workshop.css?1786693547 rel=stylesheet><script src=/workshop-fcaj-intern/js/jquery-3.3.1.min.js?1786693547></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style></head><body data-url=/workshop-fcaj-intern/vi/5-workshop/5.6-dashboard/5.6.2-frontend/><nav id=sidebar class=showVisitedLinks><div id=header-wrapper><div id=header><a id=logo href=/workshop-fcaj-intern/vi/><svg id="Layer_1" data-name="Layer 1" viewBox="0 0 60 30" width="30%"><defs><style>.cls-1{fill:#fff}.cls-2{fill:#fff;fill-rule:evenodd}</style></defs><title>AWS-Logo_White-Color</title><path class="cls-1" d="M14.09 10.85a4.7 4.7.0 00.19 1.48 7.73 7.73.0 00.54 1.19.77.77.0 01.12.38.64.64.0 01-.32.49l-1 .7a.83.83.0 01-.44.15.69.69.0 01-.49-.23 3.8 3.8.0 01-.6-.77q-.25-.42-.51-1a6.14 6.14.0 01-4.89 2.3 4.54 4.54.0 01-3.32-1.19 4.27 4.27.0 01-1.22-3.2 4.28 4.28.0 011.46-3.4A6.06 6.06.0 017.69 6.46a12.47 12.47.0 011.76.13q.92.13 1.91.36V5.73a3.65 3.65.0 00-.79-2.66A3.81 3.81.0 007.86 2.3a7.71 7.71.0 00-1.79.22 12.78 12.78.0 00-1.79.57 4.55 4.55.0 01-.58.22h-.26q-.35.0-.35-.52V2a1.09 1.09.0 01.12-.58 1.2 1.2.0 01.47-.35A10.88 10.88.0 015.77.32 10.19 10.19.0 018.36.0a6 6 0 014.35 1.35 5.49 5.49.0 011.38 4.09zM7.34 13.38a5.36 5.36.0 001.72-.31A3.63 3.63.0 0010.63 12 2.62 2.62.0 0011.19 11a5.63 5.63.0 00.16-1.44v-.7a14.35 14.35.0 00-1.53-.28 12.37 12.37.0 00-1.56-.1 3.84 3.84.0 00-2.47.67A2.34 2.34.0 005 11a2.35 2.35.0 00.61 1.76A2.4 2.4.0 007.34 13.38zm13.35 1.8a1 1 0 01-.64-.16 1.3 1.3.0 01-.35-.65L15.81 1.51a3 3 0 01-.15-.67.36.36.0 01.41-.41H17.7a1 1 0 01.65.16 1.4 1.4.0 01.33.65l2.79 11 2.59-11A1.17 1.17.0 0124.39.6a1.1 1.1.0 01.67-.16H26.4a1.1 1.1.0 01.67.16 1.17 1.17.0 01.32.65L30 12.39 32.88 1.25A1.39 1.39.0 0133.22.6a1 1 0 01.65-.16h1.54a.36.36.0 01.41.41 1.36 1.36.0 010 .26 3.64 3.64.0 01-.12.41l-4 12.86a1.3 1.3.0 01-.35.65 1 1 0 01-.64.16H29.25a1 1 0 01-.67-.17 1.26 1.26.0 01-.32-.67L25.67 3.64l-2.56 10.7a1.26 1.26.0 01-.32.67 1 1 0 01-.67.17zm21.36.44a11.28 11.28.0 01-2.56-.29 7.44 7.44.0 01-1.92-.67 1 1 0 01-.61-.93v-.84q0-.52.38-.52a.9.9.0 01.31.06l.42.17a8.77 8.77.0 001.83.58 9.78 9.78.0 002 .2 4.48 4.48.0 002.43-.55 1.76 1.76.0 00.86-1.57 1.61 1.61.0 00-.45-1.16A4.29 4.29.0 0043 9.22l-2.41-.76A5.15 5.15.0 0138 6.78a3.94 3.94.0 01-.83-2.41 3.7 3.7.0 01.45-1.85 4.47 4.47.0 011.19-1.37 5.27 5.27.0 011.7-.86A7.4 7.4.0 0142.6.0a8.87 8.87.0 011.12.07q.57.07 1.08.19t.95.26a4.27 4.27.0 01.7.29 1.59 1.59.0 01.49.41.94.94.0 01.15.55v.79q0 .52-.38.52a1.76 1.76.0 01-.64-.2 7.74 7.74.0 00-3.2-.64 4.37 4.37.0 00-2.21.47 1.6 1.6.0 00-.79 1.48 1.58 1.58.0 00.49 1.18 4.94 4.94.0 001.83.92L44.55 7a5.08 5.08.0 012.57 1.6A3.76 3.76.0 0147.9 11a4.21 4.21.0 01-.44 1.93 4.4 4.4.0 01-1.21 1.47 5.43 5.43.0 01-1.85.93A8.25 8.25.0 0142.05 15.62z"/><path class="cls-2" d="M45.19 23.81C39.72 27.85 31.78 30 25 30A36.64 36.64.0 01.22 20.57c-.51-.46-.06-1.09.56-.74A49.78 49.78.0 0025.53 26.4 49.23 49.23.0 0044.4 22.53C45.32 22.14 46.1 23.14 45.19 23.81z"/><path class="cls-2" d="M47.47 21.21c-.7-.9-4.63-.42-6.39-.21-.53.06-.62-.4-.14-.74 3.13-2.2 8.27-1.57 8.86-.83s-.16 5.89-3.09 8.35c-.45.38-.88.18-.68-.32C46.69 25.8 48.17 22.11 47.47 21.21z"/></svg></a></div><div class=searchbox><label for=search-by><i class="fas fa-search"></i></label>
+<input data-search-input id=search-by type=search placeholder=Search...>
+<span data-search-clear><i class="fas fa-times"></i></span></div><script type=text/javascript src=/workshop-fcaj-intern/js/lunr.min.js?1786693547></script><script type=text/javascript src=/workshop-fcaj-intern/js/auto-complete.js?1786693547></script><script type=text/javascript>var baseurl="https://thienthuan25.github.io/workshop-fcaj-intern//vi"</script><script type=text/javascript src=/workshop-fcaj-intern/js/search.js?1786693547></script></div><div class=highlightable><ul class=topics><li data-nav-id=/workshop-fcaj-intern/vi/1-worklog/ title="Nhật ký công việc" class=dd-item><a href=/workshop-fcaj-intern/vi/1-worklog/><b>1. </b>Nhật ký công việc
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/workshop-fcaj-intern/vi/1-worklog/1.1-week1/ title="Worklog Tuần 1" class=dd-item><a href=/workshop-fcaj-intern/vi/1-worklog/1.1-week1/><b>1.1. </b>Worklog Tuần 1
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/1-worklog/1.2-week2/ title="Worklog Tuần 2" class=dd-item><a href=/workshop-fcaj-intern/vi/1-worklog/1.2-week2/><b>1.2. </b>Worklog Tuần 2
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/1-worklog/1.3-week3/ title="Worklog Tuần 3" class=dd-item><a href=/workshop-fcaj-intern/vi/1-worklog/1.3-week3/><b>1.3. </b>Worklog Tuần 3
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/1-worklog/1.4-week4/ title="Worklog Tuần 4" class=dd-item><a href=/workshop-fcaj-intern/vi/1-worklog/1.4-week4/><b>1.4. </b>Worklog Tuần 4
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/1-worklog/1.5-week5/ title="Worklog Tuần 5" class=dd-item><a href=/workshop-fcaj-intern/vi/1-worklog/1.5-week5/><b>1.5. </b>Worklog Tuần 5
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/1-worklog/1.6-week6/ title="Worklog Tuần 6" class=dd-item><a href=/workshop-fcaj-intern/vi/1-worklog/1.6-week6/><b>1.6. </b>Worklog Tuần 6
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/1-worklog/1.7-week7/ title="Worklog Tuần 7" class=dd-item><a href=/workshop-fcaj-intern/vi/1-worklog/1.7-week7/><b>1.7. </b>Worklog Tuần 7
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/1-worklog/1.8-week8/ title="Worklog Tuần 8" class=dd-item><a href=/workshop-fcaj-intern/vi/1-worklog/1.8-week8/><b>1.8. </b>Worklog Tuần 8
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/1-worklog/1.9-week9/ title="Worklog Tuần 9" class=dd-item><a href=/workshop-fcaj-intern/vi/1-worklog/1.9-week9/><b>1.9. </b>Worklog Tuần 9
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/1-worklog/1.10-week10/ title="Worklog Tuần 10" class=dd-item><a href=/workshop-fcaj-intern/vi/1-worklog/1.10-week10/><b>1.10. </b>Worklog Tuần 10
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/1-worklog/1.11-week11/ title="Worklog Tuần 11" class=dd-item><a href=/workshop-fcaj-intern/vi/1-worklog/1.11-week11/><b>1.11. </b>Worklog Tuần 11
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/1-worklog/1.12-week12/ title="Worklog Tuần 12" class=dd-item><a href=/workshop-fcaj-intern/vi/1-worklog/1.12-week12/><b>1.12. </b>Worklog Tuần 12
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/workshop-fcaj-intern/vi/2-proposal/ title="Bản đề xuất" class=dd-item><a href=/workshop-fcaj-intern/vi/2-proposal/><b>2. </b>Bản đề xuất
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/3-blogsposted/ title="Các bài blogs đã đăng" class=dd-item><a href=/workshop-fcaj-intern/vi/3-blogsposted/><b>3. </b>Các bài blogs đã đăng
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/workshop-fcaj-intern/vi/3-blogsposted/3.1-blog1/ title="Blog 1" class=dd-item><a href=/workshop-fcaj-intern/vi/3-blogsposted/3.1-blog1/><b>3.1. </b>Blog 1
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/3-blogsposted/3.2-blog2/ title="Blog 2" class=dd-item><a href=/workshop-fcaj-intern/vi/3-blogsposted/3.2-blog2/><b>3.2. </b>Blog 2
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/3-blogsposted/3.3-blog3/ title="Blog 3" class=dd-item><a href=/workshop-fcaj-intern/vi/3-blogsposted/3.3-blog3/><b>3.3. </b>Blog 3
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/workshop-fcaj-intern/vi/4-eventparticipated/ title="Các events đã tham gia" class=dd-item><a href=/workshop-fcaj-intern/vi/4-eventparticipated/><b>4. </b>Các events đã tham gia
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/workshop-fcaj-intern/vi/4-eventparticipated/4.1-event1/ title="Event 1" class=dd-item><a href=/workshop-fcaj-intern/vi/4-eventparticipated/4.1-event1/><b>4.1. </b>Event 1
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/4-eventparticipated/4.2-event2/ title="Event 2" class=dd-item><a href=/workshop-fcaj-intern/vi/4-eventparticipated/4.2-event2/><b>4.2. </b>Event 2
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/4-eventparticipated/4.3-event3/ title="Event 3" class=dd-item><a href=/workshop-fcaj-intern/vi/4-eventparticipated/4.3-event3/><b>4.3. </b>Event 3
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/4-eventparticipated/4.4-event4/ title="Event 4" class=dd-item><a href=/workshop-fcaj-intern/vi/4-eventparticipated/4.4-event4/><b>4.4. </b>Event 4
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/ title=Workshop class="dd-item
+parent"><a href=/workshop-fcaj-intern/vi/5-workshop/><b>5. </b>Workshop
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.1-workshop-overview/ title="Giới thiệu" class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.1-workshop-overview/><b>5.1. </b>Giới thiệu
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.2-prerequisite/ title="Các bước chuẩn bị" class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.2-prerequisite/><b>5.2. </b>Các bước chuẩn bị
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.2-prerequisite/5.2.1-aws-credentials/ title="Cấu hình AWS Credentials" class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.2-prerequisite/5.2.1-aws-credentials/><b>5.2.1. </b>Cấu hình AWS Credentials
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.2-prerequisite/5.2.2-hcp-terraform/ title="Cấu hình HCP Terraform" class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.2-prerequisite/5.2.2-hcp-terraform/><b>5.2.2. </b>Cấu hình HCP Terraform
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.2-prerequisite/5.2.3-code-terraform/ title="Chuẩn bị Code Terraform" class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.2-prerequisite/5.2.3-code-terraform/><b>5.2.3. </b>Chuẩn bị Code Terraform
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.3-infrastructure/ title="Dựng hạ tầng bằng Terraform" class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.3-infrastructure/><b>5.3. </b>Dựng hạ tầng bằng Terraform
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.3-infrastructure/5.3.1-variables/ title="Khai báo các biến đầu vào" class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.3-infrastructure/5.3.1-variables/><b>5.3.1 </b>Khai báo các biến đầu vào
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.3-infrastructure/5.3.2-s3-bucket/ title="Tạo S3 Bucket lưu dữ liệu chi phí" class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.3-infrastructure/5.3.2-s3-bucket/><b>5.3.2 </b>Tạo S3 Bucket lưu dữ liệu chi phí
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.3-infrastructure/5.3.3-iam-role/ title="Tạo IAM Role cho Lambda" class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.3-infrastructure/5.3.3-iam-role/><b>5.3.3 </b>Tạo IAM Role cho Lambda
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.3-infrastructure/5.3.4-sns-topic/ title="Tạo SNS Topic cảnh báo" class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.3-infrastructure/5.3.4-sns-topic/><b>5.3.4 </b>Tạo SNS Topic cảnh báo
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.3-infrastructure/5.3.5-sqs-queue-dlq/ title="Tạo SQS Queue và Dead Letter Queue" class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.3-infrastructure/5.3.5-sqs-queue-dlq/><b>5.3.5 </b>Tạo SQS Queue và Dead Letter Queue
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.3-infrastructure/5.3.6-eventbridge-rule/ title="Tạo EventBridge Rule lập lịch" class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.3-infrastructure/5.3.6-eventbridge-rule/><b>5.3.6 </b>Tạo EventBridge Rule lập lịch
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.3-infrastructure/5.3.7-outputs/ title="Khai báo Outputs" class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.3-infrastructure/5.3.7-outputs/><b>5.3.7 </b>Khai báo Outputs
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.3-infrastructure/5.3.8-deploy-infrastructure/ title="Triển khai hạ tầng" class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.3-infrastructure/5.3.8-deploy-infrastructure/><b>5.3.8 </b>Triển khai hạ tầng
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.4-deploy-lambda/ title="Triển khai Lambda" class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.4-deploy-lambda/><b>5.4. </b>Triển khai Lambda
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.4-deploy-lambda/5.4.1-lambda-collector/ title="Triển khai Lambda Collector" class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.4-deploy-lambda/5.4.1-lambda-collector/><b>5.4.1 </b>Triển khai Lambda Collector
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.4-deploy-lambda/5.4.2-lambda-analyzer/ title="Triển khai Lambda Analyzer" class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.4-deploy-lambda/5.4.2-lambda-analyzer/><b>5.4.2 </b>Triển khai Lambda Analyzer
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.5-monitoring/ title="Giám sát" class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.5-monitoring/><b>5.5 </b>Giám sát
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.5-monitoring/5.5.1-lambda-alarm-error/ title="Cấu hình CloudWatch Alarms cho Lambda" class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.5-monitoring/5.5.1-lambda-alarm-error/><b>5.5.1 </b>Cấu hình CloudWatch Alarms cho Lambda
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.5-monitoring/5.5.2-lambda-dlq-error/ title="Cấu hình CloudWatch Alarms cho Dead Letter Queue" class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.5-monitoring/5.5.2-lambda-dlq-error/><b>5.5.2 </b>Cấu hình CloudWatch Alarms cho Dead Letter Queue
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.5-monitoring/5.5.3-deploy/ title="Triển khai" class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.5-monitoring/5.5.3-deploy/><b>5.5.3 </b>Triển khai
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.6-dashboard/ title="Giao diện Web" class="dd-item
+parent"><a href=/workshop-fcaj-intern/vi/5-workshop/5.6-dashboard/><b>5.6. </b>Giao diện Web
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.6-dashboard/5.6.1-backend/ title=Backend class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.6-dashboard/5.6.1-backend/><b>5.6.1 </b>Backend
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.6-dashboard/5.6.2-frontend/ title=Frontend class="dd-item
+active"><a href=/workshop-fcaj-intern/vi/5-workshop/5.6-dashboard/5.6.2-frontend/><b>5.6.2 </b>Frontend
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.6-dashboard/5.6.3-authentication-cognito/ title="Xác thực với Amazon Cognito" class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.6-dashboard/5.6.3-authentication-cognito/><b>5.6.3 </b>Xác thực với Amazon Cognito
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.7-testing/ title="Kiểm thử hệ thống" class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.7-testing/><b>5.7 </b>Kiểm thử hệ thống
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.8-ci-cd/ title=CI/CD class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.8-ci-cd/><b>5.8. </b>CI/CD
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.9-cleanup/ title="Dọn dẹp tài nguyên" class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.9-cleanup/><b>5.9. </b>Dọn dẹp tài nguyên
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/workshop-fcaj-intern/vi/6-self-evaluation/ title="Tự đánh giá" class=dd-item><a href=/workshop-fcaj-intern/vi/6-self-evaluation/><b>6. </b>Tự đánh giá
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/7-feedback/ title="Chia sẻ, đóng góp ý kiến" class=dd-item><a href=/workshop-fcaj-intern/vi/7-feedback/><b>7. </b>Chia sẻ, đóng góp ý kiến
+<i class="fas fa-check read-icon"></i></a></li></ul><section id=shortcuts><h3>More</h3><ul><li><a class=padding href=http://awsstudygroup.com><i class='fab fa-aws'></i> AWS Study Group - Blog</a></li><li><a class=padding href=https://www.facebook.com/groups/awsstudygroupfcj><i class='fab fa-facebook'></i> AWS Study Group - Nhóm FB</a></li></ul></section><section id=prefooter><hr><ul><li><a class=padding><i class="fas fa-language fa-fw"></i><div class=select-style><select id=select-language onchange="location=this.value"><option id=en value=https://thienthuan25.github.io/workshop-fcaj-intern/5-workshop/5.6-dashboard/5.6.2-frontend/>English</option><option id=vi value=https://thienthuan25.github.io/workshop-fcaj-intern/vi/5-workshop/5.6-dashboard/5.6.2-frontend/ selected>Tiếng Việt</option></select><svg id="Capa_1" xmlns:xlink="http://www.w3.org/1999/xlink" width="255" height="255" viewBox="0 0 255 255" style="enable-background:new 0 0 255 255"><g><g id="arrow-drop-down"><polygon points="0,63.75 127.5,191.25 255,63.75"/></g></g></svg></div></a></li><li><a class=padding href=# data-clear-history-toggle><i class="fas fa-history fa-fw"></i> Clear History</a></li></ul></section><section id=footer><left><br><br><b>Last Updated</b><br><i><font color=orange>14-08-2026</font>
+</i></left><left><br><br><b>Member</b><br><i><a href=https://www.facebook.com/groups/660548818043427 style=color:orange>Nguyễn Thiên Thuận</a>
+</i></left><script async defer src=https://buttons.github.io/buttons.js></script></section></div></nav><section id=body><div id=overlay></div><div class="padding highlightable"><div><div id=top-bar><div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb><span id=sidebar-toggle-span><a href=# id=sidebar-toggle data-sidebar-toggle><i class="fas fa-bars"></i>
+</a></span><span id=toc-menu><i class="fas fa-list-alt"></i></span>
+<span class=links><a href=/workshop-fcaj-intern/vi/>Báo cáo thực tập</a> > <a href=/workshop-fcaj-intern/vi/5-workshop/>Workshop</a> > <a href=/workshop-fcaj-intern/vi/5-workshop/5.6-dashboard/>Giao diện Web</a> > Frontend</span></div><div class=progress><div class=wrapper><nav id=TableOfContents><ul><li><ul><li><a href=#tạo-giao-diện>Tạo giao diện</a></li><li><a href=#host-web-lên-s3-và-cloudfront>Host Web lên S3 và CloudFront</a></li><li><a href=#triển-khai-và-truy-cập-dashboard>Triển khai và truy cập Dashboard</a></li><li><a href=#nội-dung-tiếp-theo>Nội dung tiếp theo</a></li></ul></li></ul></nav></div></div></div></div><div id=head-tags></div><div id=body-inner><h1>Frontend</h1><h3 id=tạo-giao-diện>Tạo giao diện</h3><p>Chúng ta sẽ tạo giao diện Web trong thư mục <code>terraform/web</code>.</p><p><strong>1.</strong> File <code>index.html</code> chứa cấu trúc trang:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span><span style=color:#75715e>&lt;!DOCTYPE html&gt;</span>
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>html</span> <span style=color:#a6e22e>lang</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;vi&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>head</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>meta</span> <span style=color:#a6e22e>charset</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;UTF-8&#34;</span> /&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>meta</span> <span style=color:#a6e22e>name</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;viewport&#34;</span> <span style=color:#a6e22e>content</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;width=device-width, initial-scale=1.0&#34;</span> /&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>title</span>&gt;CloudCost Insight — Dashboard&lt;/<span style=color:#f92672>title</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;stylesheet&#34;</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;style.css&#34;</span> /&gt;
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>head</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>body</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>header</span>&gt;
+</span></span><span style=display:flex><span>        &lt;<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>            &lt;<span style=color:#f92672>h1</span>&gt;☁️ CloudCost Insight&lt;/<span style=color:#f92672>h1</span>&gt;
+</span></span><span style=display:flex><span>            &lt;<span style=color:#f92672>p</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;header-subtitle&#34;</span>&gt;AWS Cost Monitoring &amp;amp; Alert Dashboard&lt;/<span style=color:#f92672>p</span>&gt;
+</span></span><span style=display:flex><span>        &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>        &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;header-controls&#34;</span>&gt;
+</span></span><span style=display:flex><span>            &lt;<span style=color:#f92672>button</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;lang-toggle&#34;</span>&gt;🇻🇳 VI&lt;/<span style=color:#f92672>button</span>&gt;
+</span></span><span style=display:flex><span>            &lt;<span style=color:#f92672>button</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;theme-toggle&#34;</span>&gt;🌙&lt;/<span style=color:#f92672>button</span>&gt;
+</span></span><span style=display:flex><span>        &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>    &lt;/<span style=color:#f92672>header</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;status&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;status&#34;</span>&gt;Loading cost data...&lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;content&#34;</span> <span style=color:#a6e22e>style</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;display:none;&#34;</span>&gt;
+</span></span><span style=display:flex><span>        <span style=color:#75715e>&lt;!-- KPI --&gt;</span>
+</span></span><span style=display:flex><span>        &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;kpi-row&#34;</span>&gt;
+</span></span><span style=display:flex><span>            &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;kpi-card&#34;</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;label&#34;</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;label-total&#34;</span>&gt;Total Cost (Period)&lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;value&#34;</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;kpi-total&#34;</span>&gt;$0.00&lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>            &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>            &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;kpi-card&#34;</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;label&#34;</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;label-threshold&#34;</span>&gt;Alert Threshold/Day&lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;value&#34;</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;kpi-threshold&#34;</span>&gt;$0.00&lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>            &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>            &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;kpi-card&#34;</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;label&#34;</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;label-days&#34;</span>&gt;Monitored Days&lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;value&#34;</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;kpi-days&#34;</span>&gt;0&lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>            &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>            &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;kpi-card&#34;</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;label&#34;</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;label-anomalies&#34;</span>&gt;Anomalous Days&lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;value danger&#34;</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;kpi-anomalies&#34;</span>&gt;0&lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>            &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>        &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;chart-grid&#34;</span>&gt;
+</span></span><span style=display:flex><span>            &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;chart-card full-width&#34;</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>h3</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;title-trend&#34;</span>&gt;📈 Daily Cost Trend (Threshold Line + Anomaly Markers)&lt;/<span style=color:#f92672>h3</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>canvas</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;trendChart&#34;</span> <span style=color:#a6e22e>height</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;90&#34;</span>&gt;&lt;/<span style=color:#f92672>canvas</span>&gt;
+</span></span><span style=display:flex><span>            &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;chart-card&#34;</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>h3</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;title-alert&#34;</span>&gt;🚨 Alert History&lt;/<span style=color:#f92672>h3</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;alert-history&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;alert-history&#34;</span>&gt;&lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>            &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;chart-card&#34;</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>h3</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;title-top&#34;</span>&gt;📊 Top Cost Services&lt;/<span style=color:#f92672>h3</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>canvas</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;topChart&#34;</span>&gt;&lt;/<span style=color:#f92672>canvas</span>&gt;
+</span></span><span style=display:flex><span>            &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>        &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>    &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;script.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>body</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>html</span>&gt;
+</span></span></code></pre></div><p><strong>2.</strong> File <code>style.css</code> chứa toàn bộ định dạng giao diện:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-css data-lang=css><span style=display:flex><span><span style=color:#f92672>*</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>box-sizing</span>: <span style=color:#66d9ef>border-box</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>margin</span>: <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>padding</span>: <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>:<span style=color:#a6e22e>root</span> {
+</span></span><span style=display:flex><span>    --bg-color: <span style=color:#ae81ff>#f0f2f5</span>;
+</span></span><span style=display:flex><span>    --text-color: <span style=color:#ae81ff>#1a202c</span>;
+</span></span><span style=display:flex><span>    --card-bg: <span style=color:#ae81ff>#fff</span>;
+</span></span><span style=display:flex><span>    --label-color: <span style=color:#ae81ff>#718096</span>;
+</span></span><span style=display:flex><span>    --heading-color: <span style=color:#ae81ff>#2d3748</span>;
+</span></span><span style=display:flex><span>    --border-color: <span style=color:#ae81ff>#e2e8f0</span>;
+</span></span><span style=display:flex><span>    --table-head-bg: <span style=color:#ae81ff>#f7fafc</span>;
+</span></span><span style=display:flex><span>    --shadow-color: rgba(<span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>0.08</span>);
+</span></span><span style=display:flex><span>    --header-bg: linear-gradient(<span style=color:#ae81ff>135</span><span style=color:#66d9ef>deg</span>, <span style=color:#ae81ff>#232f3e</span>, <span style=color:#ae81ff>#ff9900</span>);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>body</span>.<span style=color:#a6e22e>dark-mode</span> {
+</span></span><span style=display:flex><span>    --bg-color: <span style=color:#ae81ff>#1a202c</span>;
+</span></span><span style=display:flex><span>    --text-color: <span style=color:#ae81ff>#ffffff</span>;
+</span></span><span style=display:flex><span>    --card-bg: <span style=color:#ae81ff>#2d3748</span>;
+</span></span><span style=display:flex><span>    --label-color: <span style=color:#ae81ff>#a0aec0</span>;
+</span></span><span style=display:flex><span>    --heading-color: <span style=color:#ae81ff>#ffffff</span>;
+</span></span><span style=display:flex><span>    --border-color: <span style=color:#ae81ff>#4a5568</span>;
+</span></span><span style=display:flex><span>    --table-head-bg: <span style=color:#ae81ff>#374151</span>;
+</span></span><span style=display:flex><span>    --shadow-color: rgba(<span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>0.3</span>);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>body</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>font-family</span>: <span style=color:#e6db74>&#34;Segoe UI&#34;</span>, Arial, <span style=color:#66d9ef>sans-serif</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>background</span>: <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>bg<span style=color:#f92672>-</span><span style=color:#66d9ef>color</span>);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>color</span>: <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span><span style=color:#66d9ef>text</span><span style=color:#f92672>-</span><span style=color:#66d9ef>color</span>);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>padding</span>: <span style=color:#ae81ff>24</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>transition</span>: <span style=color:#66d9ef>background</span> <span style=color:#ae81ff>0.3</span><span style=color:#66d9ef>s</span>, <span style=color:#66d9ef>color</span> <span style=color:#ae81ff>0.3</span><span style=color:#66d9ef>s</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>header</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>background</span>: <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>header<span style=color:#f92672>-</span>bg);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>color</span>: <span style=color:#ae81ff>#fff</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>padding</span>: <span style=color:#ae81ff>20</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>28</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>border-radius</span>: <span style=color:#ae81ff>12</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>margin-bottom</span>: <span style=color:#ae81ff>24</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>display</span>: <span style=color:#66d9ef>flex</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>justify-content</span>: <span style=color:#66d9ef>space-between</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>align-items</span>: <span style=color:#66d9ef>center</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>header-controls</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>display</span>: <span style=color:#66d9ef>flex</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>gap</span>: <span style=color:#ae81ff>10</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>align-items</span>: <span style=color:#66d9ef>center</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>#theme-toggle<span style=color:#f92672>,</span>
+</span></span><span style=display:flex><span>#lang-toggle {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>background</span>: rgba(<span style=color:#ae81ff>255</span>, <span style=color:#ae81ff>255</span>, <span style=color:#ae81ff>255</span>, <span style=color:#ae81ff>0.2</span>);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>border</span>: <span style=color:#66d9ef>none</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>color</span>: <span style=color:#66d9ef>white</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>padding</span>: <span style=color:#ae81ff>8</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>16</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>border-radius</span>: <span style=color:#ae81ff>6</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>cursor</span>: <span style=color:#66d9ef>pointer</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>font-weight</span>: <span style=color:#66d9ef>bold</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>transition</span>: <span style=color:#66d9ef>background</span> <span style=color:#ae81ff>0.2</span><span style=color:#66d9ef>s</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>#theme-toggle:<span style=color:#a6e22e>hover</span><span style=color:#f92672>,</span>
+</span></span><span style=display:flex><span>#lang-toggle:<span style=color:#a6e22e>hover</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>background</span>: rgba(<span style=color:#ae81ff>255</span>, <span style=color:#ae81ff>255</span>, <span style=color:#ae81ff>255</span>, <span style=color:#ae81ff>0.3</span>);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>header</span> <span style=color:#f92672>h1</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>font-size</span>: <span style=color:#ae81ff>24</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>header</span> <span style=color:#f92672>p</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>opacity</span>: <span style=color:#ae81ff>0.9</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>font-size</span>: <span style=color:#ae81ff>14</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>margin-top</span>: <span style=color:#ae81ff>4</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>kpi-row</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>display</span>: <span style=color:#66d9ef>flex</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>gap</span>: <span style=color:#ae81ff>16</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>margin-bottom</span>: <span style=color:#ae81ff>24</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>flex-wrap</span>: <span style=color:#66d9ef>wrap</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>kpi-card</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>background</span>: <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>card<span style=color:#f92672>-</span>bg);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>border-radius</span>: <span style=color:#ae81ff>12</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>padding</span>: <span style=color:#ae81ff>20</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>24</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>flex</span>: <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>min-width</span>: <span style=color:#ae81ff>200</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>box-shadow</span>: <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>1</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>4</span><span style=color:#66d9ef>px</span> <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>shadow<span style=color:#f92672>-</span><span style=color:#66d9ef>color</span>);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>transition</span>: <span style=color:#66d9ef>background</span> <span style=color:#ae81ff>0.3</span><span style=color:#66d9ef>s</span>, <span style=color:#66d9ef>box-shadow</span> <span style=color:#ae81ff>0.3</span><span style=color:#66d9ef>s</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>kpi-card</span> .<span style=color:#a6e22e>label</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>font-size</span>: <span style=color:#ae81ff>13</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>color</span>: <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>label<span style=color:#f92672>-</span><span style=color:#66d9ef>color</span>);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>kpi-card</span> .<span style=color:#a6e22e>value</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>font-size</span>: <span style=color:#ae81ff>28</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>font-weight</span>: <span style=color:#ae81ff>700</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>margin-top</span>: <span style=color:#ae81ff>6</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>kpi-card</span> .<span style=color:#a6e22e>value</span>.<span style=color:#a6e22e>danger</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>color</span>: <span style=color:#ae81ff>#e53e3e</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>chart-grid</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>display</span>: <span style=color:#66d9ef>grid</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>grid-template-columns</span>: <span style=color:#ae81ff>1</span>fr <span style=color:#ae81ff>1</span>fr;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>gap</span>: <span style=color:#ae81ff>24</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>chart-card</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>background</span>: <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>card<span style=color:#f92672>-</span>bg);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>border-radius</span>: <span style=color:#ae81ff>12</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>padding</span>: <span style=color:#ae81ff>20</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>box-shadow</span>: <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>1</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>4</span><span style=color:#66d9ef>px</span> <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>shadow<span style=color:#f92672>-</span><span style=color:#66d9ef>color</span>);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>transition</span>: <span style=color:#66d9ef>background</span> <span style=color:#ae81ff>0.3</span><span style=color:#66d9ef>s</span>, <span style=color:#66d9ef>box-shadow</span> <span style=color:#ae81ff>0.3</span><span style=color:#66d9ef>s</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>chart-card</span> <span style=color:#f92672>h3</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>font-size</span>: <span style=color:#ae81ff>16</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>margin-bottom</span>: <span style=color:#ae81ff>16</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>color</span>: <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>heading<span style=color:#f92672>-</span><span style=color:#66d9ef>color</span>);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>full-width</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>grid-column</span>: <span style=color:#ae81ff>1</span> <span style=color:#f92672>/</span> <span style=color:#ae81ff>-1</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>alert-history</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>min-height</span>: <span style=color:#ae81ff>250</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>table-wrapper</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>overflow-x</span>: <span style=color:#66d9ef>auto</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>table</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>width</span>: <span style=color:#ae81ff>100</span><span style=color:#66d9ef>%</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>border-collapse</span>: <span style=color:#66d9ef>collapse</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>font-size</span>: <span style=color:#ae81ff>14</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>th</span><span style=color:#f92672>,</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>td</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>padding</span>: <span style=color:#ae81ff>12</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>10</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>text-align</span>: <span style=color:#66d9ef>left</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>border-bottom</span>: <span style=color:#ae81ff>1</span><span style=color:#66d9ef>px</span> <span style=color:#66d9ef>solid</span> <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>border<span style=color:#f92672>-</span><span style=color:#66d9ef>color</span>);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>th</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>color</span>: <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>label<span style=color:#f92672>-</span><span style=color:#66d9ef>color</span>);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>background</span>: <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span><span style=color:#66d9ef>table</span><span style=color:#f92672>-</span>head<span style=color:#f92672>-</span>bg);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>font-size</span>: <span style=color:#ae81ff>12</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>text-transform</span>: <span style=color:#66d9ef>uppercase</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>status-badge</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>display</span>: <span style=color:#66d9ef>inline-block</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>padding</span>: <span style=color:#ae81ff>4</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>8</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>border-radius</span>: <span style=color:#ae81ff>999</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>color</span>: <span style=color:#ae81ff>#fff</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>font-size</span>: <span style=color:#ae81ff>11</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>font-weight</span>: <span style=color:#ae81ff>700</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>status-badge</span>.<span style=color:#a6e22e>warning</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>background</span>: <span style=color:#ae81ff>#dd6b20</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>status-badge</span>.<span style=color:#a6e22e>critical</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>background</span>: <span style=color:#ae81ff>#e53e3e</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>no-alerts</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>color</span>: <span style=color:#ae81ff>#38a169</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>padding</span>: <span style=color:#ae81ff>16</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>status</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>text-align</span>: <span style=color:#66d9ef>center</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>padding</span>: <span style=color:#ae81ff>40</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>color</span>: <span style=color:#ae81ff>#718096</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>@<span style=color:#66d9ef>media</span> <span style=color:#f92672>(</span><span style=color:#f92672>max-width</span><span style=color:#f92672>:</span> <span style=color:#f92672>900px</span><span style=color:#f92672>)</span> {
+</span></span><span style=display:flex><span>    <span style=color:#f92672>body</span> {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>padding</span>: <span style=color:#ae81ff>16</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>header</span> {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>padding</span>: <span style=color:#ae81ff>18</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>align-items</span>: <span style=color:#66d9ef>flex-start</span>;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>gap</span>: <span style=color:#ae81ff>16</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>flex-direction</span>: <span style=color:#66d9ef>column</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    .<span style=color:#a6e22e>chart-grid</span> {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>grid-template-columns</span>: <span style=color:#ae81ff>1</span>fr;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p><strong>3.</strong> File <code>script.js</code> chứa logic gọi API và vẽ biểu đồ bằng <strong>Chart.js</strong>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>API_ENDPOINT</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;REPLACE_MY_API_ENDPOINT&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// EN/VI
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>translations</span> <span style=color:#f92672>=</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>en</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>subtitle</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;AWS Cost Monitoring &amp; Alert Dashboard — Near Real-Time&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>labelTotal</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Total Cost (Period)&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>labelThreshold</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Alert Threshold/Day&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>labelDays</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Monitored Days&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>labelAnomalies</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Anomalous Days&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>titleTrend</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;📈 Daily Cost Trend (Threshold Line + Anomaly Markers)&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>titleAlert</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;🚨 Alert History&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>titleTop</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;📊 Top Cost Services&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>loading</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Loading cost data...&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>dailyCost</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Daily Cost&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>budgetThreshold</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Budget Threshold&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>cost</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Cost ($)&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>date</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Date&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>status</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Status&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>reason</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Reason&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>noAlerts</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;No abnormal cost days were detected.&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>warningReason</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Budget threshold exceeded&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>criticalReason</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Cost spike detected&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>error</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Error loading data: &#34;</span>,
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>vi</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>subtitle</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Bảng giám sát &amp; cảnh báo chi phí AWS — Thời gian gần thực&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>labelTotal</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Tổng chi phí (kỳ)&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>labelThreshold</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Ngưỡng cảnh báo/ngày&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>labelDays</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Số ngày theo dõi&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>labelAnomalies</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Số ngày bất thường&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>titleTrend</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;📈 Xu hướng chi phí theo ngày (đường ngưỡng + đánh dấu bất thường)&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>titleAlert</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;🚨 Lịch sử cảnh báo&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>titleTop</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;📊 Top dịch vụ tốn chi phí&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>loading</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Đang tải dữ liệu chi phí...&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>dailyCost</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Chi phí/ngày&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>budgetThreshold</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Ngưỡng ngân sách&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>cost</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Chi phí ($)&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>date</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Ngày&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>status</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Trạng thái&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>reason</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Lý do&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>noAlerts</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Không phát hiện ngày có chi phí bất thường.&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>warningReason</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Vượt ngưỡng ngân sách&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>criticalReason</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Phát hiện chi phí tăng đột biến&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>error</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Lỗi tải dữ liệu: &#34;</span>,
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>currentLang</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;en&#34;</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>latestData</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>null</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>charts</span> <span style=color:#f92672>=</span> {};
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>statusColor</span> <span style=color:#f92672>=</span> (<span style=color:#a6e22e>status</span>) =&gt;
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>status</span> <span style=color:#f92672>===</span> <span style=color:#e6db74>&#34;CRITICAL&#34;</span> <span style=color:#f92672>?</span> <span style=color:#e6db74>&#34;#e53e3e&#34;</span> <span style=color:#f92672>:</span> <span style=color:#a6e22e>status</span> <span style=color:#f92672>===</span> <span style=color:#e6db74>&#34;WARNING&#34;</span> <span style=color:#f92672>?</span> <span style=color:#e6db74>&#34;#dd6b20&#34;</span> <span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;#38a169&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>applyStaticText</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>t</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>translations</span>[<span style=color:#a6e22e>currentLang</span>];
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#34;header-subtitle&#34;</span>).<span style=color:#a6e22e>textContent</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>t</span>.<span style=color:#a6e22e>subtitle</span>;
+</span></span><span style=display:flex><span>    document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#34;label-total&#34;</span>).<span style=color:#a6e22e>textContent</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>t</span>.<span style=color:#a6e22e>labelTotal</span>;
+</span></span><span style=display:flex><span>    document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#34;label-threshold&#34;</span>).<span style=color:#a6e22e>textContent</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>t</span>.<span style=color:#a6e22e>labelThreshold</span>;
+</span></span><span style=display:flex><span>    document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#34;label-days&#34;</span>).<span style=color:#a6e22e>textContent</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>t</span>.<span style=color:#a6e22e>labelDays</span>;
+</span></span><span style=display:flex><span>    document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#34;label-anomalies&#34;</span>).<span style=color:#a6e22e>textContent</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>t</span>.<span style=color:#a6e22e>labelAnomalies</span>;
+</span></span><span style=display:flex><span>    document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#34;title-trend&#34;</span>).<span style=color:#a6e22e>textContent</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>t</span>.<span style=color:#a6e22e>titleTrend</span>;
+</span></span><span style=display:flex><span>    document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#34;title-alert&#34;</span>).<span style=color:#a6e22e>textContent</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>t</span>.<span style=color:#a6e22e>titleAlert</span>;
+</span></span><span style=display:flex><span>    document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#34;title-top&#34;</span>).<span style=color:#a6e22e>textContent</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>t</span>.<span style=color:#a6e22e>titleTop</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>renderCharts</span>(<span style=color:#a6e22e>data</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>t</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>translations</span>[<span style=color:#a6e22e>currentLang</span>];
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    Object.<span style=color:#a6e22e>values</span>(<span style=color:#a6e22e>charts</span>).<span style=color:#a6e22e>forEach</span>((<span style=color:#a6e22e>chart</span>) =&gt; <span style=color:#a6e22e>chart</span> <span style=color:#f92672>&amp;&amp;</span> <span style=color:#a6e22e>chart</span>.<span style=color:#a6e22e>destroy</span>());
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>charts</span> <span style=color:#f92672>=</span> {};
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>labels</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>daily_costs</span>.<span style=color:#a6e22e>map</span>((<span style=color:#a6e22e>day</span>) =&gt; <span style=color:#a6e22e>day</span>.<span style=color:#a6e22e>date</span>);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>totals</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>daily_costs</span>.<span style=color:#a6e22e>map</span>((<span style=color:#a6e22e>day</span>) =&gt; <span style=color:#a6e22e>day</span>.<span style=color:#a6e22e>total</span>);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>colors</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>daily_costs</span>.<span style=color:#a6e22e>map</span>((<span style=color:#a6e22e>day</span>) =&gt; <span style=color:#a6e22e>statusColor</span>(<span style=color:#a6e22e>day</span>.<span style=color:#a6e22e>status</span>));
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>threshold</span> <span style=color:#f92672>=</span> Number(<span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>threshold</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>charts</span>.<span style=color:#a6e22e>trend</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>Chart</span>(document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#34;trendChart&#34;</span>), {
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>type</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;line&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>data</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>            <span style=color:#a6e22e>labels</span>,
+</span></span><span style=display:flex><span>            <span style=color:#a6e22e>datasets</span><span style=color:#f92672>:</span> [
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                    <span style=color:#a6e22e>label</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>t</span>.<span style=color:#a6e22e>dailyCost</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#a6e22e>data</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>totals</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#a6e22e>borderColor</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;#3182ce&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#a6e22e>backgroundColor</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;rgba(49, 130, 206, 0.1)&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#a6e22e>fill</span><span style=color:#f92672>:</span> <span style=color:#66d9ef>true</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#a6e22e>tension</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>0.3</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#a6e22e>pointBackgroundColor</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>colors</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#a6e22e>pointRadius</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>5</span>,
+</span></span><span style=display:flex><span>                },
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                    <span style=color:#a6e22e>label</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>t</span>.<span style=color:#a6e22e>budgetThreshold</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#a6e22e>data</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>labels</span>.<span style=color:#a6e22e>map</span>(() =&gt; <span style=color:#a6e22e>threshold</span>),
+</span></span><span style=display:flex><span>                    <span style=color:#a6e22e>borderColor</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;#e53e3e&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#a6e22e>borderDash</span><span style=color:#f92672>:</span> [<span style=color:#ae81ff>6</span>, <span style=color:#ae81ff>4</span>],
+</span></span><span style=display:flex><span>                    <span style=color:#a6e22e>pointRadius</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>0</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#a6e22e>fill</span><span style=color:#f92672>:</span> <span style=color:#66d9ef>false</span>,
+</span></span><span style=display:flex><span>                },
+</span></span><span style=display:flex><span>            ],
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>options</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>            <span style=color:#a6e22e>responsive</span><span style=color:#f92672>:</span> <span style=color:#66d9ef>true</span>,
+</span></span><span style=display:flex><span>            <span style=color:#a6e22e>plugins</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>                <span style=color:#a6e22e>legend</span><span style=color:#f92672>:</span> { <span style=color:#a6e22e>position</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;top&#34;</span> },
+</span></span><span style=display:flex><span>                <span style=color:#a6e22e>tooltip</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>                    <span style=color:#a6e22e>callbacks</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>                        <span style=color:#a6e22e>label</span>(<span style=color:#a6e22e>context</span>) {
+</span></span><span style=display:flex><span>                            <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>label</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>context</span>.<span style=color:#a6e22e>dataset</span>.<span style=color:#a6e22e>label</span> <span style=color:#f92672>||</span> <span style=color:#e6db74>&#34;&#34;</span>;
+</span></span><span style=display:flex><span>                            <span style=color:#66d9ef>return</span> <span style=color:#e6db74>`</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>label</span><span style=color:#e6db74>}</span><span style=color:#e6db74>: $</span><span style=color:#e6db74>${</span>Number(<span style=color:#a6e22e>context</span>.<span style=color:#a6e22e>parsed</span>.<span style=color:#a6e22e>y</span>).<span style=color:#a6e22e>toFixed</span>(<span style=color:#ae81ff>2</span>)<span style=color:#e6db74>}</span><span style=color:#e6db74>`</span>;
+</span></span><span style=display:flex><span>                        },
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                },
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>    });
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>charts</span>.<span style=color:#a6e22e>top</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>Chart</span>(document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#34;topChart&#34;</span>), {
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>type</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;bar&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>data</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>            <span style=color:#a6e22e>labels</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>top_services</span>.<span style=color:#a6e22e>map</span>((<span style=color:#a6e22e>service</span>) =&gt; <span style=color:#a6e22e>service</span>.<span style=color:#a6e22e>service</span>),
+</span></span><span style=display:flex><span>            <span style=color:#a6e22e>datasets</span><span style=color:#f92672>:</span> [
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                    <span style=color:#a6e22e>label</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>t</span>.<span style=color:#a6e22e>cost</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#a6e22e>data</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>top_services</span>.<span style=color:#a6e22e>map</span>((<span style=color:#a6e22e>service</span>) =&gt; <span style=color:#a6e22e>service</span>.<span style=color:#a6e22e>cost</span>),
+</span></span><span style=display:flex><span>                    <span style=color:#a6e22e>backgroundColor</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;#ff9900&#34;</span>,
+</span></span><span style=display:flex><span>                },
+</span></span><span style=display:flex><span>            ],
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>options</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>            <span style=color:#a6e22e>indexAxis</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;y&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#a6e22e>responsive</span><span style=color:#f92672>:</span> <span style=color:#66d9ef>true</span>,
+</span></span><span style=display:flex><span>            <span style=color:#a6e22e>plugins</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>                <span style=color:#a6e22e>legend</span><span style=color:#f92672>:</span> { <span style=color:#a6e22e>display</span><span style=color:#f92672>:</span> <span style=color:#66d9ef>false</span> },
+</span></span><span style=display:flex><span>                <span style=color:#a6e22e>tooltip</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>                    <span style=color:#a6e22e>callbacks</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>                        <span style=color:#a6e22e>label</span>(<span style=color:#a6e22e>context</span>) {
+</span></span><span style=display:flex><span>                            <span style=color:#66d9ef>return</span> <span style=color:#e6db74>`</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>t</span>.<span style=color:#a6e22e>cost</span><span style=color:#e6db74>}</span><span style=color:#e6db74>: $</span><span style=color:#e6db74>${</span>Number(<span style=color:#a6e22e>context</span>.<span style=color:#a6e22e>parsed</span>.<span style=color:#a6e22e>x</span>).<span style=color:#a6e22e>toFixed</span>(<span style=color:#ae81ff>2</span>)<span style=color:#e6db74>}</span><span style=color:#e6db74>`</span>;
+</span></span><span style=display:flex><span>                        },
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                },
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>    });
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>renderAlertHistory</span>(<span style=color:#a6e22e>data</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>t</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>translations</span>[<span style=color:#a6e22e>currentLang</span>];
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>container</span> <span style=color:#f92672>=</span> document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#34;alert-history&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>anomalies</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>daily_costs</span>.<span style=color:#a6e22e>filter</span>((<span style=color:#a6e22e>day</span>) =&gt; <span style=color:#a6e22e>day</span>.<span style=color:#a6e22e>status</span> <span style=color:#f92672>!==</span> <span style=color:#e6db74>&#34;NORMAL&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>anomalies</span>.<span style=color:#a6e22e>length</span> <span style=color:#f92672>===</span> <span style=color:#ae81ff>0</span>) {
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>container</span>.<span style=color:#a6e22e>innerHTML</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>`&lt;p class=&#34;no-alerts&#34;&gt;✅ </span><span style=color:#e6db74>${</span><span style=color:#a6e22e>t</span>.<span style=color:#a6e22e>noAlerts</span><span style=color:#e6db74>}</span><span style=color:#e6db74>&lt;/p&gt;`</span>;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>rows</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>anomalies</span>
+</span></span><span style=display:flex><span>        .<span style=color:#a6e22e>slice</span>()
+</span></span><span style=display:flex><span>        .<span style=color:#a6e22e>reverse</span>()
+</span></span><span style=display:flex><span>        .<span style=color:#a6e22e>map</span>((<span style=color:#a6e22e>day</span>) =&gt; {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>reason</span> <span style=color:#f92672>=</span>
+</span></span><span style=display:flex><span>                <span style=color:#a6e22e>day</span>.<span style=color:#a6e22e>status</span> <span style=color:#f92672>===</span> <span style=color:#e6db74>&#34;CRITICAL&#34;</span> <span style=color:#f92672>?</span> <span style=color:#a6e22e>t</span>.<span style=color:#a6e22e>criticalReason</span> <span style=color:#f92672>:</span> <span style=color:#a6e22e>t</span>.<span style=color:#a6e22e>warningReason</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>return</span> <span style=color:#e6db74>`
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                &lt;tr&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                    &lt;td&gt;</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>day</span>.<span style=color:#a6e22e>date</span><span style=color:#e6db74>}</span><span style=color:#e6db74>&lt;/td&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                    &lt;td&gt;$</span><span style=color:#e6db74>${</span>Number(<span style=color:#a6e22e>day</span>.<span style=color:#a6e22e>total</span>).<span style=color:#a6e22e>toFixed</span>(<span style=color:#ae81ff>2</span>)<span style=color:#e6db74>}</span><span style=color:#e6db74>&lt;/td&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                    &lt;td&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                        &lt;span class=&#34;status-badge </span><span style=color:#e6db74>${</span><span style=color:#a6e22e>day</span>.<span style=color:#a6e22e>status</span>.<span style=color:#a6e22e>toLowerCase</span>()<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                            </span><span style=color:#e6db74>${</span><span style=color:#a6e22e>day</span>.<span style=color:#a6e22e>status</span><span style=color:#e6db74>}</span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                        &lt;/span&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                    &lt;/td&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                    &lt;td&gt;</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>reason</span><span style=color:#e6db74>}</span><span style=color:#e6db74>&lt;/td&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                &lt;/tr&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>            `</span>;
+</span></span><span style=display:flex><span>        })
+</span></span><span style=display:flex><span>        .<span style=color:#a6e22e>join</span>(<span style=color:#e6db74>&#34;&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>container</span>.<span style=color:#a6e22e>innerHTML</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>`
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        &lt;div class=&#34;table-wrapper&#34;&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>            &lt;table&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                &lt;thead&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                    &lt;tr&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                        &lt;th&gt;</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>t</span>.<span style=color:#a6e22e>date</span><span style=color:#e6db74>}</span><span style=color:#e6db74>&lt;/th&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                        &lt;th&gt;</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>t</span>.<span style=color:#a6e22e>cost</span><span style=color:#e6db74>}</span><span style=color:#e6db74>&lt;/th&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                        &lt;th&gt;</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>t</span>.<span style=color:#a6e22e>status</span><span style=color:#e6db74>}</span><span style=color:#e6db74>&lt;/th&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                        &lt;th&gt;</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>t</span>.<span style=color:#a6e22e>reason</span><span style=color:#e6db74>}</span><span style=color:#e6db74>&lt;/th&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                    &lt;/tr&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                &lt;/thead&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                &lt;tbody&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                    </span><span style=color:#e6db74>${</span><span style=color:#a6e22e>rows</span><span style=color:#e6db74>}</span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                &lt;/tbody&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>            &lt;/table&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        &lt;/div&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    `</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>renderDashboard</span>(<span style=color:#a6e22e>data</span>) {
+</span></span><span style=display:flex><span>    document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#34;kpi-total&#34;</span>).<span style=color:#a6e22e>textContent</span> <span style=color:#f92672>=</span>
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>`$</span><span style=color:#e6db74>${</span>Number(<span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>grand_total</span>).<span style=color:#a6e22e>toFixed</span>(<span style=color:#ae81ff>2</span>)<span style=color:#e6db74>}</span><span style=color:#e6db74>`</span>;
+</span></span><span style=display:flex><span>    document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#34;kpi-threshold&#34;</span>).<span style=color:#a6e22e>textContent</span> <span style=color:#f92672>=</span>
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>`$</span><span style=color:#e6db74>${</span>Number(<span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>threshold</span>).<span style=color:#a6e22e>toFixed</span>(<span style=color:#ae81ff>2</span>)<span style=color:#e6db74>}</span><span style=color:#e6db74>`</span>;
+</span></span><span style=display:flex><span>    document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#34;kpi-days&#34;</span>).<span style=color:#a6e22e>textContent</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>days_count</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>anomalies</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>daily_costs</span>.<span style=color:#a6e22e>filter</span>((<span style=color:#a6e22e>day</span>) =&gt; <span style=color:#a6e22e>day</span>.<span style=color:#a6e22e>status</span> <span style=color:#f92672>!==</span> <span style=color:#e6db74>&#34;NORMAL&#34;</span>).<span style=color:#a6e22e>length</span>;
+</span></span><span style=display:flex><span>    document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#34;kpi-anomalies&#34;</span>).<span style=color:#a6e22e>textContent</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>anomalies</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>applyStaticText</span>();
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>renderCharts</span>(<span style=color:#a6e22e>data</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>renderAlertHistory</span>(<span style=color:#a6e22e>data</span>);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>async</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>loadDashboard</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>try</span> {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>response</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>await</span> <span style=color:#a6e22e>fetch</span>(<span style=color:#a6e22e>API_ENDPOINT</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span><span style=color:#a6e22e>response</span>.<span style=color:#a6e22e>ok</span>) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>throw</span> <span style=color:#66d9ef>new</span> Error(<span style=color:#e6db74>`HTTP </span><span style=color:#e6db74>${</span><span style=color:#a6e22e>response</span>.<span style=color:#a6e22e>status</span><span style=color:#e6db74>}</span><span style=color:#e6db74>`</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>latestData</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>await</span> <span style=color:#a6e22e>response</span>.<span style=color:#a6e22e>json</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#34;status&#34;</span>).<span style=color:#a6e22e>style</span>.<span style=color:#a6e22e>display</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;none&#34;</span>;
+</span></span><span style=display:flex><span>        document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#34;content&#34;</span>).<span style=color:#a6e22e>style</span>.<span style=color:#a6e22e>display</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;block&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>renderDashboard</span>(<span style=color:#a6e22e>latestData</span>);
+</span></span><span style=display:flex><span>    } <span style=color:#66d9ef>catch</span> (<span style=color:#a6e22e>error</span>) {
+</span></span><span style=display:flex><span>        document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#34;status&#34;</span>).<span style=color:#a6e22e>textContent</span> <span style=color:#f92672>=</span>
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>`❌ </span><span style=color:#e6db74>${</span><span style=color:#a6e22e>translations</span>[<span style=color:#a6e22e>currentLang</span>].<span style=color:#a6e22e>error</span><span style=color:#e6db74>}${</span><span style=color:#a6e22e>error</span>.<span style=color:#a6e22e>message</span><span style=color:#e6db74>}</span><span style=color:#e6db74>`</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>langToggle</span> <span style=color:#f92672>=</span> document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#34;lang-toggle&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>langToggle</span>.<span style=color:#a6e22e>addEventListener</span>(<span style=color:#e6db74>&#34;click&#34;</span>, () =&gt; {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>currentLang</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>currentLang</span> <span style=color:#f92672>===</span> <span style=color:#e6db74>&#34;vi&#34;</span> <span style=color:#f92672>?</span> <span style=color:#e6db74>&#34;en&#34;</span> <span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;vi&#34;</span>;
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>langToggle</span>.<span style=color:#a6e22e>textContent</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>currentLang</span> <span style=color:#f92672>===</span> <span style=color:#e6db74>&#34;vi&#34;</span> <span style=color:#f92672>?</span> <span style=color:#e6db74>&#34;VI&#34;</span> <span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;🇻🇳 VI&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>latestData</span>) {
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>renderDashboard</span>(<span style=color:#a6e22e>latestData</span>);
+</span></span><span style=display:flex><span>    } <span style=color:#66d9ef>else</span> {
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>applyStaticText</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>});
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>themeToggle</span> <span style=color:#f92672>=</span> document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#34;theme-toggle&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>themeToggle</span>.<span style=color:#a6e22e>addEventListener</span>(<span style=color:#e6db74>&#34;click&#34;</span>, () =&gt; {
+</span></span><span style=display:flex><span>    document.<span style=color:#a6e22e>body</span>.<span style=color:#a6e22e>classList</span>.<span style=color:#a6e22e>toggle</span>(<span style=color:#e6db74>&#34;dark-mode&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>themeToggle</span>.<span style=color:#a6e22e>textContent</span> <span style=color:#f92672>=</span> document.<span style=color:#a6e22e>body</span>.<span style=color:#a6e22e>classList</span>.<span style=color:#a6e22e>contains</span>(<span style=color:#e6db74>&#34;dark-mode&#34;</span>)
+</span></span><span style=display:flex><span>        <span style=color:#f92672>?</span> <span style=color:#e6db74>&#34;☀️&#34;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;🌙&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>Chart</span>.<span style=color:#a6e22e>defaults</span>.<span style=color:#a6e22e>color</span> <span style=color:#f92672>=</span> document.<span style=color:#a6e22e>body</span>.<span style=color:#a6e22e>classList</span>.<span style=color:#a6e22e>contains</span>(<span style=color:#e6db74>&#34;dark-mode&#34;</span>)
+</span></span><span style=display:flex><span>        <span style=color:#f92672>?</span> <span style=color:#e6db74>&#34;#ffffff&#34;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;#666&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    Object.<span style=color:#a6e22e>values</span>(<span style=color:#a6e22e>charts</span>).<span style=color:#a6e22e>forEach</span>((<span style=color:#a6e22e>chart</span>) =&gt; <span style=color:#a6e22e>chart</span> <span style=color:#f92672>&amp;&amp;</span> <span style=color:#a6e22e>chart</span>.<span style=color:#a6e22e>update</span>());
+</span></span><span style=display:flex><span>});
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>applyStaticText</span>();
+</span></span><span style=display:flex><span><span style=color:#a6e22e>loadDashboard</span>();
+</span></span></code></pre></div><p>Giao diện gồm:</p><ul><li>Đăng nhập/đăng xuất bằng Cognito.</li><li>Hiển thị KPI: tổng chi phí, ngưỡng, số ngày theo dõi, số ngày bất thường.</li><li>Biểu đồ xu hướng chi phí, kèm đường ngưỡng và màu trạng thái bất thường.</li><li>Lịch sử cảnh báo giúp xác định nhanh ngày, chi phí, mức cảnh báo và lý do.</li><li>Top dịch vụ tốn chi phí nhất.</li></ul><p><img alt=Dashboard src=/workshop-fcaj-intern/images/5-Workshop/5.6-Dashboard/5.6.2-Frontend/frontend_1.png></p><h3 id=host-web-lên-s3-và-cloudfront>Host Web lên S3 và CloudFront</h3><p><strong>1.</strong> Chúng ta sẽ tạo file <code>terraform/web_hosting.tf</code> để host giao diện lên <strong>S3</strong> và phân phối qua <strong>CloudFront</strong> với HTTPS. Để bảo mật, bucket Web không được mở public trực tiếp mà chỉ cho phép <strong>CloudFront</strong> đọc thông qua <strong>Origin Access Control</strong>.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-hcl data-lang=hcl><span style=display:flex><span><span style=color:#75715e># Host Website lên S3 + CloudFront
+</span></span></span><span style=display:flex><span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e># S3 bucket lưu web tĩnh
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>resource</span> <span style=color:#e6db74>&#34;aws_s3_bucket&#34; &#34;web&#34;</span> {
+</span></span><span style=display:flex><span>  bucket <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;${var.project_name}-web-${data.aws_caller_identity.current.account_id}&#34;</span>
+</span></span><span style=display:flex><span>}<span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e># static website hosting
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>resource</span> <span style=color:#e6db74>&#34;aws_s3_bucket_website_configuration&#34; &#34;web&#34;</span> {
+</span></span><span style=display:flex><span>  bucket <span style=color:#f92672>=</span> <span style=color:#66d9ef>aws_s3_bucket</span>.<span style=color:#66d9ef>web</span>.<span style=color:#66d9ef>id</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>index_document</span> {
+</span></span><span style=display:flex><span>    suffix <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;index.html&#34;</span>
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>error_document</span> {
+</span></span><span style=display:flex><span>    key <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;index.html&#34;</span>
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}<span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e># CloudFront + Origin Access Control 
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>resource</span> <span style=color:#e6db74>&#34;aws_cloudfront_origin_access_control&#34; &#34;web&#34;</span> {
+</span></span><span style=display:flex><span>  name                              <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;${var.project_name}-oac&#34;</span>
+</span></span><span style=display:flex><span>  origin_access_control_origin_type <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;s3&#34;</span>
+</span></span><span style=display:flex><span>  signing_behavior                  <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;always&#34;</span>
+</span></span><span style=display:flex><span>  signing_protocol                  <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;sigv4&#34;</span>
+</span></span><span style=display:flex><span>}<span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e># chặn truy cập public trực tiếp vào bucket
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>resource</span> <span style=color:#e6db74>&#34;aws_s3_bucket_public_access_block&#34; &#34;web&#34;</span> {
+</span></span><span style=display:flex><span>  bucket                  <span style=color:#f92672>=</span> <span style=color:#66d9ef>aws_s3_bucket</span>.<span style=color:#66d9ef>web</span>.<span style=color:#66d9ef>id</span>
+</span></span><span style=display:flex><span>  block_public_acls       <span style=color:#f92672>=</span> <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>  block_public_policy     <span style=color:#f92672>=</span> <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>  ignore_public_acls      <span style=color:#f92672>=</span> <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>  restrict_public_buckets <span style=color:#f92672>=</span> <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>}<span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e># CloudFront distribution
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>resource</span> <span style=color:#e6db74>&#34;aws_cloudfront_distribution&#34; &#34;web&#34;</span> {
+</span></span><span style=display:flex><span>  enabled             <span style=color:#f92672>=</span> <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>  default_root_object <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;index.html&#34;</span>
+</span></span><span style=display:flex><span>  comment             <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;CloudCost Insight Web Dashboard&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>origin</span> {
+</span></span><span style=display:flex><span>    domain_name              <span style=color:#f92672>=</span> <span style=color:#66d9ef>aws_s3_bucket</span>.<span style=color:#66d9ef>web</span>.<span style=color:#66d9ef>bucket_regional_domain_name</span>
+</span></span><span style=display:flex><span>    origin_id                <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;s3-web&#34;</span>
+</span></span><span style=display:flex><span>    origin_access_control_id <span style=color:#f92672>=</span> <span style=color:#66d9ef>aws_cloudfront_origin_access_control</span>.<span style=color:#66d9ef>web</span>.<span style=color:#66d9ef>id</span>
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>default_cache_behavior</span> {
+</span></span><span style=display:flex><span>    target_origin_id       <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;s3-web&#34;</span>
+</span></span><span style=display:flex><span>    viewer_protocol_policy <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;redirect-to-https&#34;</span><span style=color:#75715e> # HTTPS
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    allowed_methods        <span style=color:#f92672>=</span> [<span style=color:#e6db74>&#34;GET&#34;, &#34;HEAD&#34;</span>]
+</span></span><span style=display:flex><span>    cached_methods         <span style=color:#f92672>=</span> [<span style=color:#e6db74>&#34;GET&#34;, &#34;HEAD&#34;</span>]<span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>    # giúp Dashboard luôn tải phiên bản file mới nhất từ S3 thay vì dùng bản cũ
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    min_ttl     <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>
+</span></span><span style=display:flex><span>    default_ttl <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>
+</span></span><span style=display:flex><span>    max_ttl     <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>forwarded_values</span> {
+</span></span><span style=display:flex><span>      query_string <span style=color:#f92672>=</span> <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>cookies</span> {
+</span></span><span style=display:flex><span>        forward <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;none&#34;</span>
+</span></span><span style=display:flex><span>      }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>restrictions</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>geo_restriction</span> {
+</span></span><span style=display:flex><span>      restriction_type <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;none&#34;</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>viewer_certificate</span> {
+</span></span><span style=display:flex><span>    cloudfront_default_certificate <span style=color:#f92672>=</span> <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  price_class <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;PriceClass_100&#34;</span><span style=color:#75715e> #cheap
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>}<span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e># bucket policy: Cloudfront đọc S3
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>data</span> <span style=color:#e6db74>&#34;aws_iam_policy_document&#34; &#34;web_bucket_policy&#34;</span> {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>statement</span> {
+</span></span><span style=display:flex><span>    sid       <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;AllowCloudFrontRead&#34;</span>
+</span></span><span style=display:flex><span>    effect    <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Allow&#34;</span>
+</span></span><span style=display:flex><span>    actions   <span style=color:#f92672>=</span> [<span style=color:#e6db74>&#34;s3:GetObject&#34;</span>]
+</span></span><span style=display:flex><span>    resources <span style=color:#f92672>=</span> [<span style=color:#e6db74>&#34;${aws_s3_bucket.web.arn}/*&#34;</span>]
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>principals</span> {
+</span></span><span style=display:flex><span>      type        <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Service&#34;</span>
+</span></span><span style=display:flex><span>      identifiers <span style=color:#f92672>=</span> [<span style=color:#e6db74>&#34;cloudfront.amazonaws.com&#34;</span>]
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>condition</span> {
+</span></span><span style=display:flex><span>      test     <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;StringEquals&#34;</span>
+</span></span><span style=display:flex><span>      variable <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;AWS:SourceArn&#34;</span>
+</span></span><span style=display:flex><span>      values   <span style=color:#f92672>=</span> [<span style=color:#66d9ef>aws_cloudfront_distribution</span>.<span style=color:#66d9ef>web</span>.<span style=color:#66d9ef>arn</span>]
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>resource</span> <span style=color:#e6db74>&#34;aws_s3_bucket_policy&#34; &#34;web&#34;</span> {
+</span></span><span style=display:flex><span>  bucket <span style=color:#f92672>=</span> <span style=color:#66d9ef>aws_s3_bucket</span>.<span style=color:#66d9ef>web</span>.<span style=color:#66d9ef>id</span>
+</span></span><span style=display:flex><span>  policy <span style=color:#f92672>=</span> <span style=color:#66d9ef>data</span>.<span style=color:#66d9ef>aws_iam_policy_document</span>.<span style=color:#66d9ef>web_bucket_policy</span>.<span style=color:#66d9ef>json</span>
+</span></span><span style=display:flex><span>}<span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e># upload index.html lên S3
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>resource</span> <span style=color:#e6db74>&#34;aws_s3_object&#34; &#34;index&#34;</span> {
+</span></span><span style=display:flex><span>  bucket        <span style=color:#f92672>=</span> <span style=color:#66d9ef>aws_s3_bucket</span>.<span style=color:#66d9ef>web</span>.<span style=color:#66d9ef>id</span>
+</span></span><span style=display:flex><span>  key           <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;index.html&#34;</span>
+</span></span><span style=display:flex><span>  source        <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;${path.module}/web/index.html&#34;</span>
+</span></span><span style=display:flex><span>  content_type  <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;text/html&#34;</span>
+</span></span><span style=display:flex><span>  cache_control <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;no-cache, no-store, must-revalidate&#34;</span>
+</span></span><span style=display:flex><span>  etag          <span style=color:#f92672>=</span> <span style=color:#66d9ef>filemd5</span>(<span style=color:#e6db74>&#34;${path.module}/web/index.html&#34;</span>)
+</span></span><span style=display:flex><span>}<span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e># upload style.css lên S3
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>resource</span> <span style=color:#e6db74>&#34;aws_s3_object&#34; &#34;style&#34;</span> {
+</span></span><span style=display:flex><span>  bucket        <span style=color:#f92672>=</span> <span style=color:#66d9ef>aws_s3_bucket</span>.<span style=color:#66d9ef>web</span>.<span style=color:#66d9ef>id</span>
+</span></span><span style=display:flex><span>  key           <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;style.css&#34;</span>
+</span></span><span style=display:flex><span>  source        <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;${path.module}/web/style.css&#34;</span>
+</span></span><span style=display:flex><span>  content_type  <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;text/css&#34;</span>
+</span></span><span style=display:flex><span>  cache_control <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;no-cache, no-store, must-revalidate&#34;</span>
+</span></span><span style=display:flex><span>  etag          <span style=color:#f92672>=</span> <span style=color:#66d9ef>filemd5</span>(<span style=color:#e6db74>&#34;${path.module}/web/style.css&#34;</span>)
+</span></span><span style=display:flex><span>}<span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e># upload script.js lên S3
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>locals</span> {
+</span></span><span style=display:flex><span>    rendered_script <span style=color:#f92672>=</span> <span style=color:#66d9ef>replace</span> (
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>file</span>(<span style=color:#e6db74>&#34;${path.module}/web/script.js&#34;</span>),
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;REPLACE_MY_API_ENDPOINT&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;${trim(aws_apigatewayv2_stage.default.invoke_url, &#34;/&#34;)}/costs&#34;</span>
+</span></span><span style=display:flex><span>    )
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>resource</span> <span style=color:#e6db74>&#34;aws_s3_object&#34; &#34;script&#34;</span> {
+</span></span><span style=display:flex><span>  bucket <span style=color:#f92672>=</span> <span style=color:#66d9ef>aws_s3_bucket</span>.<span style=color:#66d9ef>web</span>.<span style=color:#66d9ef>id</span>
+</span></span><span style=display:flex><span>  key    <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;script.js&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  content       <span style=color:#f92672>=</span> <span style=color:#66d9ef>local</span>.<span style=color:#66d9ef>rendered_script</span>
+</span></span><span style=display:flex><span>  content_type  <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;application/javascript&#34;</span>
+</span></span><span style=display:flex><span>  cache_control <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;no-cache, no-store, must-revalidate&#34;</span>
+</span></span><span style=display:flex><span>  etag          <span style=color:#f92672>=</span> <span style=color:#66d9ef>md5</span>(<span style=color:#66d9ef>local</span>.<span style=color:#66d9ef>rendered_script</span>)
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Việc dùng <strong>Origin Access Control</strong> là một điểm bảo mật quan trọng. Bucket Web hoàn toàn không mở công khai, mọi truy cập phải đi qua CloudFront với HTTPS, tránh lộ dữ liệu ra Internet.</p><p><strong>2.</strong> Mở file <code>terraform/outputs.tf</code> và thêm đoạn cấu hình sau vào cuối file.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-hcl data-lang=hcl><span style=display:flex><span><span style=color:#75715e># Web Dashboard
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>output</span> <span style=color:#e6db74>&#34;web_dashboard_url&#34;</span> {
+</span></span><span style=display:flex><span>  description <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;URL to access Web Dashboard (HTTPS via CloudFront)&#34;</span>
+</span></span><span style=display:flex><span>  value       <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;https://${aws_cloudfront_distribution.web.domain_name}&#34;</span>
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>output</span> <span style=color:#e6db74>&#34;web_bucket_name&#34;</span> {
+</span></span><span style=display:flex><span>  description <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;S3 bucket name for static web&#34;</span>
+</span></span><span style=display:flex><span>  value       <span style=color:#f92672>=</span> <span style=color:#66d9ef>aws_s3_bucket</span>.<span style=color:#66d9ef>web</span>.<span style=color:#66d9ef>id</span>
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=triển-khai-và-truy-cập-dashboard>Triển khai và truy cập Dashboard</h3><p><strong>1.</strong> Trên Terminal, triển khai phần Frontend:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>terraform apply
+</span></span></code></pre></div><p><strong>2.</strong> Lấy đường link URL của Dashboard:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>terraform output web_dashboard_url
+</span></span></code></pre></div><p><img alt=Script src=/workshop-fcaj-intern/images/5-Workshop/5.6-Dashboard/5.6.2-Frontend/frontend_2.png></p><p><strong>3.</strong> Truy cập vào đường link hiện ra trên Terminal, ta sẽ vào giao diện của Website:</p><p><img alt=Dashboard src=/workshop-fcaj-intern/images/5-Workshop/5.6-Dashboard/5.6.2-Frontend/frontend_3.png></p><p><img alt=Dashboard src=/workshop-fcaj-intern/images/5-Workshop/5.6-Dashboard/5.6.2-Frontend/frontend_8.png></p><p>Giao diện thể hiện được <strong>Tổng chi phí</strong>, <strong>Ngưỡng cảnh báo</strong>, <strong>Số ngày theo dõi</strong>, <strong>Số ngày bất thường</strong>, 2 biểu đồ trực quan và lịch sử cảnh báo.</p><p><strong>Biểu đồ 1: Xu hướng chi phí theo ngày (Trend Chart):</strong></p><p><img alt=Dashboard src=/workshop-fcaj-intern/images/5-Workshop/5.6-Dashboard/5.6.2-Frontend/frontend_5.png></p><ul><li>Trục X (ngang): thể hiện các ngày theo dõi.</li><li>Trục Y (dọc): thể hiện chi phí ($) mỗi ngày.</li><li>Đường ngang màu xanh: thể hiện chi phí thực tế biến động theo ngày.</li><li>Nét đứt màu đỏ: đây là đường ngang cố định, thể hiện ngưỡng ngân sách. Nếu chi phí vượt lên trên đường này thì vượt ngưỡng.</li><li>Vùng nền màu xanh: được tô dưới đường màu xanh thể hiện xu hướng.</li></ul><p><strong>Lịch sử cảnh báo</strong></p><p><img alt=Dashboard src=/workshop-fcaj-intern/images/5-Workshop/5.6-Dashboard/5.6.2-Frontend/frontend_9.png></p><ul><li>Lịch sử cảnh báo thể hiện các ngày mà chi phí vượt ngưỡng, mức cảnh báo và lý do.</li></ul><p><strong>Biểu đồ 2: Top dịch vụ (Bar Chart):</strong></p><p><img alt=Dashboard src=/workshop-fcaj-intern/images/5-Workshop/5.6-Dashboard/5.6.2-Frontend/frontend_7.png></p><ul><li>Biểu đồ thể hiện top 5 các dịch vụ có chi phí cao nhất.</li><li>Trục X (ngang): thể hiện chi phí của dịch vụ.</li><li>Trục Y (dọc): thể hiện tên dịch vụ tương ứng.</li></ul><h3 id=nội-dung-tiếp-theo>Nội dung tiếp theo</h3><ul><li><a href=/workshop-fcaj-intern/vi/5-workshop/5.6-dashboard/5.6.3-authentication-cognito/>Xác thực với Amazon Cognito</a></li></ul><footer class=footline></footer></div></div><div id=navigation><a class="nav nav-prev" href=/workshop-fcaj-intern/vi/5-workshop/5.6-dashboard/5.6.1-backend/ title=Backend><i class="fa fa-chevron-left"></i></a>
+<a class="nav nav-next" href=/workshop-fcaj-intern/vi/5-workshop/5.6-dashboard/5.6.3-authentication-cognito/ title="Xác thực với Amazon Cognito" style=margin-right:0><i class="fa fa-chevron-right"></i></a></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/workshop-fcaj-intern/js/clipboard.min.js?1786693547></script><script src=/workshop-fcaj-intern/js/perfect-scrollbar.min.js?1786693547></script><script src=/workshop-fcaj-intern/js/perfect-scrollbar.jquery.min.js?1786693547></script><script src=/workshop-fcaj-intern/js/jquery.sticky.js?1786693547></script><script src=/workshop-fcaj-intern/js/featherlight.min.js?1786693547></script><script src=/workshop-fcaj-intern/js/highlight.pack.js?1786693547></script><script>hljs.initHighlightingOnLoad()</script><script src=/workshop-fcaj-intern/js/modernizr.custom-3.6.0.js?1786693547></script><script src=/workshop-fcaj-intern/js/learn.js?1786693547></script><script src=/workshop-fcaj-intern/js/hugo-learn.js?1786693547></script><link href=/workshop-fcaj-intern/mermaid/mermaid.css?1786693547 rel=stylesheet><script src=/workshop-fcaj-intern/mermaid/mermaid.js?1786693547></script><script>mermaid.initialize({startOnLoad:!0})</script><script>(function(e,t,n,s,o,i,a){e.GoogleAnalyticsObject=o,(e[o]=e[o]||function(){(e[o].q=e[o].q||[]).push(arguments)},e[o].l=1*new Date),(i=t.createElement(n),a=t.getElementsByTagName(n)[0]),i.async=1,i.src=s,a.parentNode.insertBefore(i,a)})(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-158079754-2","auto"),ga("send","pageview")</script></body></html>

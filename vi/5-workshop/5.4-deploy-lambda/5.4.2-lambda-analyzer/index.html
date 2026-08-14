@@ -1,0 +1,379 @@
+<!doctype html><html lang=vi class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.134.3"><meta name=description content><meta name=author content="thienlh@thienlu.com"><link rel=icon href=/workshop-fcaj-intern/images/favicon.png type=image/png><title>Triển khai Lambda Analyzer :: Báo cáo thực tập</title>
+<link href=/workshop-fcaj-intern/css/nucleus.css?1786693547 rel=stylesheet><link href=/workshop-fcaj-intern/css/fontawesome-all.min.css?1786693547 rel=stylesheet><link href=/workshop-fcaj-intern/css/hybrid.css?1786693547 rel=stylesheet><link href=/workshop-fcaj-intern/css/featherlight.min.css?1786693547 rel=stylesheet><link href=/workshop-fcaj-intern/css/perfect-scrollbar.min.css?1786693547 rel=stylesheet><link href=/workshop-fcaj-intern/css/auto-complete.css?1786693547 rel=stylesheet><link href=/workshop-fcaj-intern/css/atom-one-dark-reasonable.css?1786693547 rel=stylesheet><link href=/workshop-fcaj-intern/css/theme.css?1786693547 rel=stylesheet><link href=/workshop-fcaj-intern/css/hugo-theme.css?1786693547 rel=stylesheet><link href=/workshop-fcaj-intern/css/theme-workshop.css?1786693547 rel=stylesheet><script src=/workshop-fcaj-intern/js/jquery-3.3.1.min.js?1786693547></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style></head><body data-url=/workshop-fcaj-intern/vi/5-workshop/5.4-deploy-lambda/5.4.2-lambda-analyzer/><nav id=sidebar class=showVisitedLinks><div id=header-wrapper><div id=header><a id=logo href=/workshop-fcaj-intern/vi/><svg id="Layer_1" data-name="Layer 1" viewBox="0 0 60 30" width="30%"><defs><style>.cls-1{fill:#fff}.cls-2{fill:#fff;fill-rule:evenodd}</style></defs><title>AWS-Logo_White-Color</title><path class="cls-1" d="M14.09 10.85a4.7 4.7.0 00.19 1.48 7.73 7.73.0 00.54 1.19.77.77.0 01.12.38.64.64.0 01-.32.49l-1 .7a.83.83.0 01-.44.15.69.69.0 01-.49-.23 3.8 3.8.0 01-.6-.77q-.25-.42-.51-1a6.14 6.14.0 01-4.89 2.3 4.54 4.54.0 01-3.32-1.19 4.27 4.27.0 01-1.22-3.2 4.28 4.28.0 011.46-3.4A6.06 6.06.0 017.69 6.46a12.47 12.47.0 011.76.13q.92.13 1.91.36V5.73a3.65 3.65.0 00-.79-2.66A3.81 3.81.0 007.86 2.3a7.71 7.71.0 00-1.79.22 12.78 12.78.0 00-1.79.57 4.55 4.55.0 01-.58.22h-.26q-.35.0-.35-.52V2a1.09 1.09.0 01.12-.58 1.2 1.2.0 01.47-.35A10.88 10.88.0 015.77.32 10.19 10.19.0 018.36.0a6 6 0 014.35 1.35 5.49 5.49.0 011.38 4.09zM7.34 13.38a5.36 5.36.0 001.72-.31A3.63 3.63.0 0010.63 12 2.62 2.62.0 0011.19 11a5.63 5.63.0 00.16-1.44v-.7a14.35 14.35.0 00-1.53-.28 12.37 12.37.0 00-1.56-.1 3.84 3.84.0 00-2.47.67A2.34 2.34.0 005 11a2.35 2.35.0 00.61 1.76A2.4 2.4.0 007.34 13.38zm13.35 1.8a1 1 0 01-.64-.16 1.3 1.3.0 01-.35-.65L15.81 1.51a3 3 0 01-.15-.67.36.36.0 01.41-.41H17.7a1 1 0 01.65.16 1.4 1.4.0 01.33.65l2.79 11 2.59-11A1.17 1.17.0 0124.39.6a1.1 1.1.0 01.67-.16H26.4a1.1 1.1.0 01.67.16 1.17 1.17.0 01.32.65L30 12.39 32.88 1.25A1.39 1.39.0 0133.22.6a1 1 0 01.65-.16h1.54a.36.36.0 01.41.41 1.36 1.36.0 010 .26 3.64 3.64.0 01-.12.41l-4 12.86a1.3 1.3.0 01-.35.65 1 1 0 01-.64.16H29.25a1 1 0 01-.67-.17 1.26 1.26.0 01-.32-.67L25.67 3.64l-2.56 10.7a1.26 1.26.0 01-.32.67 1 1 0 01-.67.17zm21.36.44a11.28 11.28.0 01-2.56-.29 7.44 7.44.0 01-1.92-.67 1 1 0 01-.61-.93v-.84q0-.52.38-.52a.9.9.0 01.31.06l.42.17a8.77 8.77.0 001.83.58 9.78 9.78.0 002 .2 4.48 4.48.0 002.43-.55 1.76 1.76.0 00.86-1.57 1.61 1.61.0 00-.45-1.16A4.29 4.29.0 0043 9.22l-2.41-.76A5.15 5.15.0 0138 6.78a3.94 3.94.0 01-.83-2.41 3.7 3.7.0 01.45-1.85 4.47 4.47.0 011.19-1.37 5.27 5.27.0 011.7-.86A7.4 7.4.0 0142.6.0a8.87 8.87.0 011.12.07q.57.07 1.08.19t.95.26a4.27 4.27.0 01.7.29 1.59 1.59.0 01.49.41.94.94.0 01.15.55v.79q0 .52-.38.52a1.76 1.76.0 01-.64-.2 7.74 7.74.0 00-3.2-.64 4.37 4.37.0 00-2.21.47 1.6 1.6.0 00-.79 1.48 1.58 1.58.0 00.49 1.18 4.94 4.94.0 001.83.92L44.55 7a5.08 5.08.0 012.57 1.6A3.76 3.76.0 0147.9 11a4.21 4.21.0 01-.44 1.93 4.4 4.4.0 01-1.21 1.47 5.43 5.43.0 01-1.85.93A8.25 8.25.0 0142.05 15.62z"/><path class="cls-2" d="M45.19 23.81C39.72 27.85 31.78 30 25 30A36.64 36.64.0 01.22 20.57c-.51-.46-.06-1.09.56-.74A49.78 49.78.0 0025.53 26.4 49.23 49.23.0 0044.4 22.53C45.32 22.14 46.1 23.14 45.19 23.81z"/><path class="cls-2" d="M47.47 21.21c-.7-.9-4.63-.42-6.39-.21-.53.06-.62-.4-.14-.74 3.13-2.2 8.27-1.57 8.86-.83s-.16 5.89-3.09 8.35c-.45.38-.88.18-.68-.32C46.69 25.8 48.17 22.11 47.47 21.21z"/></svg></a></div><div class=searchbox><label for=search-by><i class="fas fa-search"></i></label>
+<input data-search-input id=search-by type=search placeholder=Search...>
+<span data-search-clear><i class="fas fa-times"></i></span></div><script type=text/javascript src=/workshop-fcaj-intern/js/lunr.min.js?1786693547></script><script type=text/javascript src=/workshop-fcaj-intern/js/auto-complete.js?1786693547></script><script type=text/javascript>var baseurl="https://thienthuan25.github.io/workshop-fcaj-intern//vi"</script><script type=text/javascript src=/workshop-fcaj-intern/js/search.js?1786693547></script></div><div class=highlightable><ul class=topics><li data-nav-id=/workshop-fcaj-intern/vi/1-worklog/ title="Nhật ký công việc" class=dd-item><a href=/workshop-fcaj-intern/vi/1-worklog/><b>1. </b>Nhật ký công việc
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/workshop-fcaj-intern/vi/1-worklog/1.1-week1/ title="Worklog Tuần 1" class=dd-item><a href=/workshop-fcaj-intern/vi/1-worklog/1.1-week1/><b>1.1. </b>Worklog Tuần 1
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/1-worklog/1.2-week2/ title="Worklog Tuần 2" class=dd-item><a href=/workshop-fcaj-intern/vi/1-worklog/1.2-week2/><b>1.2. </b>Worklog Tuần 2
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/1-worklog/1.3-week3/ title="Worklog Tuần 3" class=dd-item><a href=/workshop-fcaj-intern/vi/1-worklog/1.3-week3/><b>1.3. </b>Worklog Tuần 3
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/1-worklog/1.4-week4/ title="Worklog Tuần 4" class=dd-item><a href=/workshop-fcaj-intern/vi/1-worklog/1.4-week4/><b>1.4. </b>Worklog Tuần 4
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/1-worklog/1.5-week5/ title="Worklog Tuần 5" class=dd-item><a href=/workshop-fcaj-intern/vi/1-worklog/1.5-week5/><b>1.5. </b>Worklog Tuần 5
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/1-worklog/1.6-week6/ title="Worklog Tuần 6" class=dd-item><a href=/workshop-fcaj-intern/vi/1-worklog/1.6-week6/><b>1.6. </b>Worklog Tuần 6
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/1-worklog/1.7-week7/ title="Worklog Tuần 7" class=dd-item><a href=/workshop-fcaj-intern/vi/1-worklog/1.7-week7/><b>1.7. </b>Worklog Tuần 7
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/1-worklog/1.8-week8/ title="Worklog Tuần 8" class=dd-item><a href=/workshop-fcaj-intern/vi/1-worklog/1.8-week8/><b>1.8. </b>Worklog Tuần 8
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/1-worklog/1.9-week9/ title="Worklog Tuần 9" class=dd-item><a href=/workshop-fcaj-intern/vi/1-worklog/1.9-week9/><b>1.9. </b>Worklog Tuần 9
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/1-worklog/1.10-week10/ title="Worklog Tuần 10" class=dd-item><a href=/workshop-fcaj-intern/vi/1-worklog/1.10-week10/><b>1.10. </b>Worklog Tuần 10
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/1-worklog/1.11-week11/ title="Worklog Tuần 11" class=dd-item><a href=/workshop-fcaj-intern/vi/1-worklog/1.11-week11/><b>1.11. </b>Worklog Tuần 11
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/1-worklog/1.12-week12/ title="Worklog Tuần 12" class=dd-item><a href=/workshop-fcaj-intern/vi/1-worklog/1.12-week12/><b>1.12. </b>Worklog Tuần 12
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/workshop-fcaj-intern/vi/2-proposal/ title="Bản đề xuất" class=dd-item><a href=/workshop-fcaj-intern/vi/2-proposal/><b>2. </b>Bản đề xuất
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/3-blogsposted/ title="Các bài blogs đã đăng" class=dd-item><a href=/workshop-fcaj-intern/vi/3-blogsposted/><b>3. </b>Các bài blogs đã đăng
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/workshop-fcaj-intern/vi/3-blogsposted/3.1-blog1/ title="Blog 1" class=dd-item><a href=/workshop-fcaj-intern/vi/3-blogsposted/3.1-blog1/><b>3.1. </b>Blog 1
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/3-blogsposted/3.2-blog2/ title="Blog 2" class=dd-item><a href=/workshop-fcaj-intern/vi/3-blogsposted/3.2-blog2/><b>3.2. </b>Blog 2
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/3-blogsposted/3.3-blog3/ title="Blog 3" class=dd-item><a href=/workshop-fcaj-intern/vi/3-blogsposted/3.3-blog3/><b>3.3. </b>Blog 3
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/workshop-fcaj-intern/vi/4-eventparticipated/ title="Các events đã tham gia" class=dd-item><a href=/workshop-fcaj-intern/vi/4-eventparticipated/><b>4. </b>Các events đã tham gia
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/workshop-fcaj-intern/vi/4-eventparticipated/4.1-event1/ title="Event 1" class=dd-item><a href=/workshop-fcaj-intern/vi/4-eventparticipated/4.1-event1/><b>4.1. </b>Event 1
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/4-eventparticipated/4.2-event2/ title="Event 2" class=dd-item><a href=/workshop-fcaj-intern/vi/4-eventparticipated/4.2-event2/><b>4.2. </b>Event 2
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/4-eventparticipated/4.3-event3/ title="Event 3" class=dd-item><a href=/workshop-fcaj-intern/vi/4-eventparticipated/4.3-event3/><b>4.3. </b>Event 3
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/4-eventparticipated/4.4-event4/ title="Event 4" class=dd-item><a href=/workshop-fcaj-intern/vi/4-eventparticipated/4.4-event4/><b>4.4. </b>Event 4
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/ title=Workshop class="dd-item
+parent"><a href=/workshop-fcaj-intern/vi/5-workshop/><b>5. </b>Workshop
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.1-workshop-overview/ title="Giới thiệu" class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.1-workshop-overview/><b>5.1. </b>Giới thiệu
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.2-prerequisite/ title="Các bước chuẩn bị" class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.2-prerequisite/><b>5.2. </b>Các bước chuẩn bị
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.2-prerequisite/5.2.1-aws-credentials/ title="Cấu hình AWS Credentials" class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.2-prerequisite/5.2.1-aws-credentials/><b>5.2.1. </b>Cấu hình AWS Credentials
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.2-prerequisite/5.2.2-hcp-terraform/ title="Cấu hình HCP Terraform" class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.2-prerequisite/5.2.2-hcp-terraform/><b>5.2.2. </b>Cấu hình HCP Terraform
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.2-prerequisite/5.2.3-code-terraform/ title="Chuẩn bị Code Terraform" class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.2-prerequisite/5.2.3-code-terraform/><b>5.2.3. </b>Chuẩn bị Code Terraform
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.3-infrastructure/ title="Dựng hạ tầng bằng Terraform" class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.3-infrastructure/><b>5.3. </b>Dựng hạ tầng bằng Terraform
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.3-infrastructure/5.3.1-variables/ title="Khai báo các biến đầu vào" class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.3-infrastructure/5.3.1-variables/><b>5.3.1 </b>Khai báo các biến đầu vào
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.3-infrastructure/5.3.2-s3-bucket/ title="Tạo S3 Bucket lưu dữ liệu chi phí" class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.3-infrastructure/5.3.2-s3-bucket/><b>5.3.2 </b>Tạo S3 Bucket lưu dữ liệu chi phí
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.3-infrastructure/5.3.3-iam-role/ title="Tạo IAM Role cho Lambda" class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.3-infrastructure/5.3.3-iam-role/><b>5.3.3 </b>Tạo IAM Role cho Lambda
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.3-infrastructure/5.3.4-sns-topic/ title="Tạo SNS Topic cảnh báo" class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.3-infrastructure/5.3.4-sns-topic/><b>5.3.4 </b>Tạo SNS Topic cảnh báo
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.3-infrastructure/5.3.5-sqs-queue-dlq/ title="Tạo SQS Queue và Dead Letter Queue" class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.3-infrastructure/5.3.5-sqs-queue-dlq/><b>5.3.5 </b>Tạo SQS Queue và Dead Letter Queue
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.3-infrastructure/5.3.6-eventbridge-rule/ title="Tạo EventBridge Rule lập lịch" class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.3-infrastructure/5.3.6-eventbridge-rule/><b>5.3.6 </b>Tạo EventBridge Rule lập lịch
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.3-infrastructure/5.3.7-outputs/ title="Khai báo Outputs" class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.3-infrastructure/5.3.7-outputs/><b>5.3.7 </b>Khai báo Outputs
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.3-infrastructure/5.3.8-deploy-infrastructure/ title="Triển khai hạ tầng" class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.3-infrastructure/5.3.8-deploy-infrastructure/><b>5.3.8 </b>Triển khai hạ tầng
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.4-deploy-lambda/ title="Triển khai Lambda" class="dd-item
+parent"><a href=/workshop-fcaj-intern/vi/5-workshop/5.4-deploy-lambda/><b>5.4. </b>Triển khai Lambda
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.4-deploy-lambda/5.4.1-lambda-collector/ title="Triển khai Lambda Collector" class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.4-deploy-lambda/5.4.1-lambda-collector/><b>5.4.1 </b>Triển khai Lambda Collector
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.4-deploy-lambda/5.4.2-lambda-analyzer/ title="Triển khai Lambda Analyzer" class="dd-item
+active"><a href=/workshop-fcaj-intern/vi/5-workshop/5.4-deploy-lambda/5.4.2-lambda-analyzer/><b>5.4.2 </b>Triển khai Lambda Analyzer
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.5-monitoring/ title="Giám sát" class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.5-monitoring/><b>5.5 </b>Giám sát
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.5-monitoring/5.5.1-lambda-alarm-error/ title="Cấu hình CloudWatch Alarms cho Lambda" class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.5-monitoring/5.5.1-lambda-alarm-error/><b>5.5.1 </b>Cấu hình CloudWatch Alarms cho Lambda
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.5-monitoring/5.5.2-lambda-dlq-error/ title="Cấu hình CloudWatch Alarms cho Dead Letter Queue" class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.5-monitoring/5.5.2-lambda-dlq-error/><b>5.5.2 </b>Cấu hình CloudWatch Alarms cho Dead Letter Queue
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.5-monitoring/5.5.3-deploy/ title="Triển khai" class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.5-monitoring/5.5.3-deploy/><b>5.5.3 </b>Triển khai
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.6-dashboard/ title="Giao diện Web" class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.6-dashboard/><b>5.6. </b>Giao diện Web
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.6-dashboard/5.6.1-backend/ title=Backend class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.6-dashboard/5.6.1-backend/><b>5.6.1 </b>Backend
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.6-dashboard/5.6.2-frontend/ title=Frontend class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.6-dashboard/5.6.2-frontend/><b>5.6.2 </b>Frontend
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.6-dashboard/5.6.3-authentication-cognito/ title="Xác thực với Amazon Cognito" class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.6-dashboard/5.6.3-authentication-cognito/><b>5.6.3 </b>Xác thực với Amazon Cognito
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.7-testing/ title="Kiểm thử hệ thống" class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.7-testing/><b>5.7 </b>Kiểm thử hệ thống
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.8-ci-cd/ title=CI/CD class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.8-ci-cd/><b>5.8. </b>CI/CD
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/5-workshop/5.9-cleanup/ title="Dọn dẹp tài nguyên" class=dd-item><a href=/workshop-fcaj-intern/vi/5-workshop/5.9-cleanup/><b>5.9. </b>Dọn dẹp tài nguyên
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/workshop-fcaj-intern/vi/6-self-evaluation/ title="Tự đánh giá" class=dd-item><a href=/workshop-fcaj-intern/vi/6-self-evaluation/><b>6. </b>Tự đánh giá
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/vi/7-feedback/ title="Chia sẻ, đóng góp ý kiến" class=dd-item><a href=/workshop-fcaj-intern/vi/7-feedback/><b>7. </b>Chia sẻ, đóng góp ý kiến
+<i class="fas fa-check read-icon"></i></a></li></ul><section id=shortcuts><h3>More</h3><ul><li><a class=padding href=http://awsstudygroup.com><i class='fab fa-aws'></i> AWS Study Group - Blog</a></li><li><a class=padding href=https://www.facebook.com/groups/awsstudygroupfcj><i class='fab fa-facebook'></i> AWS Study Group - Nhóm FB</a></li></ul></section><section id=prefooter><hr><ul><li><a class=padding><i class="fas fa-language fa-fw"></i><div class=select-style><select id=select-language onchange="location=this.value"><option id=en value=https://thienthuan25.github.io/workshop-fcaj-intern/5-workshop/5.4-deploy-lambda/5.4.2-lambda-analyzer/>English</option><option id=vi value=https://thienthuan25.github.io/workshop-fcaj-intern/vi/5-workshop/5.4-deploy-lambda/5.4.2-lambda-analyzer/ selected>Tiếng Việt</option></select><svg id="Capa_1" xmlns:xlink="http://www.w3.org/1999/xlink" width="255" height="255" viewBox="0 0 255 255" style="enable-background:new 0 0 255 255"><g><g id="arrow-drop-down"><polygon points="0,63.75 127.5,191.25 255,63.75"/></g></g></svg></div></a></li><li><a class=padding href=# data-clear-history-toggle><i class="fas fa-history fa-fw"></i> Clear History</a></li></ul></section><section id=footer><left><br><br><b>Last Updated</b><br><i><font color=orange>14-08-2026</font>
+</i></left><left><br><br><b>Member</b><br><i><a href=https://www.facebook.com/groups/660548818043427 style=color:orange>Nguyễn Thiên Thuận</a>
+</i></left><script async defer src=https://buttons.github.io/buttons.js></script></section></div></nav><section id=body><div id=overlay></div><div class="padding highlightable"><div><div id=top-bar><div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb><span id=sidebar-toggle-span><a href=# id=sidebar-toggle data-sidebar-toggle><i class="fas fa-bars"></i>
+</a></span><span id=toc-menu><i class="fas fa-list-alt"></i></span>
+<span class=links><a href=/workshop-fcaj-intern/vi/>Báo cáo thực tập</a> > <a href=/workshop-fcaj-intern/vi/5-workshop/>Workshop</a> > <a href=/workshop-fcaj-intern/vi/5-workshop/5.4-deploy-lambda/>Triển khai Lambda</a> > Triển khai Lambda Analyzer</span></div><div class=progress><div class=wrapper><nav id=TableOfContents><ul><li><ul><li><a href=#bổ-sung-biến-cấu-hình-cho-analyzer>Bổ sung biến cấu hình cho Analyzer</a></li><li><a href=#viết-code-lambda-analyzer>Viết code Lambda Analyzer</a></li><li><a href=#cấu-hình-iam-role-và-triển-khai-analyzer>Cấu hình IAM Role và triển khai Analyzer</a></li><li><a href=#nội-dung-tiếp-theo>Nội dung tiếp theo</a></li></ul></li></ul></nav></div></div></div></div><div id=head-tags></div><div id=body-inner><h1>Triển khai Lambda Analyzer</h1><h3 id=bổ-sung-biến-cấu-hình-cho-analyzer>Bổ sung biến cấu hình cho Analyzer</h3><p>Analyzer cần hai biến để phục vụ logic phát hiện tăng đột biến. Chúng ta cần bổ sung hai biến sau vào <code>terraform/variables.tf</code>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-hcl data-lang=hcl><span style=display:flex><span><span style=color:#75715e># Hệ số nhân dùng để nhận diện sự gia tăng chi phí bất thường. 
+</span></span></span><span style=display:flex><span><span style=color:#75715e>#  So sánh chi phí hiện tại với chi phí trung bình trong quá khứ nhân với hệ số này
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>variable</span> <span style=color:#e6db74>&#34;spike_multiplier&#34;</span> {
+</span></span><span style=display:flex><span>  description <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Spike multiplier: if cost &gt; historical average * this multiplier, it is considered an abnormal spike&#34;</span>
+</span></span><span style=display:flex><span>  type        <span style=color:#f92672>=</span> <span style=color:#66d9ef>number</span>
+</span></span><span style=display:flex><span>  default     <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>.<span style=color:#ae81ff>5</span><span style=color:#75715e> # chi phí hiện tại vượt mức 1.5 lần trung bình thì sẽ cảnh báo.
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>}<span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e># Số ngày trong quá khứ được lấy ra làm mốc để tính
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>variable</span> <span style=color:#e6db74>&#34;history_days&#34;</span> {
+</span></span><span style=display:flex><span>  description <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Number of historical days used to calculate the average cost (for spike detection)&#34;</span>
+</span></span><span style=display:flex><span>  type        <span style=color:#f92672>=</span> <span style=color:#66d9ef>number</span>
+</span></span><span style=display:flex><span>  default     <span style=color:#f92672>=</span> <span style=color:#ae81ff>7</span><span style=color:#75715e> # tính trung bình chi phí của 7 ngày gần nhất
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>}
+</span></span></code></pre></div><h3 id=viết-code-lambda-analyzer>Viết code Lambda Analyzer</h3><p>Chúng ta sẽ tạo file <code>terraform/lambda/analyzer/handler.py</code> chứa mã nguồn python của hàm Lambda Analyzer.</p><p>Hàm này tự động kích hoạt mỗi khi nhận được tin nhắn báo cáo từ hàng đợi SQS (do Collector gửi sang). Quá trình xử lý diễn ra theo 3 bước:</p><ol><li><strong>Truy xuất dữ liệu</strong>: Nó lấy đường dẫn file từ tin nhắn SQS, sau đó tiến hành lấy chi phí từ kho lưu trữ từ S3 về để đọc.</li><li><strong>Đánh giá thông minh</strong>: Hàm sẽ tính tổng chi phí trong ngày và liệt kê top 5 dịch vụ tốn kém nhất. Nâng cao hơn, hàm còn tự động đọc lại các file cũ trên S3 để tính ra mức chi phí trung bình trong 7 ngày gần nhất.</li><li><strong>Ra quyết đinh cảnh báo</strong>: Nó sẽ đối chiếu chi phí hiện tại với hai điều kiện:</li></ol><ul><li>Có vượt giới hạn ngân sách cố định không?</li><li>Có tăng vọt bất thường so với mức trung bình lịch sử không?</li></ul><p>Nếu có bất cứ điều kiện nào được thỏa mãn thì nó sẽ gửi cảnh báo chi tiết qua Email đến người dùng.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#e6db74>&#34;&#34;&#34; 
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>Chức năng: 
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    1. Được kích hoạt bởi sự kiện từ SQS (do Collector gửi)
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    2. Đọc dữ liệu chi phí tương ứng từ S3
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    3. So sánh tổng chi phí với ngưỡng ngân sách (threshold) + phát hiện bất thường
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        (tăng đột biến so với mức trung bình lịch sử - nếu có)
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    4. Nếu vượt ngưỡng / bất thường -&gt; gửi cảnh báo qua SNS
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>Sự kiện xử lý lỗi sẽ được SQS tự động chuyển vào DLQ (theo redrive policy)
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>&#34;&#34;&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#e6db74>&#34;&#34;&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>Chức năng:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    1. Được kích hoạt bởi sự kiện từ SQS (do Collector gửi)
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    2. Đọc dữ liệu chi phí tương ứng từ S3
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    3. So sánh tổng chi phí với ngưỡng ngân sách (threshold) + phát hiện bất thường
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        (tăng đột biến so với mức trung bình lịch sử - nếu có)
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    4. Nếu vượt ngưỡng / bất thường -&gt; gửi cảnh báo qua SNS
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>Sự kiện xử lý lỗi sẽ được SQS tự động chuyển vào DLQ (theo redrive policy)
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>&#34;&#34;&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> json
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> os
+</span></span><span style=display:flex><span><span style=color:#f92672>from</span> datetime <span style=color:#f92672>import</span> datetime, timedelta
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> boto3
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Đọc cấu hình từ biến môi trường (Terraform truyền vào)</span>
+</span></span><span style=display:flex><span>BUCKET_NAME <span style=color:#f92672>=</span> os<span style=color:#f92672>.</span>environ[<span style=color:#e6db74>&#34;BUCKET_NAME&#34;</span>]
+</span></span><span style=display:flex><span>SNS_TOPIC_ARN <span style=color:#f92672>=</span> os<span style=color:#f92672>.</span>environ[<span style=color:#e6db74>&#34;SNS_TOPIC_ARN&#34;</span>]
+</span></span><span style=display:flex><span>COST_THRESHOLD <span style=color:#f92672>=</span> float(os<span style=color:#f92672>.</span>environ<span style=color:#f92672>.</span>get(<span style=color:#e6db74>&#34;COST_THRESHOLD_USD&#34;</span>, <span style=color:#e6db74>&#34;10&#34;</span>))
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Hệ số tăng đột biến: chi phí &gt; trung bình * hệ số này  =&gt; bất thường</span>
+</span></span><span style=display:flex><span>SPIKE_MULTIPLIER <span style=color:#f92672>=</span> float(os<span style=color:#f92672>.</span>environ<span style=color:#f92672>.</span>get(<span style=color:#e6db74>&#34;SPIKE_MULTIPLIER&#34;</span>, <span style=color:#e6db74>&#34;1.5&#34;</span>))
+</span></span><span style=display:flex><span><span style=color:#75715e># Số ngày lịch sử dùng để tính trung bình</span>
+</span></span><span style=display:flex><span>HISTORY_DAYS <span style=color:#f92672>=</span> int(os<span style=color:#f92672>.</span>environ<span style=color:#f92672>.</span>get(<span style=color:#e6db74>&#34;HISTORY_DAYS&#34;</span>, <span style=color:#e6db74>&#34;7&#34;</span>))
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>s3_client <span style=color:#f92672>=</span> boto3<span style=color:#f92672>.</span>client(<span style=color:#e6db74>&#34;s3&#34;</span>)
+</span></span><span style=display:flex><span>sns_client <span style=color:#f92672>=</span> boto3<span style=color:#f92672>.</span>client(<span style=color:#e6db74>&#34;sns&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>read_cost_from_s3</span>(s3_key: str) <span style=color:#f92672>-&gt;</span> dict:
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Đọc file dữ liệu chi phí (.json) từ S3</span>
+</span></span><span style=display:flex><span>    response <span style=color:#f92672>=</span> s3_client<span style=color:#f92672>.</span>get_object(Bucket<span style=color:#f92672>=</span>BUCKET_NAME, Key<span style=color:#f92672>=</span>s3_key)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> json<span style=color:#f92672>.</span>loads(response[<span style=color:#e6db74>&#34;Body&#34;</span>]<span style=color:#f92672>.</span>read())
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>compute_total_and_top</span>(cost_data: dict) <span style=color:#f92672>-&gt;</span> dict:
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;&#34;&#34;Tính tổng chi phí + top dịch vụ tốn nhất từ dữ liệu Cost Explorer.&#34;&#34;&#34;</span>
+</span></span><span style=display:flex><span>    total_cost <span style=color:#f92672>=</span> <span style=color:#ae81ff>0.0</span>
+</span></span><span style=display:flex><span>    service_costs <span style=color:#f92672>=</span> {}
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> result <span style=color:#f92672>in</span> cost_data<span style=color:#f92672>.</span>get(<span style=color:#e6db74>&#34;ResultsByTime&#34;</span>, []):
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> group <span style=color:#f92672>in</span> result<span style=color:#f92672>.</span>get(<span style=color:#e6db74>&#34;Groups&#34;</span>, []):
+</span></span><span style=display:flex><span>            service <span style=color:#f92672>=</span> group[<span style=color:#e6db74>&#34;Keys&#34;</span>][<span style=color:#ae81ff>0</span>]
+</span></span><span style=display:flex><span>            amount <span style=color:#f92672>=</span> float(group[<span style=color:#e6db74>&#34;Metrics&#34;</span>][<span style=color:#e6db74>&#34;UnblendedCost&#34;</span>][<span style=color:#e6db74>&#34;Amount&#34;</span>])
+</span></span><span style=display:flex><span>            service_costs[service] <span style=color:#f92672>=</span> service_costs<span style=color:#f92672>.</span>get(service, <span style=color:#ae81ff>0.0</span>) <span style=color:#f92672>+</span> amount
+</span></span><span style=display:flex><span>            total_cost <span style=color:#f92672>+=</span> amount
+</span></span><span style=display:flex><span>    top_services <span style=color:#f92672>=</span> sorted(service_costs<span style=color:#f92672>.</span>items(), key<span style=color:#f92672>=</span><span style=color:#66d9ef>lambda</span> x: x[<span style=color:#ae81ff>1</span>], reverse<span style=color:#f92672>=</span><span style=color:#66d9ef>True</span>)[:<span style=color:#ae81ff>5</span>]
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> {<span style=color:#e6db74>&#34;total_cost&#34;</span>: round(total_cost, <span style=color:#ae81ff>4</span>), <span style=color:#e6db74>&#34;top_services&#34;</span>: top_services}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>get_historical_average</span>(current_date: str) <span style=color:#f92672>-&gt;</span> float:
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Tính chi phí trung bình của HISTORY_DAYS ngày trước trước ngày hiện tại,</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># đọc từ các file đã luuw trong S3. Trả về 0 nếu chưa có lịch sử</span>
+</span></span><span style=display:flex><span>    dt <span style=color:#f92672>=</span> datetime<span style=color:#f92672>.</span>strptime(current_date, <span style=color:#e6db74>&#34;%Y-%m-</span><span style=color:#e6db74>%d</span><span style=color:#e6db74>&#34;</span>)
+</span></span><span style=display:flex><span>    totals <span style=color:#f92672>=</span> []
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> i <span style=color:#f92672>in</span> range(<span style=color:#ae81ff>1</span>, HISTORY_DAYS <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span>):
+</span></span><span style=display:flex><span>        day <span style=color:#f92672>=</span> dt <span style=color:#f92672>-</span> timedelta(days<span style=color:#f92672>=</span>i)
+</span></span><span style=display:flex><span>        key <span style=color:#f92672>=</span> <span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;cost-data/year=</span><span style=color:#e6db74>{</span>day<span style=color:#f92672>.</span>year<span style=color:#e6db74>}</span><span style=color:#e6db74>/month=</span><span style=color:#e6db74>{</span>day<span style=color:#f92672>.</span>month<span style=color:#e6db74>:</span><span style=color:#e6db74>02d</span><span style=color:#e6db74>}</span><span style=color:#e6db74>/day=</span><span style=color:#e6db74>{</span>day<span style=color:#f92672>.</span>day<span style=color:#e6db74>:</span><span style=color:#e6db74>02d</span><span style=color:#e6db74>}</span><span style=color:#e6db74>/cost_</span><span style=color:#e6db74>{</span>day<span style=color:#f92672>.</span>strftime(<span style=color:#e6db74>&#39;%Y-%m-</span><span style=color:#e6db74>%d</span><span style=color:#e6db74>&#39;</span>)<span style=color:#e6db74>}</span><span style=color:#e6db74>.json&#34;</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>try</span>:
+</span></span><span style=display:flex><span>            data <span style=color:#f92672>=</span> read_cost_from_s3(key)
+</span></span><span style=display:flex><span>            totals<span style=color:#f92672>.</span>append(compute_total_and_top(data)[<span style=color:#e6db74>&#34;total_cost&#34;</span>])
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>except</span> s3_client<span style=color:#f92672>.</span>exceptions<span style=color:#f92672>.</span>NoSuchKey:
+</span></span><span style=display:flex><span>            print(<span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;[Analyzer] Historical file not found, skipping: </span><span style=color:#e6db74>{</span>key<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>)
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>continue</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>except</span> <span style=color:#a6e22e>Exception</span> <span style=color:#66d9ef>as</span> error:
+</span></span><span style=display:flex><span>            print(<span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;[Analyzer] Failed to read historical file </span><span style=color:#e6db74>{</span>key<span style=color:#e6db74>}</span><span style=color:#e6db74>: </span><span style=color:#e6db74>{</span>error<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>)
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>raise</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> <span style=color:#f92672>not</span> totals:
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0.0</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> round(sum(totals) <span style=color:#f92672>/</span> len(totals), <span style=color:#ae81ff>4</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>classify_severity</span>(total: float, avg: float) <span style=color:#f92672>-&gt;</span> tuple:
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Phân loại mức độ cảnh báo dựa trên ngưỡng cố định và tăng đột biến.</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># trả về (severity, reasons[])</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    reasons <span style=color:#f92672>=</span> []
+</span></span><span style=display:flex><span>    severity <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;INFO&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># vượt ngưỡng ngân sách</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> total <span style=color:#f92672>&gt;</span> COST_THRESHOLD:
+</span></span><span style=display:flex><span>        reasons<span style=color:#f92672>.</span>append(<span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;Budget threshold exceeded ($</span><span style=color:#e6db74>{</span>COST_THRESHOLD<span style=color:#e6db74>:</span><span style=color:#e6db74>.2f</span><span style=color:#e6db74>}</span><span style=color:#e6db74>)&#34;</span>)
+</span></span><span style=display:flex><span>        severity <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;WARNING&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># tăng đột biến so với trung bình lịch sử</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> total <span style=color:#f92672>&gt;</span> COST_THRESHOLD <span style=color:#f92672>and</span> avg <span style=color:#f92672>&gt;</span> <span style=color:#ae81ff>0</span> <span style=color:#f92672>and</span> total <span style=color:#f92672>&gt;</span> avg <span style=color:#f92672>*</span> SPIKE_MULTIPLIER:
+</span></span><span style=display:flex><span>        pct <span style=color:#f92672>=</span> ((total <span style=color:#f92672>-</span> avg) <span style=color:#f92672>/</span> avg) <span style=color:#f92672>*</span> <span style=color:#ae81ff>100</span>
+</span></span><span style=display:flex><span>        reasons<span style=color:#f92672>.</span>append(
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;Cost spike detected: </span><span style=color:#e6db74>{</span>pct<span style=color:#e6db74>:</span><span style=color:#e6db74>.0f</span><span style=color:#e6db74>}</span><span style=color:#e6db74>% above historical average </span><span style=color:#e6db74>{</span>HISTORY_DAYS<span style=color:#e6db74>}</span><span style=color:#e6db74> day ($</span><span style=color:#e6db74>{</span>avg<span style=color:#e6db74>:</span><span style=color:#e6db74>.2f</span><span style=color:#e6db74>}</span><span style=color:#e6db74>)&#34;</span>
+</span></span><span style=display:flex><span>        )
+</span></span><span style=display:flex><span>        severity <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;CRITICAL&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> severity, reasons
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>send_alert</span>(
+</span></span><span style=display:flex><span>    date_str: str, analysis: dict, severity: str, reasons: list, avg: float
+</span></span><span style=display:flex><span>) <span style=color:#f92672>-&gt;</span> <span style=color:#66d9ef>None</span>:
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Gửi cảnh báo qua SNS khi chi phí vượt ngưỡng</span>
+</span></span><span style=display:flex><span>    total <span style=color:#f92672>=</span> analysis[<span style=color:#e6db74>&#34;total_cost&#34;</span>]
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    lines <span style=color:#f92672>=</span> [
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;[</span><span style=color:#e6db74>{</span>severity<span style=color:#e6db74>}</span><span style=color:#e6db74>] AWS COST ALERT - CloudCost Insight&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;Day: </span><span style=color:#e6db74>{</span>date_str<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;Total cost: $</span><span style=color:#e6db74>{</span>total<span style=color:#e6db74>:</span><span style=color:#e6db74>.2f</span><span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;Alert threshold: $</span><span style=color:#e6db74>{</span>COST_THRESHOLD<span style=color:#e6db74>:</span><span style=color:#e6db74>.2f</span><span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;Historical average (</span><span style=color:#e6db74>{</span>HISTORY_DAYS<span style=color:#e6db74>}</span><span style=color:#e6db74> days): $</span><span style=color:#e6db74>{</span>avg<span style=color:#e6db74>:</span><span style=color:#e6db74>.2f</span><span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;Reasons:&#34;</span>,
+</span></span><span style=display:flex><span>    ]
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> r <span style=color:#f92672>in</span> reasons:
+</span></span><span style=display:flex><span>        lines<span style=color:#f92672>.</span>append(<span style=color:#e6db74>f</span><span style=color:#e6db74>&#34; - </span><span style=color:#e6db74>{</span>r<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    lines<span style=color:#f92672>.</span>extend([<span style=color:#e6db74>&#34;&#34;</span>, <span style=color:#e6db74>&#34;Top Service by cost:&#34;</span>])
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> service, cost <span style=color:#f92672>in</span> analysis[<span style=color:#e6db74>&#34;top_services&#34;</span>]:
+</span></span><span style=display:flex><span>        lines<span style=color:#f92672>.</span>append(<span style=color:#e6db74>f</span><span style=color:#e6db74>&#34; - </span><span style=color:#e6db74>{</span>service<span style=color:#e6db74>}</span><span style=color:#e6db74>: $</span><span style=color:#e6db74>{</span>cost<span style=color:#e6db74>:</span><span style=color:#e6db74>.2f</span><span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    message <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span><span style=color:#f92672>.</span>join(lines)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    sns_client<span style=color:#f92672>.</span>publish(
+</span></span><span style=display:flex><span>        TopicArn<span style=color:#f92672>=</span>SNS_TOPIC_ARN,
+</span></span><span style=display:flex><span>        Subject<span style=color:#f92672>=</span><span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;[</span><span style=color:#e6db74>{</span>severity<span style=color:#e6db74>}</span><span style=color:#e6db74>] CloudCost Insight Alert for </span><span style=color:#e6db74>{</span>date_str<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>,
+</span></span><span style=display:flex><span>        Message<span style=color:#f92672>=</span>message,
+</span></span><span style=display:flex><span>    )
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>process_record</span>(record: dict) <span style=color:#f92672>-&gt;</span> <span style=color:#66d9ef>None</span>:
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;&#34;&#34;Xử lý một SQS record; exception sẽ được caller báo lại cho Lambda.&#34;&#34;&#34;</span>
+</span></span><span style=display:flex><span>    body <span style=color:#f92672>=</span> json<span style=color:#f92672>.</span>loads(record[<span style=color:#e6db74>&#34;body&#34;</span>])
+</span></span><span style=display:flex><span>    date_str <span style=color:#f92672>=</span> body[<span style=color:#e6db74>&#34;date&#34;</span>]
+</span></span><span style=display:flex><span>    s3_key <span style=color:#f92672>=</span> body[<span style=color:#e6db74>&#34;s3_key&#34;</span>]
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    print(<span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;[Analyzer] Processing cost data for date </span><span style=color:#e6db74>{</span>date_str<span style=color:#e6db74>}</span><span style=color:#e6db74> (key=</span><span style=color:#e6db74>{</span>s3_key<span style=color:#e6db74>}</span><span style=color:#e6db74>)&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># 1. Đọc dữ liệu chi phí ngày hiện tại</span>
+</span></span><span style=display:flex><span>    cost_data <span style=color:#f92672>=</span> read_cost_from_s3(s3_key)
+</span></span><span style=display:flex><span>    analysis <span style=color:#f92672>=</span> compute_total_and_top(cost_data)
+</span></span><span style=display:flex><span>    total <span style=color:#f92672>=</span> analysis[<span style=color:#e6db74>&#34;total_cost&#34;</span>]
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># 2. Tính trung bình lịch sử để phát hiện tăng đột biến</span>
+</span></span><span style=display:flex><span>    avg <span style=color:#f92672>=</span> get_historical_average(date_str)
+</span></span><span style=display:flex><span>    print(
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;[Analyzer] Total: $</span><span style=color:#e6db74>{</span>total<span style=color:#e6db74>:</span><span style=color:#e6db74>.2f</span><span style=color:#e6db74>}</span><span style=color:#e6db74> | Average </span><span style=color:#e6db74>{</span>HISTORY_DAYS<span style=color:#e6db74>}</span><span style=color:#e6db74> Day: $</span><span style=color:#e6db74>{</span>avg<span style=color:#e6db74>:</span><span style=color:#e6db74>.2f</span><span style=color:#e6db74>}</span><span style=color:#e6db74> | Threshold: $</span><span style=color:#e6db74>{</span>COST_THRESHOLD<span style=color:#e6db74>:</span><span style=color:#e6db74>.2f</span><span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>    )
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># 3. Phân loại mức độ &amp; quyết định cảnh báo</span>
+</span></span><span style=display:flex><span>    severity, reasons <span style=color:#f92672>=</span> classify_severity(total, avg)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> reasons:
+</span></span><span style=display:flex><span>        print(<span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;[Analyzer] </span><span style=color:#e6db74>{</span>severity<span style=color:#e6db74>}</span><span style=color:#e6db74>! Reason: </span><span style=color:#e6db74>{</span>reasons<span style=color:#e6db74>}</span><span style=color:#e6db74>. Send alert to SNS.&#34;</span>)
+</span></span><span style=display:flex><span>        send_alert(date_str, analysis, severity, reasons, avg)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>else</span>:
+</span></span><span style=display:flex><span>        print(<span style=color:#e6db74>&#34;[Analyzer] Normal cost, no need to alert.&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>lambda_handler</span>(event, context):
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;&#34;&#34;Xử lý SQS batch và chỉ retry các record thất bại.&#34;&#34;&#34;</span>
+</span></span><span style=display:flex><span>    processed <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>
+</span></span><span style=display:flex><span>    batch_item_failures <span style=color:#f92672>=</span> []
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> record <span style=color:#f92672>in</span> event<span style=color:#f92672>.</span>get(<span style=color:#e6db74>&#34;Records&#34;</span>, []):
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>try</span>:
+</span></span><span style=display:flex><span>            process_record(record)
+</span></span><span style=display:flex><span>            processed <span style=color:#f92672>+=</span> <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>except</span> <span style=color:#a6e22e>Exception</span> <span style=color:#66d9ef>as</span> error:
+</span></span><span style=display:flex><span>            message_id <span style=color:#f92672>=</span> record[<span style=color:#e6db74>&#34;messageId&#34;</span>]
+</span></span><span style=display:flex><span>            print(<span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;[Analyzer] Failed record </span><span style=color:#e6db74>{</span>message_id<span style=color:#e6db74>}</span><span style=color:#e6db74>: </span><span style=color:#e6db74>{</span>error<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>)
+</span></span><span style=display:flex><span>            batch_item_failures<span style=color:#f92672>.</span>append({<span style=color:#e6db74>&#34;itemIdentifier&#34;</span>: message_id})
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    print(<span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;[Analyzer] Processed=</span><span style=color:#e6db74>{</span>processed<span style=color:#e6db74>}</span><span style=color:#e6db74>, Failed=</span><span style=color:#e6db74>{</span>len(batch_item_failures)<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> {<span style=color:#e6db74>&#34;batchItemFailures&#34;</span>: batch_item_failures}
+</span></span></code></pre></div><h3 id=cấu-hình-iam-role-và-triển-khai-analyzer>Cấu hình IAM Role và triển khai Analyzer</h3><p><strong>1.</strong> Tiếp theo, chúng ta sẽ tạo file <code>terraform/lambda_analyzer.tf</code>. File này chịu trách nhiệm xây dựng toàn bộ cơ sở hạ tầng cần thiết trên AWS để chạy hàm Lambda Analyzer, thực hiện các cấu hình tự động bao gồm:</p><ul><li><strong>Cấp quyền bảo mật</strong>: Tạo các quyền đặc biệt cho phép hàm Analyzer được phép đọc dữ liệu từ kho lưu trữ S3, lấy tin nhắn từ hàng đợi SQS và gửi cảnh báo qua dịch vụ SNS.</li><li><strong>Đóng gói và triển khai</strong>: Tự động nén mã nguồn Python thành file zip và tải lên nền tảng AWS để tạo thành một hàm thực thi hoàn chỉnh.</li><li><strong>Liên kết tự động</strong>: Thiết lập một luồng kết nối trực tiếp từ hàng đợi SQS tới hàm Analyzer. Cứ mỗi khi có một thông báo mới về chi phí xuất hiện trong hàng đợi, hệ thống sẽ tự động kích hoạt hàm Analyzer để xử lý.</li></ul><p>Nếu chỉ có mã nguồn Python thì hệ thống sẽ không biết phải chạy đoạn mã đó như thế nào và lấy quyền truy cập từ đâu. Do đó, file cấu hình Terraform này giúp kết nối các thành phần rời rạc gồm <strong>Amazon S3</strong>, <strong>Simple Queue Service (SQS)</strong>, <strong>Simple Notification Service (SNS)</strong>, và <strong>Lambda</strong> lại với nhau thành một dây chuyền tự động và hoàn toàn khép kín.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-hcl data-lang=hcl><span style=display:flex><span><span style=color:#75715e># IAM role cho Analyzer
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>resource</span> <span style=color:#e6db74>&#34;aws_iam_role&#34; &#34;analyzer&#34;</span> {
+</span></span><span style=display:flex><span>  name               <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;${var.project_name}-analyzer-role&#34;</span>
+</span></span><span style=display:flex><span>  assume_role_policy <span style=color:#f92672>=</span> <span style=color:#66d9ef>data</span>.<span style=color:#66d9ef>aws_iam_policy_document</span>.<span style=color:#66d9ef>lambda_assume_role</span>.<span style=color:#66d9ef>json</span>
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>data</span> <span style=color:#e6db74>&#34;aws_iam_policy_document&#34; &#34;analyzer_policy&#34;</span> {<span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>  # đọc dữ liệu chi phí từ S3
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  <span style=color:#66d9ef>statement</span> {
+</span></span><span style=display:flex><span>    sid       <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;S3ReadCostData&#34;</span>
+</span></span><span style=display:flex><span>    effect    <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Allow&#34;</span>
+</span></span><span style=display:flex><span>    actions   <span style=color:#f92672>=</span> [<span style=color:#e6db74>&#34;s3:GetObject&#34;</span>]
+</span></span><span style=display:flex><span>    resources <span style=color:#f92672>=</span> [<span style=color:#e6db74>&#34;${aws_s3_bucket.cost_data.arn}/*&#34;</span>]
+</span></span><span style=display:flex><span>  }<span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>  # ListBucket policy
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  <span style=color:#66d9ef>statement</span> {
+</span></span><span style=display:flex><span>    sid       <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;S3ListBucket&#34;</span>
+</span></span><span style=display:flex><span>    effect    <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Allow&#34;</span>
+</span></span><span style=display:flex><span>    actions   <span style=color:#f92672>=</span> [<span style=color:#e6db74>&#34;s3:ListBucket&#34;</span>]
+</span></span><span style=display:flex><span>    resources <span style=color:#f92672>=</span> [<span style=color:#66d9ef>aws_s3_bucket</span>.<span style=color:#66d9ef>cost_data</span>.<span style=color:#66d9ef>arn</span>]
+</span></span><span style=display:flex><span>  }<span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>  # nhận &amp; xóa message từ SQS chính
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  <span style=color:#66d9ef>statement</span> {
+</span></span><span style=display:flex><span>    sid    <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;SQSConsume&#34;</span>
+</span></span><span style=display:flex><span>    effect <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Allow&#34;</span>
+</span></span><span style=display:flex><span>    actions <span style=color:#f92672>=</span> [
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#34;sqs:ReceiveMessage&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#34;sqs:DeleteMessage&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#34;sqs:GetQueueAttributes&#34;</span>
+</span></span><span style=display:flex><span>    ]
+</span></span><span style=display:flex><span>    resources <span style=color:#f92672>=</span> [<span style=color:#66d9ef>aws_sqs_queue</span>.<span style=color:#66d9ef>events</span>.<span style=color:#66d9ef>arn</span>]
+</span></span><span style=display:flex><span>  }<span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>  # publish cảnh báo qua SNS
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  <span style=color:#66d9ef>statement</span> {
+</span></span><span style=display:flex><span>    sid       <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;SNSPublish&#34;</span>
+</span></span><span style=display:flex><span>    effect    <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Allow&#34;</span>
+</span></span><span style=display:flex><span>    actions   <span style=color:#f92672>=</span> [<span style=color:#e6db74>&#34;sns:Publish&#34;</span>]
+</span></span><span style=display:flex><span>    resources <span style=color:#f92672>=</span> [<span style=color:#66d9ef>aws_sns_topic</span>.<span style=color:#66d9ef>cost_alerts</span>.<span style=color:#66d9ef>arn</span>]
+</span></span><span style=display:flex><span>  }<span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>  # ghi log lên CloudWatch
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  <span style=color:#66d9ef>statement</span> {
+</span></span><span style=display:flex><span>    sid    <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;CloudWatchLogs&#34;</span>
+</span></span><span style=display:flex><span>    effect <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Allow&#34;</span>
+</span></span><span style=display:flex><span>    actions <span style=color:#f92672>=</span> [
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#34;logs:CreateLogGroup&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#34;logs:CreateLogStream&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#34;logs:PutLogEvents&#34;</span>
+</span></span><span style=display:flex><span>    ]
+</span></span><span style=display:flex><span>    resources <span style=color:#f92672>=</span> [<span style=color:#e6db74>&#34;arn:aws:logs:*:*:*&#34;</span>]
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>resource</span> <span style=color:#e6db74>&#34;aws_iam_role_policy&#34; &#34;analyzer&#34;</span> {
+</span></span><span style=display:flex><span>  name   <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;${var.project_name}-analyzer-policy&#34;</span>
+</span></span><span style=display:flex><span>  role   <span style=color:#f92672>=</span> <span style=color:#66d9ef>aws_iam_role</span>.<span style=color:#66d9ef>analyzer</span>.<span style=color:#66d9ef>id</span>
+</span></span><span style=display:flex><span>  policy <span style=color:#f92672>=</span> <span style=color:#66d9ef>data</span>.<span style=color:#66d9ef>aws_iam_policy_document</span>.<span style=color:#66d9ef>analyzer_policy</span>.<span style=color:#66d9ef>json</span>
+</span></span><span style=display:flex><span>}<span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e># đóng gói code
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>data</span> <span style=color:#e6db74>&#34;archive_file&#34; &#34;analyzer_zip&#34;</span> {
+</span></span><span style=display:flex><span>  type        <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;zip&#34;</span>
+</span></span><span style=display:flex><span>  source_dir  <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;${path.module}/lambda/analyzer&#34;</span>
+</span></span><span style=display:flex><span>  output_path <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;${path.module}/build/analyzer.zip&#34;</span>
+</span></span><span style=display:flex><span>}<span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e># CloudWatch Log group
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>resource</span> <span style=color:#e6db74>&#34;aws_cloudwatch_log_group&#34; &#34;analyzer&#34;</span> {
+</span></span><span style=display:flex><span>  name              <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;/aws/lambda/${var.project_name}-analyzer&#34;</span>
+</span></span><span style=display:flex><span>  retention_in_days <span style=color:#f92672>=</span> <span style=color:#ae81ff>14</span>
+</span></span><span style=display:flex><span>}<span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e># Hàm Lambda analyzer
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>resource</span> <span style=color:#e6db74>&#34;aws_lambda_function&#34; &#34;analyzer&#34;</span> {
+</span></span><span style=display:flex><span>  function_name <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;${var.project_name}-analyzer&#34;</span>
+</span></span><span style=display:flex><span>  role          <span style=color:#f92672>=</span> <span style=color:#66d9ef>aws_iam_role</span>.<span style=color:#66d9ef>analyzer</span>.<span style=color:#66d9ef>arn</span>
+</span></span><span style=display:flex><span>  handler       <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;handler.lambda_handler&#34;</span>
+</span></span><span style=display:flex><span>  runtime       <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;python3.12&#34;</span>
+</span></span><span style=display:flex><span>  timeout       <span style=color:#f92672>=</span> <span style=color:#ae81ff>60</span>
+</span></span><span style=display:flex><span>  memory_size   <span style=color:#f92672>=</span> <span style=color:#ae81ff>128</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  filename         <span style=color:#f92672>=</span> <span style=color:#66d9ef>data</span>.<span style=color:#66d9ef>archive_file</span>.<span style=color:#66d9ef>analyzer_zip</span>.<span style=color:#66d9ef>output_path</span>
+</span></span><span style=display:flex><span>  source_code_hash <span style=color:#f92672>=</span> <span style=color:#66d9ef>data</span>.<span style=color:#66d9ef>archive_file</span>.<span style=color:#66d9ef>analyzer_zip</span>.<span style=color:#66d9ef>output_base64sha256</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>environment</span> {
+</span></span><span style=display:flex><span>    variables <span style=color:#f92672>=</span> {
+</span></span><span style=display:flex><span>      BUCKET_NAME        <span style=color:#f92672>=</span> <span style=color:#66d9ef>aws_s3_bucket</span>.<span style=color:#66d9ef>cost_data</span>.<span style=color:#66d9ef>id</span>
+</span></span><span style=display:flex><span>      SNS_TOPIC_ARN      <span style=color:#f92672>=</span> <span style=color:#66d9ef>aws_sns_topic</span>.<span style=color:#66d9ef>cost_alerts</span>.<span style=color:#66d9ef>arn</span>
+</span></span><span style=display:flex><span>      COST_THRESHOLD_USD <span style=color:#f92672>=</span> <span style=color:#66d9ef>var</span>.<span style=color:#66d9ef>cost_threshold_usd</span>
+</span></span><span style=display:flex><span>      SPIKE_MULTIPLIER   <span style=color:#f92672>=</span> <span style=color:#66d9ef>var</span>.<span style=color:#66d9ef>spike_multiplier</span>
+</span></span><span style=display:flex><span>      HISTORY_DAYS       <span style=color:#f92672>=</span> <span style=color:#66d9ef>var</span>.<span style=color:#66d9ef>history_days</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  depends_on <span style=color:#f92672>=</span> [<span style=color:#66d9ef>aws_cloudwatch_log_group</span>.<span style=color:#66d9ef>analyzer</span>]
+</span></span><span style=display:flex><span>}<span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e># kết nối SQS đến lambda analyzer
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>resource</span> <span style=color:#e6db74>&#34;aws_lambda_event_source_mapping&#34; &#34;sqs_to_analyzer&#34;</span> {
+</span></span><span style=display:flex><span>  event_source_arn <span style=color:#f92672>=</span> <span style=color:#66d9ef>aws_sqs_queue</span>.<span style=color:#66d9ef>events</span>.<span style=color:#66d9ef>arn</span>
+</span></span><span style=display:flex><span>  function_name    <span style=color:#f92672>=</span> <span style=color:#66d9ef>aws_lambda_function</span>.<span style=color:#66d9ef>analyzer</span>.<span style=color:#66d9ef>arn</span>
+</span></span><span style=display:flex><span>  batch_size       <span style=color:#f92672>=</span> <span style=color:#ae81ff>10</span>
+</span></span><span style=display:flex><span>  enabled          <span style=color:#f92672>=</span> <span style=color:#66d9ef>true</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>  # Lambda chỉ retry các record mà Analyzer báo lỗi
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  function_response_types <span style=color:#f92672>=</span> [<span style=color:#e6db74>&#34;ReportBatchItemFailures&#34;</span>]
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p><strong>2.</strong> Mở file <code>terraform/outputs.tf</code> và thêm đoạn cấu hình sau vào cuối file:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-hcl data-lang=hcl><span style=display:flex><span><span style=color:#75715e># Xuất ARN của IAM Role cấp cho Lambda Analyzer ra màn hình
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>output</span> <span style=color:#e6db74>&#34;analyzer_role_arn&#34;</span> {
+</span></span><span style=display:flex><span>  description <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;ARN of IAM Role for Lambda Analyzer&#34;</span>
+</span></span><span style=display:flex><span>  value       <span style=color:#f92672>=</span> <span style=color:#66d9ef>aws_iam_role</span>.<span style=color:#66d9ef>analyzer</span>.<span style=color:#66d9ef>arn</span>
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=nội-dung-tiếp-theo>Nội dung tiếp theo</h3><ul><li><a href=/workshop-fcaj-intern/vi/5-workshop/5.5-monitoring/>Giám sát</a></li></ul><footer class=footline></footer></div></div><div id=navigation><a class="nav nav-prev" href=/workshop-fcaj-intern/vi/5-workshop/5.4-deploy-lambda/5.4.1-lambda-collector/ title="Triển khai Lambda Collector"><i class="fa fa-chevron-left"></i></a>
+<a class="nav nav-next" href=/workshop-fcaj-intern/vi/5-workshop/5.5-monitoring/ title="Giám sát" style=margin-right:0><i class="fa fa-chevron-right"></i></a></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/workshop-fcaj-intern/js/clipboard.min.js?1786693547></script><script src=/workshop-fcaj-intern/js/perfect-scrollbar.min.js?1786693547></script><script src=/workshop-fcaj-intern/js/perfect-scrollbar.jquery.min.js?1786693547></script><script src=/workshop-fcaj-intern/js/jquery.sticky.js?1786693547></script><script src=/workshop-fcaj-intern/js/featherlight.min.js?1786693547></script><script src=/workshop-fcaj-intern/js/highlight.pack.js?1786693547></script><script>hljs.initHighlightingOnLoad()</script><script src=/workshop-fcaj-intern/js/modernizr.custom-3.6.0.js?1786693547></script><script src=/workshop-fcaj-intern/js/learn.js?1786693547></script><script src=/workshop-fcaj-intern/js/hugo-learn.js?1786693547></script><link href=/workshop-fcaj-intern/mermaid/mermaid.css?1786693547 rel=stylesheet><script src=/workshop-fcaj-intern/mermaid/mermaid.js?1786693547></script><script>mermaid.initialize({startOnLoad:!0})</script><script>(function(e,t,n,s,o,i,a){e.GoogleAnalyticsObject=o,(e[o]=e[o]||function(){(e[o].q=e[o].q||[]).push(arguments)},e[o].l=1*new Date),(i=t.createElement(n),a=t.getElementsByTagName(n)[0]),i.async=1,i.src=s,a.parentNode.insertBefore(i,a)})(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-158079754-2","auto"),ga("send","pageview")</script></body></html>

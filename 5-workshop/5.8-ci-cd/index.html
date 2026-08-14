@@ -1,0 +1,613 @@
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.134.3"><meta name=description content><meta name=author content="thienlh@thienlu.com"><link rel=icon href=/workshop-fcaj-intern/images/favicon.png type=image/png><title>CI/CD :: Internship Report</title>
+<link href=/workshop-fcaj-intern/css/nucleus.css?1786693546 rel=stylesheet><link href=/workshop-fcaj-intern/css/fontawesome-all.min.css?1786693546 rel=stylesheet><link href=/workshop-fcaj-intern/css/hybrid.css?1786693546 rel=stylesheet><link href=/workshop-fcaj-intern/css/featherlight.min.css?1786693546 rel=stylesheet><link href=/workshop-fcaj-intern/css/perfect-scrollbar.min.css?1786693546 rel=stylesheet><link href=/workshop-fcaj-intern/css/auto-complete.css?1786693546 rel=stylesheet><link href=/workshop-fcaj-intern/css/atom-one-dark-reasonable.css?1786693546 rel=stylesheet><link href=/workshop-fcaj-intern/css/theme.css?1786693546 rel=stylesheet><link href=/workshop-fcaj-intern/css/hugo-theme.css?1786693546 rel=stylesheet><link href=/workshop-fcaj-intern/css/theme-workshop.css?1786693546 rel=stylesheet><script src=/workshop-fcaj-intern/js/jquery-3.3.1.min.js?1786693546></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style></head><body data-url=/workshop-fcaj-intern/5-workshop/5.8-ci-cd/><nav id=sidebar class=showVisitedLinks><div id=header-wrapper><div id=header><a id=logo href=/workshop-fcaj-intern/><svg id="Layer_1" data-name="Layer 1" viewBox="0 0 60 30" width="30%"><defs><style>.cls-1{fill:#fff}.cls-2{fill:#fff;fill-rule:evenodd}</style></defs><title>AWS-Logo_White-Color</title><path class="cls-1" d="M14.09 10.85a4.7 4.7.0 00.19 1.48 7.73 7.73.0 00.54 1.19.77.77.0 01.12.38.64.64.0 01-.32.49l-1 .7a.83.83.0 01-.44.15.69.69.0 01-.49-.23 3.8 3.8.0 01-.6-.77q-.25-.42-.51-1a6.14 6.14.0 01-4.89 2.3 4.54 4.54.0 01-3.32-1.19 4.27 4.27.0 01-1.22-3.2 4.28 4.28.0 011.46-3.4A6.06 6.06.0 017.69 6.46a12.47 12.47.0 011.76.13q.92.13 1.91.36V5.73a3.65 3.65.0 00-.79-2.66A3.81 3.81.0 007.86 2.3a7.71 7.71.0 00-1.79.22 12.78 12.78.0 00-1.79.57 4.55 4.55.0 01-.58.22h-.26q-.35.0-.35-.52V2a1.09 1.09.0 01.12-.58 1.2 1.2.0 01.47-.35A10.88 10.88.0 015.77.32 10.19 10.19.0 018.36.0a6 6 0 014.35 1.35 5.49 5.49.0 011.38 4.09zM7.34 13.38a5.36 5.36.0 001.72-.31A3.63 3.63.0 0010.63 12 2.62 2.62.0 0011.19 11a5.63 5.63.0 00.16-1.44v-.7a14.35 14.35.0 00-1.53-.28 12.37 12.37.0 00-1.56-.1 3.84 3.84.0 00-2.47.67A2.34 2.34.0 005 11a2.35 2.35.0 00.61 1.76A2.4 2.4.0 007.34 13.38zm13.35 1.8a1 1 0 01-.64-.16 1.3 1.3.0 01-.35-.65L15.81 1.51a3 3 0 01-.15-.67.36.36.0 01.41-.41H17.7a1 1 0 01.65.16 1.4 1.4.0 01.33.65l2.79 11 2.59-11A1.17 1.17.0 0124.39.6a1.1 1.1.0 01.67-.16H26.4a1.1 1.1.0 01.67.16 1.17 1.17.0 01.32.65L30 12.39 32.88 1.25A1.39 1.39.0 0133.22.6a1 1 0 01.65-.16h1.54a.36.36.0 01.41.41 1.36 1.36.0 010 .26 3.64 3.64.0 01-.12.41l-4 12.86a1.3 1.3.0 01-.35.65 1 1 0 01-.64.16H29.25a1 1 0 01-.67-.17 1.26 1.26.0 01-.32-.67L25.67 3.64l-2.56 10.7a1.26 1.26.0 01-.32.67 1 1 0 01-.67.17zm21.36.44a11.28 11.28.0 01-2.56-.29 7.44 7.44.0 01-1.92-.67 1 1 0 01-.61-.93v-.84q0-.52.38-.52a.9.9.0 01.31.06l.42.17a8.77 8.77.0 001.83.58 9.78 9.78.0 002 .2 4.48 4.48.0 002.43-.55 1.76 1.76.0 00.86-1.57 1.61 1.61.0 00-.45-1.16A4.29 4.29.0 0043 9.22l-2.41-.76A5.15 5.15.0 0138 6.78a3.94 3.94.0 01-.83-2.41 3.7 3.7.0 01.45-1.85 4.47 4.47.0 011.19-1.37 5.27 5.27.0 011.7-.86A7.4 7.4.0 0142.6.0a8.87 8.87.0 011.12.07q.57.07 1.08.19t.95.26a4.27 4.27.0 01.7.29 1.59 1.59.0 01.49.41.94.94.0 01.15.55v.79q0 .52-.38.52a1.76 1.76.0 01-.64-.2 7.74 7.74.0 00-3.2-.64 4.37 4.37.0 00-2.21.47 1.6 1.6.0 00-.79 1.48 1.58 1.58.0 00.49 1.18 4.94 4.94.0 001.83.92L44.55 7a5.08 5.08.0 012.57 1.6A3.76 3.76.0 0147.9 11a4.21 4.21.0 01-.44 1.93 4.4 4.4.0 01-1.21 1.47 5.43 5.43.0 01-1.85.93A8.25 8.25.0 0142.05 15.62z"/><path class="cls-2" d="M45.19 23.81C39.72 27.85 31.78 30 25 30A36.64 36.64.0 01.22 20.57c-.51-.46-.06-1.09.56-.74A49.78 49.78.0 0025.53 26.4 49.23 49.23.0 0044.4 22.53C45.32 22.14 46.1 23.14 45.19 23.81z"/><path class="cls-2" d="M47.47 21.21c-.7-.9-4.63-.42-6.39-.21-.53.06-.62-.4-.14-.74 3.13-2.2 8.27-1.57 8.86-.83s-.16 5.89-3.09 8.35c-.45.38-.88.18-.68-.32C46.69 25.8 48.17 22.11 47.47 21.21z"/></svg></a></div><div class=searchbox><label for=search-by><i class="fas fa-search"></i></label>
+<input data-search-input id=search-by type=search placeholder=Search...>
+<span data-search-clear><i class="fas fa-times"></i></span></div><script type=text/javascript src=/workshop-fcaj-intern/js/lunr.min.js?1786693546></script><script type=text/javascript src=/workshop-fcaj-intern/js/auto-complete.js?1786693546></script><script type=text/javascript>var baseurl="https://thienthuan25.github.io/workshop-fcaj-intern/"</script><script type=text/javascript src=/workshop-fcaj-intern/js/search.js?1786693546></script></div><div class=highlightable><ul class=topics><li data-nav-id=/workshop-fcaj-intern/1-worklog/ title=Worklog class=dd-item><a href=/workshop-fcaj-intern/1-worklog/><b>1. </b>Worklog
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/workshop-fcaj-intern/1-worklog/1.1-week1/ title="Week 1 Worklog" class=dd-item><a href=/workshop-fcaj-intern/1-worklog/1.1-week1/><b>1.1. </b>Week 1 Worklog
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/1-worklog/1.2-week2/ title="Week 2 Worklog" class=dd-item><a href=/workshop-fcaj-intern/1-worklog/1.2-week2/><b>1.2. </b>Week 2 Worklog
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/1-worklog/1.3-week3/ title="Week 3 Worklog" class=dd-item><a href=/workshop-fcaj-intern/1-worklog/1.3-week3/><b>1.3. </b>Week 3 Worklog
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/1-worklog/1.4-week4/ title="Week 4 Worklog" class=dd-item><a href=/workshop-fcaj-intern/1-worklog/1.4-week4/><b>1.4. </b>Week 4 Worklog
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/1-worklog/1.5-week5/ title="Week 5 Worklog" class=dd-item><a href=/workshop-fcaj-intern/1-worklog/1.5-week5/><b>1.5. </b>Week 5 Worklog
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/1-worklog/1.6-week6/ title="Week 6 Worklog" class=dd-item><a href=/workshop-fcaj-intern/1-worklog/1.6-week6/><b>1.6. </b>Week 6 Worklog
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/1-worklog/1.7-week7/ title="Week 7 Worklog" class=dd-item><a href=/workshop-fcaj-intern/1-worklog/1.7-week7/><b>1.7. </b>Week 7 Worklog
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/1-worklog/1.8-week8/ title="Week 8 Worklog" class=dd-item><a href=/workshop-fcaj-intern/1-worklog/1.8-week8/><b>1.8. </b>Week 8 Worklog
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/1-worklog/1.9-week9/ title="Week 9 Worklog" class=dd-item><a href=/workshop-fcaj-intern/1-worklog/1.9-week9/><b>1.9. </b>Week 9 Worklog
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/1-worklog/1.10-week10/ title="Week 10 Worklog" class=dd-item><a href=/workshop-fcaj-intern/1-worklog/1.10-week10/><b>1.10. </b>Week 10 Worklog
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/1-worklog/1.11-week11/ title="Week 11 Worklog" class=dd-item><a href=/workshop-fcaj-intern/1-worklog/1.11-week11/><b>1.11. </b>Week 11 Worklog
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/1-worklog/1.12-week12/ title="Week 12 Worklog" class=dd-item><a href=/workshop-fcaj-intern/1-worklog/1.12-week12/><b>1.12. </b>Week 12 Worklog
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/workshop-fcaj-intern/2-proposal/ title="Project Proposal" class=dd-item><a href=/workshop-fcaj-intern/2-proposal/><b>2. </b>Project Proposal
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/3-blogsposted/ title="Published Blog Posts" class=dd-item><a href=/workshop-fcaj-intern/3-blogsposted/><b>3. </b>Published Blog Posts
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/workshop-fcaj-intern/3-blogsposted/3.1-blog1/ title="Blog 1" class=dd-item><a href=/workshop-fcaj-intern/3-blogsposted/3.1-blog1/><b>3.1. </b>Blog 1
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/3-blogsposted/3.2-blog2/ title="Blog 2" class=dd-item><a href=/workshop-fcaj-intern/3-blogsposted/3.2-blog2/><b>3.2. </b>Blog 2
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/3-blogsposted/3.3-blog3/ title="Blog 3" class=dd-item><a href=/workshop-fcaj-intern/3-blogsposted/3.3-blog3/><b>3.3. </b>Blog 3
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/workshop-fcaj-intern/4-eventparticipated/ title="Events Attended" class=dd-item><a href=/workshop-fcaj-intern/4-eventparticipated/><b>4. </b>Events Attended
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/workshop-fcaj-intern/4-eventparticipated/4.1-event1/ title="Event 1" class=dd-item><a href=/workshop-fcaj-intern/4-eventparticipated/4.1-event1/><b>4.1. </b>Event 1
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/4-eventparticipated/4.2-event2/ title="Event 2" class=dd-item><a href=/workshop-fcaj-intern/4-eventparticipated/4.2-event2/><b>4.2. </b>Event 2
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/4-eventparticipated/4.3-event3/ title="Event 3" class=dd-item><a href=/workshop-fcaj-intern/4-eventparticipated/4.3-event3/><b>4.3. </b>Event 3
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/4-eventparticipated/4.4-event4/ title="Event 4" class=dd-item><a href=/workshop-fcaj-intern/4-eventparticipated/4.4-event4/><b>4.4. </b>Event 4
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/workshop-fcaj-intern/5-workshop/ title=Workshop class="dd-item
+parent"><a href=/workshop-fcaj-intern/5-workshop/><b>5. </b>Workshop
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.1-workshop-overview/ title=Introduction class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.1-workshop-overview/><b>5.1. </b>Introduction
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.2-prerequisite/ title=Prerequisites class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.2-prerequisite/><b>5.2. </b>Prerequisites
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.2-prerequisite/5.2.1-aws-credentials/ title="Configure AWS Credentials" class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.2-prerequisite/5.2.1-aws-credentials/><b>5.2.1. </b>Configure AWS Credentials
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.2-prerequisite/5.2.2-hcp-terraform/ title="Configure HCP Terraform" class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.2-prerequisite/5.2.2-hcp-terraform/><b>5.2.2. </b>Configure HCP Terraform
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.2-prerequisite/5.2.3-code-terraform/ title="Prepare the Terraform Code" class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.2-prerequisite/5.2.3-code-terraform/><b>5.2.3. </b>Prepare the Terraform Code
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.3-infrastructure/ title="Provision Infrastructure with Terraform" class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.3-infrastructure/><b>5.3. </b>Provision Infrastructure with Terraform
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.3-infrastructure/5.3.1-variables/ title="Declare Input Variables" class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.3-infrastructure/5.3.1-variables/><b>5.3.1 </b>Declare Input Variables
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.3-infrastructure/5.3.2-s3-bucket/ title="Create an Amazon S3 Bucket for Cost Data Storage" class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.3-infrastructure/5.3.2-s3-bucket/><b>5.3.2 </b>Create an Amazon S3 Bucket for Cost Data Storage
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.3-infrastructure/5.3.3-iam-role/ title="Create an IAM Role for Lambda" class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.3-infrastructure/5.3.3-iam-role/><b>5.3.3 </b>Create an IAM Role for Lambda
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.3-infrastructure/5.3.4-sns-topic/ title="Create an Amazon SNS Topic for Cost Alerts" class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.3-infrastructure/5.3.4-sns-topic/><b>5.3.4 </b>Create an Amazon SNS Topic for Cost Alerts
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.3-infrastructure/5.3.5-sqs-queue-dlq/ title="Create an Amazon SQS Queue and a Dead Letter Queue" class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.3-infrastructure/5.3.5-sqs-queue-dlq/><b>5.3.5 </b>Create an Amazon SQS Queue and a Dead Letter Queue
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.3-infrastructure/5.3.6-eventbridge-rule/ title="Create an Amazon EventBridge Schedule" class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.3-infrastructure/5.3.6-eventbridge-rule/><b>5.3.6 </b>Create an Amazon EventBridge Schedule
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.3-infrastructure/5.3.7-outputs/ title="Define Terraform Outputs" class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.3-infrastructure/5.3.7-outputs/><b>5.3.7 </b>Define Terraform Outputs
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.3-infrastructure/5.3.8-deploy-infrastructure/ title="Deploy the Infrastructure" class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.3-infrastructure/5.3.8-deploy-infrastructure/><b>5.3.8 </b>Deploy the Infrastructure
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.4-deploy-lambda/ title="Deploying Lambda Functions" class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.4-deploy-lambda/><b>5.4. </b>Deploying Lambda Functions
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.4-deploy-lambda/5.4.1-lambda-collector/ title="Deploy Lambda Collector" class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.4-deploy-lambda/5.4.1-lambda-collector/><b>5.4.1 </b>Deploy Lambda Collector
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.4-deploy-lambda/5.4.2-lambda-analyzer/ title="Deploy Lambda Analyzer" class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.4-deploy-lambda/5.4.2-lambda-analyzer/><b>5.4.2 </b>Deploy Lambda Analyzer
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.5-monitoring/ title=Monitoring class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.5-monitoring/><b>5.5 </b>Monitoring
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.5-monitoring/5.5.1-lambda-alarm-error/ title="Configure CloudWatch Alarms for Lambda" class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.5-monitoring/5.5.1-lambda-alarm-error/><b>5.5.1 </b>Configure CloudWatch Alarms for Lambda
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.5-monitoring/5.5.2-lambda-dlq-error/ title="Configure CloudWatch Alarms for the Dead Letter Queue" class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.5-monitoring/5.5.2-lambda-dlq-error/><b>5.5.2 </b>Configure CloudWatch Alarms for the Dead Letter Queue
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.5-monitoring/5.5.3-deploy/ title=Deployment class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.5-monitoring/5.5.3-deploy/><b>5.5.3 </b>Deployment
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.6-dashboard/ title="Web Dashboard" class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.6-dashboard/><b>5.6. </b>Web Dashboard
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.6-dashboard/5.6.1-backend/ title=Backend class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.6-dashboard/5.6.1-backend/><b>5.6.1 </b>Backend
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.6-dashboard/5.6.2-frontend/ title=Frontend class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.6-dashboard/5.6.2-frontend/><b>5.6.2 </b>Frontend
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.6-dashboard/5.6.3-authentication-cognito/ title="Authentication with Amazon Cognito" class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.6-dashboard/5.6.3-authentication-cognito/><b>5.6.3 </b>Authentication with Amazon Cognito
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.7-testing/ title="System Testing" class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.7-testing/><b>5.7 </b>System Testing
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.8-ci-cd/ title=CI/CD class="dd-item
+active"><a href=/workshop-fcaj-intern/5-workshop/5.8-ci-cd/><b>5.8. </b>CI/CD
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.9-cleanup/ title="Clean Up Resources" class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.9-cleanup/><b>5.9. </b>Clean Up Resources
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/workshop-fcaj-intern/6-self-evaluation/ title=Self-Assessment class=dd-item><a href=/workshop-fcaj-intern/6-self-evaluation/><b>6. </b>Self-Assessment
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/7-feedback/ title="Feedback and Suggestions" class=dd-item><a href=/workshop-fcaj-intern/7-feedback/><b>7. </b>Feedback and Suggestions
+<i class="fas fa-check read-icon"></i></a></li></ul><section id=shortcuts><h3>More</h3><ul><li><a class=padding href=https://awsstudygroup.com><i class='fab fa-aws'></i> AWS Study Group - Blog</a></li><li><a class=padding href=https://www.facebook.com/groups/awsstudygroupfcj><i class='fab fa-facebook'></i> AWS Study Group - FB Group</a></li></ul></section><section id=prefooter><hr><ul><li><a class=padding><i class="fas fa-language fa-fw"></i><div class=select-style><select id=select-language onchange="location=this.value"><option id=en value=https://thienthuan25.github.io/workshop-fcaj-intern/5-workshop/5.8-ci-cd/ selected>English</option><option id=vi value=https://thienthuan25.github.io/workshop-fcaj-intern/vi/5-workshop/5.8-ci-cd/>Tiếng Việt</option></select><svg id="Capa_1" xmlns:xlink="http://www.w3.org/1999/xlink" width="255" height="255" viewBox="0 0 255 255" style="enable-background:new 0 0 255 255"><g><g id="arrow-drop-down"><polygon points="0,63.75 127.5,191.25 255,63.75"/></g></g></svg></div></a></li><li><a class=padding href=# data-clear-history-toggle><i class="fas fa-history fa-fw"></i> Clear History</a></li></ul></section><section id=footer><left><br><br><b>Last Updated</b><br><i><font color=orange>14-08-2026</font>
+</i></left><left><br><br><b>Member</b><br><i><a href=https://www.facebook.com/groups/660548818043427 style=color:orange>Nguyễn Thiên Thuận</a>
+</i></left><script async defer src=https://buttons.github.io/buttons.js></script></section></div></nav><section id=body><div id=overlay></div><div class="padding highlightable"><div><div id=top-bar><div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb><span id=sidebar-toggle-span><a href=# id=sidebar-toggle data-sidebar-toggle><i class="fas fa-bars"></i>
+</a></span><span id=toc-menu><i class="fas fa-list-alt"></i></span>
+<span class=links><a href=/workshop-fcaj-intern/>Internship Report</a> > <a href=/workshop-fcaj-intern/5-workshop/>Workshop</a> > CI/CD</span></div><div class=progress><div class=wrapper><nav id=TableOfContents><ul><li><ul><li><a href=#create-ci-workflow>Create CI Workflow</a></li><li><a href=#create-cd-workflow>Create CD Workflow</a></li><li><a href=#next-content>Next Content</a></li></ul></li></ul></nav></div></div></div></div><div id=head-tags></div><div id=body-inner><h1>CI/CD</h1><p>In this section, the CloudCost Insight project applies a CI/CD pipeline using GitHub Actions to automatically verify source code quality and deploy AWS infrastructure consistently.</p><p>Each change is made on a separate branch and submitted via a Pull Request, which is then automatically checked by the system. This process includes: linting and running unit tests for the Python Lambda code, checking formatting and validating Terraform configuration, creating a Terraform plan, and checking the JavaScript syntax of the Dashboard. Changes are only merged into the main branch when all tests succeed and are approved.</p><p>After merging, the CD workflow automatically runs Terraform Apply via HCP Terraform to update the AWS infrastructure. This process helps reduce manual deployment risks, detects errors early, and ensures the deployment environment is always consistent with the source code.</p><h3 id=create-ci-workflow>Create CI Workflow</h3><p><strong>1.</strong> First, we will configure the <strong>ci.yml</strong> file in the <strong>.github/workflows</strong> directory:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#75715e># Display name of the workflow on the GitHub Actions tab</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>name</span>: <span style=color:#ae81ff>CI</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Run CI when creating/updating a Pull Request to main</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># or when a commit is pushed directly to main</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>on</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>pull_request</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>branches</span>: [<span style=color:#ae81ff>main]</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>push</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>branches</span>: [<span style=color:#ae81ff>main]</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># CI only needs to read the source code to check, no write or deploy permissions</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>permissions</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>contents</span>: <span style=color:#ae81ff>read</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>jobs</span>:
+</span></span><span style=display:flex><span>  <span style=color:#75715e># Job 1: Check Python source code syntax of Lambda functions</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>python</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Check Python Lambda code</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>runs-on</span>: <span style=color:#ae81ff>ubuntu-latest</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>steps</span>:
+</span></span><span style=display:flex><span>      <span style=color:#75715e># Checkout source code for checking</span>
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Checkout source</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>uses</span>: <span style=color:#ae81ff>actions/checkout@v5</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>      <span style=color:#75715e># Set up Python with the version used by Lambda</span>
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Set up Python</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>uses</span>: <span style=color:#ae81ff>actions/setup-python@v6</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>with</span>:
+</span></span><span style=display:flex><span>          <span style=color:#f92672>python-version</span>: <span style=color:#e6db74>&#34;3.12&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>      <span style=color:#75715e># Compile Python files to detect syntax errors</span>
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Check Python syntax</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>run</span>: |<span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>          python -m compileall terraform/lambda terraform/test</span>          
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e># Job 2: Check formatting and validity of Terraform configuration</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>terraform</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Validate Terraform</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>runs-on</span>: <span style=color:#ae81ff>ubuntu-latest</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>steps</span>:
+</span></span><span style=display:flex><span>      <span style=color:#75715e># Checkout Terraform source code to the CI virtual machine</span>
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Checkout source</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>uses</span>: <span style=color:#ae81ff>actions/checkout@v5</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>      <span style=color:#75715e># Set up Terraform with the correct project version</span>
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Set up Terraform</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>uses</span>: <span style=color:#ae81ff>hashicorp/setup-terraform@v3</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>with</span>:
+</span></span><span style=display:flex><span>          <span style=color:#f92672>terraform_version</span>: <span style=color:#e6db74>&#34;1.5.7&#34;</span>
+</span></span><span style=display:flex><span>          <span style=color:#75715e># Do not wrap Terraform output for clearer logs</span>
+</span></span><span style=display:flex><span>          <span style=color:#f92672>terraform_wrapper</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>      <span style=color:#75715e># Check if .tf files have the correct standard format</span>
+</span></span><span style=display:flex><span>      <span style=color:#75715e># -check only reports errors, does not auto-edit files</span>
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Check Terraform formatting</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>working-directory</span>: <span style=color:#ae81ff>terraform</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>run</span>: <span style=color:#ae81ff>terraform fmt -check -recursive</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>      <span style=color:#75715e># Initialize Terraform to download providers, but do not connect to HCP Terraform backend</span>
+</span></span><span style=display:flex><span>      <span style=color:#75715e># CI only checks configuration and does not create, modify, or delete AWS resources</span>
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Initialize Terraform without remote backend</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>working-directory</span>: <span style=color:#ae81ff>terraform</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>run</span>: <span style=color:#ae81ff>terraform init -backend=false</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>      <span style=color:#75715e># Check syntax, variables, resources, and references in Terraform</span>
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Validate Terraform configuration</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>working-directory</span>: <span style=color:#ae81ff>terraform</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>run</span>: <span style=color:#ae81ff>terraform validate</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e># Job 3: Check JavaScript syntax of the Web Dashboard</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>frontend</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Check dashboard JavaScript</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>runs-on</span>: <span style=color:#ae81ff>ubuntu-latest</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>steps</span>:
+</span></span><span style=display:flex><span>      <span style=color:#75715e># Checkout frontend source code to the CI virtual machine</span>
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Checkout source</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>uses</span>: <span style=color:#ae81ff>actions/checkout@v5</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>      <span style=color:#75715e># Check script.js syntax without running the Dashboard in the browser</span>
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Check JavaScript syntax</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>run</span>: <span style=color:#ae81ff>node --check terraform/web/script.js</span>
+</span></span></code></pre></div><p><strong>2.</strong> Create Unit test for Lambda</p><p>You need to create a <strong>tests</strong> folder from the root of the project and then create a <strong>conftest.py</strong> file in this folder:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>import</span> importlib.util
+</span></span><span style=display:flex><span><span style=color:#f92672>from</span> pathlib <span style=color:#f92672>import</span> Path
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># pyrefly: ignore [missing-import]</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> pytest
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Determine the root directory of the project from the tests/conftest.py file location.</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># parents[1] corresponds to the parent directory of the tests folder.</span>
+</span></span><span style=display:flex><span>ROOT_DIR <span style=color:#f92672>=</span> Path(__file__)<span style=color:#f92672>.</span>resolve()<span style=color:#f92672>.</span>parents[<span style=color:#ae81ff>1</span>]
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Fixture that automatically runs before each test.</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Set up mock environment variables so boto3 does not use real AWS credentials</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># and Lambda handlers have the necessary configuration when imported.</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@pytest.fixture</span>(autouse<span style=color:#f92672>=</span><span style=color:#66d9ef>True</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>aws_environment</span>(monkeypatch):
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;&#34;&#34;Cấu hình môi trường giả phục vụ unit test Lambda.&#34;&#34;&#34;</span>
+</span></span><span style=display:flex><span>    monkeypatch<span style=color:#f92672>.</span>setenv(<span style=color:#e6db74>&#34;AWS_DEFAULT_REGION&#34;</span>, <span style=color:#e6db74>&#34;us-east-1&#34;</span>)
+</span></span><span style=display:flex><span>    monkeypatch<span style=color:#f92672>.</span>setenv(<span style=color:#e6db74>&#34;AWS_ACCESS_KEY_ID&#34;</span>, <span style=color:#e6db74>&#34;testing&#34;</span>)
+</span></span><span style=display:flex><span>    monkeypatch<span style=color:#f92672>.</span>setenv(<span style=color:#e6db74>&#34;AWS_SECRET_ACCESS_KEY&#34;</span>, <span style=color:#e6db74>&#34;testing&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Mock AWS resource values used during testing.</span>
+</span></span><span style=display:flex><span>    monkeypatch<span style=color:#f92672>.</span>setenv(<span style=color:#e6db74>&#34;BUCKET_NAME&#34;</span>, <span style=color:#e6db74>&#34;test-cost-data-bucket&#34;</span>)
+</span></span><span style=display:flex><span>    monkeypatch<span style=color:#f92672>.</span>setenv(
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;QUEUE_URL&#34;</span>, <span style=color:#e6db74>&#34;https://sqs.us-east-1.amazonaws.com/123456789012/events&#34;</span>
+</span></span><span style=display:flex><span>    )
+</span></span><span style=display:flex><span>    monkeypatch<span style=color:#f92672>.</span>setenv(
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;SNS_TOPIC_ARN&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;arn:aws:sns:us-east-1:123456789012:cost-alerts&#34;</span>,
+</span></span><span style=display:flex><span>    )
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Configuration variables for the cost analysis logic.</span>
+</span></span><span style=display:flex><span>    monkeypatch<span style=color:#f92672>.</span>setenv(<span style=color:#e6db74>&#34;COST_THRESHOLD_USD&#34;</span>, <span style=color:#e6db74>&#34;10&#34;</span>)
+</span></span><span style=display:flex><span>    monkeypatch<span style=color:#f92672>.</span>setenv(<span style=color:#e6db74>&#34;SPIKE_MULTIPLIER&#34;</span>, <span style=color:#e6db74>&#34;1.5&#34;</span>)
+</span></span><span style=display:flex><span>    monkeypatch<span style=color:#f92672>.</span>setenv(<span style=color:#e6db74>&#34;HISTORY_DAYS&#34;</span>, <span style=color:#e6db74>&#34;7&#34;</span>)
+</span></span><span style=display:flex><span>    monkeypatch<span style=color:#f92672>.</span>setenv(<span style=color:#e6db74>&#34;MAX_DAYS&#34;</span>, <span style=color:#e6db74>&#34;30&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>load_lambda_module</span>(module_name: str, relative_path: str):
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;&#34;&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    Import trực tiếp từng file handler.py bằng tên module riêng.
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    Cách này tránh xung đột vì Collector, Analyzer và API
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    đều có thể sử dụng tên file handler.py.
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    &#34;&#34;&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Create the absolute path to the Lambda file to be tested.</span>
+</span></span><span style=display:flex><span>    path <span style=color:#f92672>=</span> ROOT_DIR <span style=color:#f92672>/</span> relative_path
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Create module information from the file path.</span>
+</span></span><span style=display:flex><span>    spec <span style=color:#f92672>=</span> importlib<span style=color:#f92672>.</span>util<span style=color:#f92672>.</span>spec_from_file_location(module_name, path)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Create a new Python module and execute the source code in the handler.py file.</span>
+</span></span><span style=display:flex><span>    module <span style=color:#f92672>=</span> importlib<span style=color:#f92672>.</span>util<span style=color:#f92672>.</span>module_from_spec(spec)
+</span></span><span style=display:flex><span>    spec<span style=color:#f92672>.</span>loader<span style=color:#f92672>.</span>exec_module(module)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Return the module for test files to call the function to be tested.</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> module
+</span></span></code></pre></div><p>The <strong>conftest.py</strong> file provides the configuration and shared components for the entire unit testing process using pytest. The purpose of this file includes setting up a mock environment to ensure that Lambda functions use mock environment variables and AWS credentials when running tests. This keeps the test system completely isolated, avoiding accidental calls to the real AWS API that could incur costs or cause unwanted errors.</p><p>The file also provides the <strong>load_lambda_module</strong> utility, which helps load Lambda files independently. Since all Lambdas share the same filename <strong>handler.py</strong>, this utility allows importing them under distinct module names to avoid source code conflicts.</p><p>Next, we create the <strong>test_analyzer.py</strong> file:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e># Import helper function to load Lambda Analyzer directly from handler.py file.</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>from</span> conftest <span style=color:#f92672>import</span> load_lambda_module
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>sample_cost_data</span>():
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;&#34;&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    Tạo dữ liệu Cost Explorer giả.
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    Dữ liệu này thay thế kết quả gọi AWS Cost Explorer thật,
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    giúp unit test chạy độc lập và không phát sinh chi phí AWS.
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    &#34;&#34;&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> {
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;ResultsByTime&#34;</span>: [
+</span></span><span style=display:flex><span>            {
+</span></span><span style=display:flex><span>                <span style=color:#e6db74>&#34;Groups&#34;</span>: [
+</span></span><span style=display:flex><span>                    {
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;Keys&#34;</span>: [<span style=color:#e6db74>&#34;Amazon EC2&#34;</span>],
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;Metrics&#34;</span>: {<span style=color:#e6db74>&#34;UnblendedCost&#34;</span>: {<span style=color:#e6db74>&#34;Amount&#34;</span>: <span style=color:#e6db74>&#34;8.50&#34;</span>}},
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    {
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;Keys&#34;</span>: [<span style=color:#e6db74>&#34;Amazon S3&#34;</span>],
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;Metrics&#34;</span>: {<span style=color:#e6db74>&#34;UnblendedCost&#34;</span>: {<span style=color:#e6db74>&#34;Amount&#34;</span>: <span style=color:#e6db74>&#34;2.00&#34;</span>}},
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    {
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;Keys&#34;</span>: [<span style=color:#e6db74>&#34;AWS Lambda&#34;</span>],
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;Metrics&#34;</span>: {<span style=color:#e6db74>&#34;UnblendedCost&#34;</span>: {<span style=color:#e6db74>&#34;Amount&#34;</span>: <span style=color:#e6db74>&#34;1.25&#34;</span>}},
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                ]
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>        ]
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>test_compute_total_and_top_services</span>():
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;&#34;&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    Kiểm tra Analyzer tính đúng tổng chi phí
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    và sắp xếp các dịch vụ theo chi phí giảm dần.
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    &#34;&#34;&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Load Analyzer module to directly call the function to be tested.</span>
+</span></span><span style=display:flex><span>    analyzer <span style=color:#f92672>=</span> load_lambda_module(
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;analyzer_handler&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;terraform/lambda/analyzer/handler.py&#34;</span>,
+</span></span><span style=display:flex><span>    )
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Analyze mock cost data.</span>
+</span></span><span style=display:flex><span>    result <span style=color:#f92672>=</span> analyzer<span style=color:#f92672>.</span>compute_total_and_top(sample_cost_data())
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Expected total cost: 8.50 + 2.00 + 1.25 = 11.75 USD.</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>assert</span> result[<span style=color:#e6db74>&#34;total_cost&#34;</span>] <span style=color:#f92672>==</span> <span style=color:#ae81ff>11.75</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># The list of services must be sorted by cost in descending order.</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>assert</span> result[<span style=color:#e6db74>&#34;top_services&#34;</span>] <span style=color:#f92672>==</span> [
+</span></span><span style=display:flex><span>        (<span style=color:#e6db74>&#34;Amazon EC2&#34;</span>, <span style=color:#ae81ff>8.5</span>),
+</span></span><span style=display:flex><span>        (<span style=color:#e6db74>&#34;Amazon S3&#34;</span>, <span style=color:#ae81ff>2.0</span>),
+</span></span><span style=display:flex><span>        (<span style=color:#e6db74>&#34;AWS Lambda&#34;</span>, <span style=color:#ae81ff>1.25</span>),
+</span></span><span style=display:flex><span>    ]
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>test_classify_severity_returns_info_for_normal_cost</span>():
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;&#34;&#34;Kiểm tra chi phí bình thường được phân loại ở mức INFO.&#34;&#34;&#34;</span>
+</span></span><span style=display:flex><span>    analyzer <span style=color:#f92672>=</span> load_lambda_module(
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;analyzer_handler&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;terraform/lambda/analyzer/handler.py&#34;</span>,
+</span></span><span style=display:flex><span>    )
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># The cost of 6 USD has not exceeded the 10 USD threshold and did not spike.</span>
+</span></span><span style=display:flex><span>    severity, reasons <span style=color:#f92672>=</span> analyzer<span style=color:#f92672>.</span>classify_severity(total<span style=color:#f92672>=</span><span style=color:#ae81ff>6</span>, avg<span style=color:#f92672>=</span><span style=color:#ae81ff>5</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># No need to send an alert when the cost is within the normal range.</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>assert</span> severity <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;INFO&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>assert</span> reasons <span style=color:#f92672>==</span> []
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>test_classify_severity_returns_warning_when_threshold_exceeded</span>():
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;&#34;&#34;Kiểm tra chi phí vượt ngưỡng ngân sách được phân loại WARNING.&#34;&#34;&#34;</span>
+</span></span><span style=display:flex><span>    analyzer <span style=color:#f92672>=</span> load_lambda_module(
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;analyzer_handler&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;terraform/lambda/analyzer/handler.py&#34;</span>,
+</span></span><span style=display:flex><span>    )
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># The cost of 12 USD exceeds the 10 USD budget threshold,</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># but is not large enough to be considered a spike.</span>
+</span></span><span style=display:flex><span>    severity, reasons <span style=color:#f92672>=</span> analyzer<span style=color:#f92672>.</span>classify_severity(total<span style=color:#f92672>=</span><span style=color:#ae81ff>12</span>, avg<span style=color:#f92672>=</span><span style=color:#ae81ff>9</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>assert</span> severity <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;WARNING&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>assert</span> <span style=color:#e6db74>&#34;Budget threshold exceeded ($10.00)&#34;</span> <span style=color:#f92672>in</span> reasons
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>test_classify_severity_returns_critical_for_cost_spike</span>():
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;&#34;&#34;Kiểm tra chi phí tăng đột biến được phân loại CRITICAL.&#34;&#34;&#34;</span>
+</span></span><span style=display:flex><span>    analyzer <span style=color:#f92672>=</span> load_lambda_module(
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;analyzer_handler&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;terraform/lambda/analyzer/handler.py&#34;</span>,
+</span></span><span style=display:flex><span>    )
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># The cost of 20 USD is higher than 1.5 times the average of 5 USD,</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># therefore it is identified as a cost spike.</span>
+</span></span><span style=display:flex><span>    severity, reasons <span style=color:#f92672>=</span> analyzer<span style=color:#f92672>.</span>classify_severity(total<span style=color:#f92672>=</span><span style=color:#ae81ff>20</span>, avg<span style=color:#f92672>=</span><span style=color:#ae81ff>5</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>assert</span> severity <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;CRITICAL&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Verify the alert reason contains information about the cost spike.</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>assert</span> any(<span style=color:#e6db74>&#34;Cost spike detected&#34;</span> <span style=color:#f92672>in</span> reason <span style=color:#66d9ef>for</span> reason <span style=color:#f92672>in</span> reasons)
+</span></span></code></pre></div><p>The <strong>test_analyzer.py</strong> file contains test cases dedicated to the Lambda Analyzer. Its task is to verify the cost calculation logic by ensuring the system correctly reads the mock data format, accurately accumulates the total daily cost, and correctly ranks the most expensive services.</p><p>This file also ensures the accuracy of the alert mechanism by thoroughly checking the severity classification conditions based on the budget threshold and cost spike relative to the historical average. This is especially important to prevent the risk of false alarms or missing actual cost overrun incidents.</p><p>Next, we create the <strong>test_api.py</strong> file:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e># Import helper function to load Lambda API directly from handler.py file.</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>from</span> conftest <span style=color:#f92672>import</span> load_lambda_module
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>test_parse_daily_returns_total_and_services</span>():
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;&#34;&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    Kiểm tra Lambda API đọc đúng dữ liệu Cost Explorer của một ngày,
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    tính tổng chi phí và nhóm chi phí theo từng dịch vụ.
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    &#34;&#34;&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Load Lambda API module to call the parse_daily function to be tested.</span>
+</span></span><span style=display:flex><span>    api <span style=color:#f92672>=</span> load_lambda_module(
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;api_handler&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;terraform/lambda/api/handler.py&#34;</span>,
+</span></span><span style=display:flex><span>    )
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Mock Cost Explorer data for 2026-07-15.</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Do not call real Cost Explorer in unit tests.</span>
+</span></span><span style=display:flex><span>    cost_data <span style=color:#f92672>=</span> {
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;ResultsByTime&#34;</span>: [
+</span></span><span style=display:flex><span>            {
+</span></span><span style=display:flex><span>                <span style=color:#e6db74>&#34;TimePeriod&#34;</span>: {<span style=color:#e6db74>&#34;Start&#34;</span>: <span style=color:#e6db74>&#34;2026-07-15&#34;</span>},
+</span></span><span style=display:flex><span>                <span style=color:#e6db74>&#34;Groups&#34;</span>: [
+</span></span><span style=display:flex><span>                    {
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;Keys&#34;</span>: [<span style=color:#e6db74>&#34;Amazon EC2&#34;</span>],
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;Metrics&#34;</span>: {<span style=color:#e6db74>&#34;UnblendedCost&#34;</span>: {<span style=color:#e6db74>&#34;Amount&#34;</span>: <span style=color:#e6db74>&#34;5.25&#34;</span>}},
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    {
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;Keys&#34;</span>: [<span style=color:#e6db74>&#34;Amazon S3&#34;</span>],
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;Metrics&#34;</span>: {<span style=color:#e6db74>&#34;UnblendedCost&#34;</span>: {<span style=color:#e6db74>&#34;Amount&#34;</span>: <span style=color:#e6db74>&#34;1.50&#34;</span>}},
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                ],
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>        ]
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Parse mock data, get date, total cost, and individual service costs.</span>
+</span></span><span style=display:flex><span>    day, total, services <span style=color:#f92672>=</span> api<span style=color:#f92672>.</span>parse_daily(cost_data)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Verify the API gets the correct date from TimePeriod.</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>assert</span> day <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;2026-07-15&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Verify total cost: 5.25 + 1.50 = 6.75 USD.</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>assert</span> total <span style=color:#f92672>==</span> <span style=color:#ae81ff>6.75</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Verify costs are grouped correctly by AWS service.</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>assert</span> services <span style=color:#f92672>==</span> {
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;Amazon EC2&#34;</span>: <span style=color:#ae81ff>5.25</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;Amazon S3&#34;</span>: <span style=color:#ae81ff>1.5</span>,
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>test_cors_response_returns_json_response</span>():
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;&#34;&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    Kiểm tra hàm tạo HTTP response của API Lambda.
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    Response phải có mã trạng thái, header JSON
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    và body được chuyển thành chuỗi JSON.
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    &#34;&#34;&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Load Lambda API module.</span>
+</span></span><span style=display:flex><span>    api <span style=color:#f92672>=</span> load_lambda_module(
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;api_handler&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;terraform/lambda/api/handler.py&#34;</span>,
+</span></span><span style=display:flex><span>    )
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Create a sample response with HTTP status 200 and simple JSON data.</span>
+</span></span><span style=display:flex><span>    response <span style=color:#f92672>=</span> api<span style=color:#f92672>.</span>_response(<span style=color:#ae81ff>200</span>, {<span style=color:#e6db74>&#34;status&#34;</span>: <span style=color:#e6db74>&#34;ok&#34;</span>})
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Verify Lambda returns the correct HTTP status code.</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>assert</span> response[<span style=color:#e6db74>&#34;statusCode&#34;</span>] <span style=color:#f92672>==</span> <span style=color:#ae81ff>200</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Verify the response is declared as JSON data.</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>assert</span> response[<span style=color:#e6db74>&#34;headers&#34;</span>][<span style=color:#e6db74>&#34;Content-Type&#34;</span>] <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;application/json&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Verify the body has been converted to a properly formatted JSON string.</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>assert</span> response[<span style=color:#e6db74>&#34;body&#34;</span>] <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;{&#34;status&#34;: &#34;ok&#34;}&#39;</span>
+</span></span></code></pre></div><p>The <strong>test_api.py</strong> file focuses on testing the functionalities of the Lambda API. Its primary purpose is to test the data extraction logic, ensuring the API can accurately parse the mock raw data structure from Cost Explorer, extract the correct dates, accurately calculate total costs, and group costs by individual services.</p><p>This file also ensures the response format by checking whether the Lambda function generates the exact result structure required by API Gateway. This is crucial to ensure the Web Dashboard can read the data without formatting errors.</p><p>Next, we create the <strong>test_collector.py</strong> file:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e># MagicMock creates mock objects so unit tests do not call real AWS.</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>from</span> unittest.mock <span style=color:#f92672>import</span> MagicMock
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Import helper function to load Lambda Collector directly from handler.py file.</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>from</span> conftest <span style=color:#f92672>import</span> load_lambda_module
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>test_get_cost_data_calls_cost_explorer</span>():
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;&#34;&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    Kiểm tra Collector gọi AWS Cost Explorer với đúng tham số
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    để lấy chi phí theo ngày và theo từng dịch vụ.
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    &#34;&#34;&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Load Lambda Collector module to be tested.</span>
+</span></span><span style=display:flex><span>    collector <span style=color:#f92672>=</span> load_lambda_module(
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;collector_handler&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;terraform/lambda/collector/handler.py&#34;</span>,
+</span></span><span style=display:flex><span>    )
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Replace real Cost Explorer client with mock.</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Thus, the test does not need AWS credentials and does not call AWS API.</span>
+</span></span><span style=display:flex><span>    collector<span style=color:#f92672>.</span>ce_client <span style=color:#f92672>=</span> MagicMock()
+</span></span><span style=display:flex><span>    collector<span style=color:#f92672>.</span>ce_client<span style=color:#f92672>.</span>get_cost_and_usage<span style=color:#f92672>.</span>return_value <span style=color:#f92672>=</span> {<span style=color:#e6db74>&#34;ResultsByTime&#34;</span>: []}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Call the function to get cost data for a one-day period.</span>
+</span></span><span style=display:flex><span>    result <span style=color:#f92672>=</span> collector<span style=color:#f92672>.</span>get_cost_data(<span style=color:#e6db74>&#34;2026-07-01&#34;</span>, <span style=color:#e6db74>&#34;2026-07-02&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Verify Collector returns the expected data structure.</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>assert</span> result <span style=color:#f92672>==</span> {
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;ResultsByTime&#34;</span>: [],
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;GroupDefinitions&#34;</span>: [{<span style=color:#e6db74>&#34;Type&#34;</span>: <span style=color:#e6db74>&#34;DIMENSION&#34;</span>, <span style=color:#e6db74>&#34;Key&#34;</span>: <span style=color:#e6db74>&#34;SERVICE&#34;</span>}],
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Verify Cost Explorer is called exactly once with the correct configuration.</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Data is retrieved daily, using the UnblendedCost metric</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># and grouped by AWS service.</span>
+</span></span><span style=display:flex><span>    collector<span style=color:#f92672>.</span>ce_client<span style=color:#f92672>.</span>get_cost_and_usage<span style=color:#f92672>.</span>assert_called_once_with(
+</span></span><span style=display:flex><span>        TimePeriod<span style=color:#f92672>=</span>{<span style=color:#e6db74>&#34;Start&#34;</span>: <span style=color:#e6db74>&#34;2026-07-01&#34;</span>, <span style=color:#e6db74>&#34;End&#34;</span>: <span style=color:#e6db74>&#34;2026-07-02&#34;</span>},
+</span></span><span style=display:flex><span>        Granularity<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;DAILY&#34;</span>,
+</span></span><span style=display:flex><span>        Metrics<span style=color:#f92672>=</span>[<span style=color:#e6db74>&#34;UnblendedCost&#34;</span>],
+</span></span><span style=display:flex><span>        GroupBy<span style=color:#f92672>=</span>[{<span style=color:#e6db74>&#34;Type&#34;</span>: <span style=color:#e6db74>&#34;DIMENSION&#34;</span>, <span style=color:#e6db74>&#34;Key&#34;</span>: <span style=color:#e6db74>&#34;SERVICE&#34;</span>}],
+</span></span><span style=display:flex><span>    )
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>test_save_to_s3_uses_partitioned_key</span>():
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;&#34;&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    Kiểm tra Collector lưu dữ liệu vào S3 theo cấu trúc phân vùng
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    year/month/day để dễ quản lý và truy vấn dữ liệu chi phí.
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    &#34;&#34;&#34;</span>
+</span></span><span style=display:flex><span>    collector <span style=color:#f92672>=</span> load_lambda_module(
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;collector_handler&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;terraform/lambda/collector/handler.py&#34;</span>,
+</span></span><span style=display:flex><span>    )
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Replace real S3 client with mock to avoid writing files to AWS S3.</span>
+</span></span><span style=display:flex><span>    collector<span style=color:#f92672>.</span>s3_client <span style=color:#f92672>=</span> MagicMock()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Save sample data with date 2026-07-15.</span>
+</span></span><span style=display:flex><span>    key <span style=color:#f92672>=</span> collector<span style=color:#f92672>.</span>save_to_s3({<span style=color:#e6db74>&#34;ResultsByTime&#34;</span>: []}, <span style=color:#e6db74>&#34;2026-07-15&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Verify S3 path is generated correctly according to the partition structure.</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>assert</span> key <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;cost-data/year=2026/month=07/day=15/cost_2026-07-15.json&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Verify Collector performs one S3 put_object call.</span>
+</span></span><span style=display:flex><span>    collector<span style=color:#f92672>.</span>s3_client<span style=color:#f92672>.</span>put_object<span style=color:#f92672>.</span>assert_called_once()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Get the parameters passed to the put_object function.</span>
+</span></span><span style=display:flex><span>    call <span style=color:#f92672>=</span> collector<span style=color:#f92672>.</span>s3_client<span style=color:#f92672>.</span>put_object<span style=color:#f92672>.</span>call_args<span style=color:#f92672>.</span>kwargs
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Verify data is written to the mock bucket configured in conftest.py.</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>assert</span> call[<span style=color:#e6db74>&#34;Bucket&#34;</span>] <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;test-cost-data-bucket&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>assert</span> call[<span style=color:#e6db74>&#34;Key&#34;</span>] <span style=color:#f92672>==</span> key
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>assert</span> call[<span style=color:#e6db74>&#34;ContentType&#34;</span>] <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;application/json&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>test_send_event_to_sqs_contains_expected_values</span>():
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;&#34;&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    Kiểm tra Collector gửi event vào SQS sau khi lưu dữ liệu vào S3.
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    Event cần có ngày, S3 key và tổng chi phí để Analyzer xử lý tiếp.
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    &#34;&#34;&#34;</span>
+</span></span><span style=display:flex><span>    collector <span style=color:#f92672>=</span> load_lambda_module(
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;collector_handler&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;terraform/lambda/collector/handler.py&#34;</span>,
+</span></span><span style=display:flex><span>    )
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Replace real SQS client with mock to avoid sending messages to AWS.</span>
+</span></span><span style=display:flex><span>    collector<span style=color:#f92672>.</span>sqs_client <span style=color:#f92672>=</span> MagicMock()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Send sample event containing date, S3 file location, and total cost.</span>
+</span></span><span style=display:flex><span>    collector<span style=color:#f92672>.</span>send_event_to_sqs(
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;2026-07-15&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;cost-data/example.json&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#ae81ff>12.34</span>,
+</span></span><span style=display:flex><span>    )
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Verify Collector sends exactly one message to SQS.</span>
+</span></span><span style=display:flex><span>    collector<span style=color:#f92672>.</span>sqs_client<span style=color:#f92672>.</span>send_message<span style=color:#f92672>.</span>assert_called_once()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Get the parameters of the send_message call.</span>
+</span></span><span style=display:flex><span>    call <span style=color:#f92672>=</span> collector<span style=color:#f92672>.</span>sqs_client<span style=color:#f92672>.</span>send_message<span style=color:#f92672>.</span>call_args<span style=color:#f92672>.</span>kwargs
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Verify the message is sent to the events queue.</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>assert</span> call[<span style=color:#e6db74>&#34;QueueUrl&#34;</span>]<span style=color:#f92672>.</span>endswith(<span style=color:#e6db74>&#34;/events&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Verify the message content has the required data fields.</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>assert</span> <span style=color:#e6db74>&#39;&#34;date&#34;: &#34;2026-07-15&#34;&#39;</span> <span style=color:#f92672>in</span> call[<span style=color:#e6db74>&#34;MessageBody&#34;</span>]
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>assert</span> <span style=color:#e6db74>&#39;&#34;total_cost&#34;: 12.34&#39;</span> <span style=color:#f92672>in</span> call[<span style=color:#e6db74>&#34;MessageBody&#34;</span>]
+</span></span></code></pre></div><p>The <strong>test_collector.py</strong> file tests the entire workflow of the Lambda Collector. Because this component interacts directly with AWS services, this file uses mocking techniques via <strong>MagicMock</strong> to avoid costs. The primary purpose is to test the Cost Explorer connection to ensure the AWS API call passes the correct configuration parameters.</p><p>The S3 storage logic check confirms that the analyzed data is correctly written to the desired Bucket and that the system generates an accurate file path.</p><p>Finally, ensuring the event-driven flow checks the message content sent to the SQS Queue to see if it contains all essential data keys so the Lambda Analyzer can receive and process it.</p><p>Next, you need to create the <strong>requirements-dev.txt</strong> file in the root directory of the project:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>boto3&gt;=1.34,&lt;2
+</span></span><span style=display:flex><span>pytest&gt;=8,&lt;10
+</span></span><span style=display:flex><span>ruff&gt;=0.6,&lt;1
+</span></span></code></pre></div><p>This file is responsible for listing the Python libraries exclusively for development and testing. These libraries are not packaged into the actual AWS Lambda environment.</p><p>Then, proceed to create the <strong>pyproject.toml</strong> file:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-toml data-lang=toml><span style=display:flex><span>[<span style=color:#a6e22e>tool</span>.<span style=color:#a6e22e>pytest</span>.<span style=color:#a6e22e>ini_options</span>]
+</span></span><span style=display:flex><span><span style=color:#a6e22e>testpaths</span> = [<span style=color:#e6db74>&#34;tests&#34;</span>]
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[<span style=color:#a6e22e>tool</span>.<span style=color:#a6e22e>ruff</span>]
+</span></span><span style=display:flex><span><span style=color:#a6e22e>target-version</span> = <span style=color:#e6db74>&#34;py312&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[<span style=color:#a6e22e>tool</span>.<span style=color:#a6e22e>ruff</span>.<span style=color:#a6e22e>lint</span>]
+</span></span><span style=display:flex><span><span style=color:#a6e22e>select</span> = [<span style=color:#e6db74>&#34;E&#34;</span>, <span style=color:#e6db74>&#34;F&#34;</span>, <span style=color:#e6db74>&#34;I&#34;</span>]
+</span></span><span style=display:flex><span><span style=color:#a6e22e>ignore</span> = [<span style=color:#e6db74>&#34;E501&#34;</span>]
+</span></span></code></pre></div><p>This file helps standardize and optimize the CI/CD workflow. Specific functions include limiting the default test discovery scope to the tests folder to minimize latency. It also defines the target environment version as <strong>Python 3.12</strong> to ensure absolute consistency with the AWS Lambda system.</p><p>Finally, it enables core rule sets to control syntax errors and ensure source code integrity, while disabling the line length limit rule to provide flexibility when declaring complex data structures.</p><p>To continue, activate <strong>venv</strong> using the command line in the Terminal as follows:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>python3 -m venv .venv
+</span></span><span style=display:flex><span>source .venv/bin/activate
+</span></span></code></pre></div><p>Install <strong>dependencies</strong> and run checks:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>python -m pip install --upgrade pip
+</span></span><span style=display:flex><span>pip install -r requirements-dev.txt
+</span></span><span style=display:flex><span>ruff check terraform/lambda tests
+</span></span></code></pre></div><p>Automatically fix logic errors using the command:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>ruff check terraform/lambda tests --fix
+</span></span></code></pre></div><p>Automatically format the code:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>ruff format terraform/lambda tests
+</span></span></code></pre></div><p>While running the commands, a failure message might appear in the Terminal if your code has formatting errors or is out of sync. You can manually fix the errors and rerun the check commands. The expected result will look like the image below.</p><p><img alt=CI/CD src=/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/ci_2.png></p><p>After passing all checks, we proceed to edit the <strong>python</strong> Job in the <strong>ci.yml</strong> file:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>python</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Lint and test Python Lambda code</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>runs-on</span>: <span style=color:#ae81ff>ubuntu-latest</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>steps</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Checkout source</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>uses</span>: <span style=color:#ae81ff>actions/checkout@v5</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Set up Python</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>uses</span>: <span style=color:#ae81ff>actions/setup-python@v6</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>with</span>:
+</span></span><span style=display:flex><span>          <span style=color:#f92672>python-version</span>: <span style=color:#e6db74>&#34;3.12&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Install test dependencies</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>run</span>: |<span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>          python -m pip install --upgrade pip
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>          pip install -r requirements-dev.txt</span>          
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Lint Python code</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>run</span>: <span style=color:#ae81ff>ruff check terraform/lambda tests --output-format=github</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Run unit tests</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>run</span>: <span style=color:#ae81ff>pytest -q</span>
+</span></span></code></pre></div><p>The purpose of modifying the <strong>python</strong> Job is to upgrade the CI system from merely checking for basic errors to a comprehensive source code moderation filter. Previously, this Job only called a syntax checking command, but now we need to bring the Unit Test scripts and configuration tools into actual execution. This new Job will install the necessary tools via the <strong>requirements-dev.txt</strong> file. It will automatically run format checks and immediately flag errors, refusing to allow code merging if flaws are detected. At the same time, it automatically mocks and tests the entire system logic to ensure that new source code does not break old functionalities before deploying to AWS.</p><p><strong>3.</strong> Terraform Plan CI</p><p>This step will automatically run a Terraform plan when you open a <strong>Pull Request</strong> into the main branch. First, we will proceed to check the HCP Terraform Workspace. Please go to your Workspace, select <strong>General</strong> under Settings, and confirm the execution mode is <strong>Remote</strong>.</p><p><img alt="Terraform Plan CI" src=/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/terraformplan_1.png></p><p>Next, you need to create a Token for the <strong>HCP Terraform API</strong>. Access Account Settings, select Tokens, and click create a new Token.</p><p><img alt="Terraform Plan CI" src=/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/terraformplan_2.png></p><p>Set a description and expiration for the Token, click create, and save this value immediately.</p><p><img alt="Terraform Plan CI" src=/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/terraformplan_3.png></p><p>The next step is to save the Token in <strong>GitHub Secrets</strong>. Open your <strong>GitHub repository</strong> settings, navigate to <strong>Secrets and variables</strong> management, and create a new Secret for the repository.</p><p><img alt="Terraform Plan CI" src=/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/terraformplan_4.png></p><p>Name the Secret and paste the newly created Token into the corresponding field.</p><p><img alt="Terraform Plan CI" src=/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/terraformplan_5.png></p><p>Once configured, we update the <strong>Terraform</strong> Job in the <strong>ci.yml</strong> file:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span>      - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Create speculative Terraform plan</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>if</span>: &gt;<span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>          github.event_name == &#39;pull_request&#39; &amp;&amp;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>          github.event.pull_request.head.repo.full_name == github.repository</span>          
+</span></span><span style=display:flex><span>        <span style=color:#f92672>working-directory</span>: <span style=color:#ae81ff>terraform</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>env</span>:
+</span></span><span style=display:flex><span>          <span style=color:#f92672>TF_TOKEN_app_terraform_io</span>: <span style=color:#ae81ff>${{ secrets.TF_API_TOKEN }}</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>run</span>: |<span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>          terraform init -input=false -reconfigure
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>          terraform plan -input=false -no-color</span>          
+</span></span></code></pre></div><p>Previously, the Terraform Job only stopped at checking for typos and basic syntax errors. When adding the test run command, the CI system will indicate exactly which AWS resources are about to be created, modified, or deleted. This helps the team easily spot destructive changes right from the proposal review stage.</p><p>Unlike the local initialization step, this step uses the Token to connect directly to <strong>HCP Terraform</strong>. Thus, the plan command can read the current state file, comparing the new source code with the actual infrastructure to provide an absolutely accurate assessment. The integration condition ensures this infrastructure simulation process is only triggered upon a code merge proposal, acting as a final mandatory test before actual implementation.</p><p>Now we will proceed to test by creating a new proposal. Create a new branch:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>git checkout -b ci/terraform-plan
+</span></span></code></pre></div><p>Next, push the workflows to the repository:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>git add .github/workflows/ci.yml
+</span></span><span style=display:flex><span>git commit -m <span style=color:#e6db74>&#34;Add Terraform plan to CI&#34;</span>
+</span></span><span style=display:flex><span>git push -u origin ci/terraform-plan
+</span></span></code></pre></div><p>Then, open a merge proposal from the new branch to the main branch.</p><p><img alt="Terraform Plan CI" src=/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/terraformplan_6.png></p><p><img alt="Terraform Plan CI" src=/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/terraformplan_7.png></p><p>At this point, the HCP Terraform Workspace does not have a value for the mandatory variable because this variable is defined in a hidden file not pushed to the network due to personal data. Therefore, you need to assign a value to this variable directly in the Workspace.</p><p>Go to the Workspace management page, open the Variables section, and add the email address.</p><p><img alt="Terraform Plan CI" src=/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/terraformplan_8.png></p><p>The expected result in the <strong>GitHub</strong> workflow will show a completed status.</p><p><img alt="Terraform Plan CI" src=/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/terraformplan_9.png></p><p>When everything is ready, scroll down and click the merge button to complete.</p><p><img alt="Terraform Plan CI" src=/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/terraformplan_10.png></p><p>A successful merge will display a confirmation message.</p><p><img alt="Terraform Plan CI" src=/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/terraformplan_11.png></p><h3 id=create-cd-workflow>Create CD Workflow</h3><p>Because Terraform runs remotely on HCP Terraform, the GitHub system does not directly call AWS. The next step requires preparing a protected production environment so the system demands approval before executing the infrastructure apply command.</p><p>You need to create a production environment on GitHub by going to the repository, opening Settings, and choosing to create a new environment.</p><p><img alt="Terraform CD" src=/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/terraformcd_1.png></p><p>Enter the environment name as production and click configure.</p><p><img alt="Terraform CD" src=/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/terraformcd_2.png></p><p>In this environment, enable the required reviewers option and add accounts allowed to approve the process.</p><p><img alt="Terraform CD" src=/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/terraformcd_3.png></p><p>In the branch settings, restrict deployment to only the main branch.</p><p><img alt="Terraform CD" src=/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/terraformcd_4.png></p><p>Add the main branch and save the configuration.</p><p><img alt="Terraform CD" src=/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/terraformcd_5.png></p><p><img alt="Terraform CD" src=/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/terraformcd_6.png></p><p>Then confirm success and save the protection rules.</p><p><img alt="Terraform CD" src=/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/terraformcd_7.png></p><p>This setup will cause the deployment Job to always wait for approval before it can use the Secret or run the apply command.</p><p>Next, you will create an HCP Token specifically for the <strong>CD</strong> process. In the HCP Terraform dashboard, access your organization and select <strong>Teams</strong>.</p><p>At the owners team page, click on Token management.</p><p><img alt="HCP Terraform CD" src=/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/hcptokencd_1.png></p><p>Choose the option to create a new Token for the team.</p><p><img alt="HCP Terraform CD" src=/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/hcptokencd_2.png></p><p>Fill in the description, select the expiration, and save the newly created Token value.</p><p><img alt="HCP Terraform CD" src=/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/hcptokencd_3.png></p><p>Back in GitHub, go to the newly created production environment settings and add a new Secret.</p><p><img alt="HCP Terraform CD" src=/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/hcptokencd_4.png></p><p>Name the Secret, paste the Token value, and save it.</p><p><img alt="HCP Terraform CD" src=/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/hcptokencd_5.png></p><p>Next, you need to create the <strong>terraform-apply.yml</strong> file in the workflows directory. Luồng công việc này chỉ chạy sau khi mã nguồn được gộp vào nhánh chính.</p><p>Nó sẽ chờ bạn phê duyệt ở môi trường production trước khi thực sự triển khai hạ tầng lên AWS.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>name</span>: <span style=color:#ae81ff>Terraform Apply</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>on</span>:
+</span></span><span style=display:flex><span>  <span style=color:#75715e># Automatically run when Terraform changes are merged/pushed to the main branch</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>push</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>branches</span>: [<span style=color:#ae81ff>main]</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>paths</span>:
+</span></span><span style=display:flex><span>      <span style=color:#75715e># Only run CD when there are Terraform infrastructure changes</span>
+</span></span><span style=display:flex><span>      - <span style=color:#e6db74>&#34;terraform/**&#34;</span>
+</span></span><span style=display:flex><span>      <span style=color:#75715e># Allow the workflow to run when this file itself is updated</span>
+</span></span><span style=display:flex><span>      - <span style=color:#e6db74>&#34;.github/workflows/terraform-apply.yml&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e># Allow running the workflow manually from GitHub Actions when needed</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>workflow_dispatch</span>:
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Workflow only needs read permissions for the source code from the repository</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>permissions</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>contents</span>: <span style=color:#ae81ff>read</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Prevent multiple terraform apply runs from executing concurrently on production</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># New runs will be queued, do not cancel the in-progress apply run</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>concurrency</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>group</span>: <span style=color:#ae81ff>terraform-production</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>cancel-in-progress</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>jobs</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>apply</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Apply Terraform to production</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>runs-on</span>: <span style=color:#ae81ff>ubuntu-latest</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>environment</span>: <span style=color:#ae81ff>production</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>env</span>:
+</span></span><span style=display:flex><span>      <span style=color:#75715e># Tell Terraform the command is running in an automation environment</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>TF_IN_AUTOMATION</span>: <span style=color:#e6db74>&#34;true&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>      <span style=color:#75715e># Authentication token with HCP Terraform, fetched from GitHub Environment Secret</span>
+</span></span><span style=display:flex><span>      <span style=color:#75715e># Token value is not displayed in GitHub Actions logs</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>TF_TOKEN_app_terraform_io</span>: <span style=color:#ae81ff>${{ secrets.TF_API_TOKEN }}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>steps</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Checkout source</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>uses</span>: <span style=color:#ae81ff>actions/checkout@v5</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>      <span style=color:#75715e># Set up Terraform with the correct version used by the project</span>
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Set up Terraform</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>uses</span>: <span style=color:#ae81ff>hashicorp/setup-terraform@v3</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>with</span>:
+</span></span><span style=display:flex><span>          <span style=color:#f92672>terraform_version</span>: <span style=color:#e6db74>&#34;1.5.7&#34;</span>
+</span></span><span style=display:flex><span>          <span style=color:#75715e># Display Terraform logs directly to easily check for errors</span>
+</span></span><span style=display:flex><span>          <span style=color:#f92672>terraform_wrapper</span>: <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>      <span style=color:#75715e># Initialize Terraform and connect to HCP Terraform remote backend</span>
+</span></span><span style=display:flex><span>      <span style=color:#75715e># HCP Terraform will manage state and perform remote runs</span>
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Initialize HCP Terraform</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>working-directory</span>: <span style=color:#ae81ff>terraform</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>run</span>: <span style=color:#ae81ff>terraform init -input=false</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>      <span style=color:#75715e># Apply existing Terraform configuration to the production environment</span>
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Apply Terraform</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>working-directory</span>: <span style=color:#ae81ff>terraform</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>run</span>: <span style=color:#ae81ff>terraform apply -input=false -auto-approve -no-color</span>
+</span></span></code></pre></div><p>The Terraform apply process will create a new plan and then execute it. This avoids applying an outdated plan after you have reviewed the proposal.</p><p>Now you proceed to create a branch and push the changes:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>git checkout -b cd/terraform-apply
+</span></span><span style=display:flex><span>git add .github/workflows/terraform-apply.yml
+</span></span><span style=display:flex><span>git commit -m <span style=color:#e6db74>&#34;Add protected Terraform apply workflow&#34;</span>
+</span></span><span style=display:flex><span>git push -u origin cd/terraform-apply
+</span></span></code></pre></div><p>Then, open <strong>Pull Request</strong>, wait for the system to show all green checks, and click the merge button.</p><p><img alt="Terraform CD" src=/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/merge_1.png></p><p>Right after merging, navigate to the <strong>GitHub</strong> Actions section to check the apply progress. The workflow will be in a waiting for review state.</p><p><img alt="Terraform CD" src=/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/merge_2.png></p><p>Click on the <strong>Review deployment</strong>, select the production environment, and confirm approval.</p><p><img alt="Terraform CD" src=/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/merge_3.png></p><p><img alt="Terraform CD" src=/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/merge_4.png></p><p>Next, you can directly monitor the <strong>HCP Terraform</strong> dashboard to check the execution progress.</p><p><img alt="Terraform CD" src=/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/merge_5.png></p><p><img alt="Terraform CD" src=/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/merge_6.png></p><p><img alt="Terraform CD" src=/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/merge_7.png></p><p>On the first run, if the current infrastructure already matches the configuration state, the system will report no changes. Conversely, the deployment might create or update AWS resources and incur costs, so you must always read the logs carefully before approving.</p><p>The GitHub environment already supports a safe review workflow before granting access to secret variables for deployment.</p><p>Finally, we will set up a protection rule for the main branch. Protecting the branch helps prevent the infrastructure from undergoing unverified changes. All changes must go through a merge proposal, pass system checks, and be approved before merging into the main branch. This is extremely important because the merge process can automatically trigger the deployment workflow and alter AWS resources. This protection minimizes the risk of erroneous deployments or system disruption.</p><p>Access the branch settings in the repository and add a classic branch protection rule.</p><p><img alt="Branch protection rule" src=/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/branchprotectionrule_1.png></p><p>Check the options requiring a merge proposal, mandatory passing of status checks, and requiring the branch to be up to date before merging.</p><p><img alt="Branch protection rule" src=/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/branchprotectionrule_3.png></p><p>Scroll down and add the required checks, including checking dashboard syntax, running <strong>Python</strong> code tests, and validating <strong>Terraform</strong> configuration.</p><p><img alt="Branch protection rule" src=/workshop-fcaj-intern/images/5-Workshop/5.8-CI-CD/branchprotectionrule_4.png></p><p>Finally, save the changes. The system will request a re-check if the main branch has a newer update than the proposing branch. The standard procedure now will be creating a branch, pushing changes, opening a proposal, passing checks, merging into the main branch, and waiting for deployment approval.</p><p>We have completed the continuous integration and deployment section for the <strong>CloudCost Insight</strong> project. All changes are now automatically and strictly quality-checked via <strong>GitHub Actions</strong> before being merged.</p><p>When the merge process is complete, the system automatically updates the AWS infrastructure via HCP Terraform.</p><p>The combination with GitHub&rsquo;s protected environment ensures the deployment is always safe, consistent, and minimizes manual operations.</p><h3 id=next-content>Next Content</h3><p><a href=/workshop-fcaj-intern/5-workshop/5.9-cleanup/>Clean up</a></p><footer class=footline></footer></div></div><div id=navigation><a class="nav nav-prev" href=/workshop-fcaj-intern/5-workshop/5.7-testing/ title="System Testing"><i class="fa fa-chevron-left"></i></a>
+<a class="nav nav-next" href=/workshop-fcaj-intern/5-workshop/5.9-cleanup/ title="Clean Up Resources" style=margin-right:0><i class="fa fa-chevron-right"></i></a></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/workshop-fcaj-intern/js/clipboard.min.js?1786693546></script><script src=/workshop-fcaj-intern/js/perfect-scrollbar.min.js?1786693546></script><script src=/workshop-fcaj-intern/js/perfect-scrollbar.jquery.min.js?1786693546></script><script src=/workshop-fcaj-intern/js/jquery.sticky.js?1786693546></script><script src=/workshop-fcaj-intern/js/featherlight.min.js?1786693546></script><script src=/workshop-fcaj-intern/js/highlight.pack.js?1786693546></script><script>hljs.initHighlightingOnLoad()</script><script src=/workshop-fcaj-intern/js/modernizr.custom-3.6.0.js?1786693546></script><script src=/workshop-fcaj-intern/js/learn.js?1786693546></script><script src=/workshop-fcaj-intern/js/hugo-learn.js?1786693546></script><link href=/workshop-fcaj-intern/mermaid/mermaid.css?1786693546 rel=stylesheet><script src=/workshop-fcaj-intern/mermaid/mermaid.js?1786693546></script><script>mermaid.initialize({startOnLoad:!0})</script><script>(function(e,t,n,s,o,i,a){e.GoogleAnalyticsObject=o,(e[o]=e[o]||function(){(e[o].q=e[o].q||[]).push(arguments)},e[o].l=1*new Date),(i=t.createElement(n),a=t.getElementsByTagName(n)[0]),i.async=1,i.src=s,a.parentNode.insertBefore(i,a)})(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-158079754-2","auto"),ga("send","pageview")</script></body></html>

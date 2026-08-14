@@ -1,0 +1,945 @@
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.134.3"><meta name=description content><meta name=author content="thienlh@thienlu.com"><link rel=icon href=/workshop-fcaj-intern/images/favicon.png type=image/png><title>Authentication with Amazon Cognito :: Internship Report</title>
+<link href=/workshop-fcaj-intern/css/nucleus.css?1786693546 rel=stylesheet><link href=/workshop-fcaj-intern/css/fontawesome-all.min.css?1786693546 rel=stylesheet><link href=/workshop-fcaj-intern/css/hybrid.css?1786693546 rel=stylesheet><link href=/workshop-fcaj-intern/css/featherlight.min.css?1786693546 rel=stylesheet><link href=/workshop-fcaj-intern/css/perfect-scrollbar.min.css?1786693546 rel=stylesheet><link href=/workshop-fcaj-intern/css/auto-complete.css?1786693546 rel=stylesheet><link href=/workshop-fcaj-intern/css/atom-one-dark-reasonable.css?1786693546 rel=stylesheet><link href=/workshop-fcaj-intern/css/theme.css?1786693546 rel=stylesheet><link href=/workshop-fcaj-intern/css/hugo-theme.css?1786693546 rel=stylesheet><link href=/workshop-fcaj-intern/css/theme-workshop.css?1786693546 rel=stylesheet><script src=/workshop-fcaj-intern/js/jquery-3.3.1.min.js?1786693546></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style></head><body data-url=/workshop-fcaj-intern/5-workshop/5.6-dashboard/5.6.3-authentication-cognito/><nav id=sidebar class=showVisitedLinks><div id=header-wrapper><div id=header><a id=logo href=/workshop-fcaj-intern/><svg id="Layer_1" data-name="Layer 1" viewBox="0 0 60 30" width="30%"><defs><style>.cls-1{fill:#fff}.cls-2{fill:#fff;fill-rule:evenodd}</style></defs><title>AWS-Logo_White-Color</title><path class="cls-1" d="M14.09 10.85a4.7 4.7.0 00.19 1.48 7.73 7.73.0 00.54 1.19.77.77.0 01.12.38.64.64.0 01-.32.49l-1 .7a.83.83.0 01-.44.15.69.69.0 01-.49-.23 3.8 3.8.0 01-.6-.77q-.25-.42-.51-1a6.14 6.14.0 01-4.89 2.3 4.54 4.54.0 01-3.32-1.19 4.27 4.27.0 01-1.22-3.2 4.28 4.28.0 011.46-3.4A6.06 6.06.0 017.69 6.46a12.47 12.47.0 011.76.13q.92.13 1.91.36V5.73a3.65 3.65.0 00-.79-2.66A3.81 3.81.0 007.86 2.3a7.71 7.71.0 00-1.79.22 12.78 12.78.0 00-1.79.57 4.55 4.55.0 01-.58.22h-.26q-.35.0-.35-.52V2a1.09 1.09.0 01.12-.58 1.2 1.2.0 01.47-.35A10.88 10.88.0 015.77.32 10.19 10.19.0 018.36.0a6 6 0 014.35 1.35 5.49 5.49.0 011.38 4.09zM7.34 13.38a5.36 5.36.0 001.72-.31A3.63 3.63.0 0010.63 12 2.62 2.62.0 0011.19 11a5.63 5.63.0 00.16-1.44v-.7a14.35 14.35.0 00-1.53-.28 12.37 12.37.0 00-1.56-.1 3.84 3.84.0 00-2.47.67A2.34 2.34.0 005 11a2.35 2.35.0 00.61 1.76A2.4 2.4.0 007.34 13.38zm13.35 1.8a1 1 0 01-.64-.16 1.3 1.3.0 01-.35-.65L15.81 1.51a3 3 0 01-.15-.67.36.36.0 01.41-.41H17.7a1 1 0 01.65.16 1.4 1.4.0 01.33.65l2.79 11 2.59-11A1.17 1.17.0 0124.39.6a1.1 1.1.0 01.67-.16H26.4a1.1 1.1.0 01.67.16 1.17 1.17.0 01.32.65L30 12.39 32.88 1.25A1.39 1.39.0 0133.22.6a1 1 0 01.65-.16h1.54a.36.36.0 01.41.41 1.36 1.36.0 010 .26 3.64 3.64.0 01-.12.41l-4 12.86a1.3 1.3.0 01-.35.65 1 1 0 01-.64.16H29.25a1 1 0 01-.67-.17 1.26 1.26.0 01-.32-.67L25.67 3.64l-2.56 10.7a1.26 1.26.0 01-.32.67 1 1 0 01-.67.17zm21.36.44a11.28 11.28.0 01-2.56-.29 7.44 7.44.0 01-1.92-.67 1 1 0 01-.61-.93v-.84q0-.52.38-.52a.9.9.0 01.31.06l.42.17a8.77 8.77.0 001.83.58 9.78 9.78.0 002 .2 4.48 4.48.0 002.43-.55 1.76 1.76.0 00.86-1.57 1.61 1.61.0 00-.45-1.16A4.29 4.29.0 0043 9.22l-2.41-.76A5.15 5.15.0 0138 6.78a3.94 3.94.0 01-.83-2.41 3.7 3.7.0 01.45-1.85 4.47 4.47.0 011.19-1.37 5.27 5.27.0 011.7-.86A7.4 7.4.0 0142.6.0a8.87 8.87.0 011.12.07q.57.07 1.08.19t.95.26a4.27 4.27.0 01.7.29 1.59 1.59.0 01.49.41.94.94.0 01.15.55v.79q0 .52-.38.52a1.76 1.76.0 01-.64-.2 7.74 7.74.0 00-3.2-.64 4.37 4.37.0 00-2.21.47 1.6 1.6.0 00-.79 1.48 1.58 1.58.0 00.49 1.18 4.94 4.94.0 001.83.92L44.55 7a5.08 5.08.0 012.57 1.6A3.76 3.76.0 0147.9 11a4.21 4.21.0 01-.44 1.93 4.4 4.4.0 01-1.21 1.47 5.43 5.43.0 01-1.85.93A8.25 8.25.0 0142.05 15.62z"/><path class="cls-2" d="M45.19 23.81C39.72 27.85 31.78 30 25 30A36.64 36.64.0 01.22 20.57c-.51-.46-.06-1.09.56-.74A49.78 49.78.0 0025.53 26.4 49.23 49.23.0 0044.4 22.53C45.32 22.14 46.1 23.14 45.19 23.81z"/><path class="cls-2" d="M47.47 21.21c-.7-.9-4.63-.42-6.39-.21-.53.06-.62-.4-.14-.74 3.13-2.2 8.27-1.57 8.86-.83s-.16 5.89-3.09 8.35c-.45.38-.88.18-.68-.32C46.69 25.8 48.17 22.11 47.47 21.21z"/></svg></a></div><div class=searchbox><label for=search-by><i class="fas fa-search"></i></label>
+<input data-search-input id=search-by type=search placeholder=Search...>
+<span data-search-clear><i class="fas fa-times"></i></span></div><script type=text/javascript src=/workshop-fcaj-intern/js/lunr.min.js?1786693546></script><script type=text/javascript src=/workshop-fcaj-intern/js/auto-complete.js?1786693546></script><script type=text/javascript>var baseurl="https://thienthuan25.github.io/workshop-fcaj-intern/"</script><script type=text/javascript src=/workshop-fcaj-intern/js/search.js?1786693546></script></div><div class=highlightable><ul class=topics><li data-nav-id=/workshop-fcaj-intern/1-worklog/ title=Worklog class=dd-item><a href=/workshop-fcaj-intern/1-worklog/><b>1. </b>Worklog
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/workshop-fcaj-intern/1-worklog/1.1-week1/ title="Week 1 Worklog" class=dd-item><a href=/workshop-fcaj-intern/1-worklog/1.1-week1/><b>1.1. </b>Week 1 Worklog
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/1-worklog/1.2-week2/ title="Week 2 Worklog" class=dd-item><a href=/workshop-fcaj-intern/1-worklog/1.2-week2/><b>1.2. </b>Week 2 Worklog
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/1-worklog/1.3-week3/ title="Week 3 Worklog" class=dd-item><a href=/workshop-fcaj-intern/1-worklog/1.3-week3/><b>1.3. </b>Week 3 Worklog
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/1-worklog/1.4-week4/ title="Week 4 Worklog" class=dd-item><a href=/workshop-fcaj-intern/1-worklog/1.4-week4/><b>1.4. </b>Week 4 Worklog
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/1-worklog/1.5-week5/ title="Week 5 Worklog" class=dd-item><a href=/workshop-fcaj-intern/1-worklog/1.5-week5/><b>1.5. </b>Week 5 Worklog
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/1-worklog/1.6-week6/ title="Week 6 Worklog" class=dd-item><a href=/workshop-fcaj-intern/1-worklog/1.6-week6/><b>1.6. </b>Week 6 Worklog
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/1-worklog/1.7-week7/ title="Week 7 Worklog" class=dd-item><a href=/workshop-fcaj-intern/1-worklog/1.7-week7/><b>1.7. </b>Week 7 Worklog
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/1-worklog/1.8-week8/ title="Week 8 Worklog" class=dd-item><a href=/workshop-fcaj-intern/1-worklog/1.8-week8/><b>1.8. </b>Week 8 Worklog
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/1-worklog/1.9-week9/ title="Week 9 Worklog" class=dd-item><a href=/workshop-fcaj-intern/1-worklog/1.9-week9/><b>1.9. </b>Week 9 Worklog
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/1-worklog/1.10-week10/ title="Week 10 Worklog" class=dd-item><a href=/workshop-fcaj-intern/1-worklog/1.10-week10/><b>1.10. </b>Week 10 Worklog
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/1-worklog/1.11-week11/ title="Week 11 Worklog" class=dd-item><a href=/workshop-fcaj-intern/1-worklog/1.11-week11/><b>1.11. </b>Week 11 Worklog
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/1-worklog/1.12-week12/ title="Week 12 Worklog" class=dd-item><a href=/workshop-fcaj-intern/1-worklog/1.12-week12/><b>1.12. </b>Week 12 Worklog
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/workshop-fcaj-intern/2-proposal/ title="Project Proposal" class=dd-item><a href=/workshop-fcaj-intern/2-proposal/><b>2. </b>Project Proposal
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/3-blogsposted/ title="Published Blog Posts" class=dd-item><a href=/workshop-fcaj-intern/3-blogsposted/><b>3. </b>Published Blog Posts
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/workshop-fcaj-intern/3-blogsposted/3.1-blog1/ title="Blog 1" class=dd-item><a href=/workshop-fcaj-intern/3-blogsposted/3.1-blog1/><b>3.1. </b>Blog 1
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/3-blogsposted/3.2-blog2/ title="Blog 2" class=dd-item><a href=/workshop-fcaj-intern/3-blogsposted/3.2-blog2/><b>3.2. </b>Blog 2
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/3-blogsposted/3.3-blog3/ title="Blog 3" class=dd-item><a href=/workshop-fcaj-intern/3-blogsposted/3.3-blog3/><b>3.3. </b>Blog 3
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/workshop-fcaj-intern/4-eventparticipated/ title="Events Attended" class=dd-item><a href=/workshop-fcaj-intern/4-eventparticipated/><b>4. </b>Events Attended
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/workshop-fcaj-intern/4-eventparticipated/4.1-event1/ title="Event 1" class=dd-item><a href=/workshop-fcaj-intern/4-eventparticipated/4.1-event1/><b>4.1. </b>Event 1
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/4-eventparticipated/4.2-event2/ title="Event 2" class=dd-item><a href=/workshop-fcaj-intern/4-eventparticipated/4.2-event2/><b>4.2. </b>Event 2
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/4-eventparticipated/4.3-event3/ title="Event 3" class=dd-item><a href=/workshop-fcaj-intern/4-eventparticipated/4.3-event3/><b>4.3. </b>Event 3
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/4-eventparticipated/4.4-event4/ title="Event 4" class=dd-item><a href=/workshop-fcaj-intern/4-eventparticipated/4.4-event4/><b>4.4. </b>Event 4
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/workshop-fcaj-intern/5-workshop/ title=Workshop class="dd-item
+parent"><a href=/workshop-fcaj-intern/5-workshop/><b>5. </b>Workshop
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.1-workshop-overview/ title=Introduction class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.1-workshop-overview/><b>5.1. </b>Introduction
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.2-prerequisite/ title=Prerequisites class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.2-prerequisite/><b>5.2. </b>Prerequisites
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.2-prerequisite/5.2.1-aws-credentials/ title="Configure AWS Credentials" class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.2-prerequisite/5.2.1-aws-credentials/><b>5.2.1. </b>Configure AWS Credentials
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.2-prerequisite/5.2.2-hcp-terraform/ title="Configure HCP Terraform" class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.2-prerequisite/5.2.2-hcp-terraform/><b>5.2.2. </b>Configure HCP Terraform
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.2-prerequisite/5.2.3-code-terraform/ title="Prepare the Terraform Code" class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.2-prerequisite/5.2.3-code-terraform/><b>5.2.3. </b>Prepare the Terraform Code
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.3-infrastructure/ title="Provision Infrastructure with Terraform" class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.3-infrastructure/><b>5.3. </b>Provision Infrastructure with Terraform
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.3-infrastructure/5.3.1-variables/ title="Declare Input Variables" class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.3-infrastructure/5.3.1-variables/><b>5.3.1 </b>Declare Input Variables
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.3-infrastructure/5.3.2-s3-bucket/ title="Create an Amazon S3 Bucket for Cost Data Storage" class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.3-infrastructure/5.3.2-s3-bucket/><b>5.3.2 </b>Create an Amazon S3 Bucket for Cost Data Storage
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.3-infrastructure/5.3.3-iam-role/ title="Create an IAM Role for Lambda" class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.3-infrastructure/5.3.3-iam-role/><b>5.3.3 </b>Create an IAM Role for Lambda
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.3-infrastructure/5.3.4-sns-topic/ title="Create an Amazon SNS Topic for Cost Alerts" class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.3-infrastructure/5.3.4-sns-topic/><b>5.3.4 </b>Create an Amazon SNS Topic for Cost Alerts
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.3-infrastructure/5.3.5-sqs-queue-dlq/ title="Create an Amazon SQS Queue and a Dead Letter Queue" class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.3-infrastructure/5.3.5-sqs-queue-dlq/><b>5.3.5 </b>Create an Amazon SQS Queue and a Dead Letter Queue
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.3-infrastructure/5.3.6-eventbridge-rule/ title="Create an Amazon EventBridge Schedule" class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.3-infrastructure/5.3.6-eventbridge-rule/><b>5.3.6 </b>Create an Amazon EventBridge Schedule
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.3-infrastructure/5.3.7-outputs/ title="Define Terraform Outputs" class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.3-infrastructure/5.3.7-outputs/><b>5.3.7 </b>Define Terraform Outputs
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.3-infrastructure/5.3.8-deploy-infrastructure/ title="Deploy the Infrastructure" class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.3-infrastructure/5.3.8-deploy-infrastructure/><b>5.3.8 </b>Deploy the Infrastructure
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.4-deploy-lambda/ title="Deploying Lambda Functions" class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.4-deploy-lambda/><b>5.4. </b>Deploying Lambda Functions
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.4-deploy-lambda/5.4.1-lambda-collector/ title="Deploy Lambda Collector" class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.4-deploy-lambda/5.4.1-lambda-collector/><b>5.4.1 </b>Deploy Lambda Collector
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.4-deploy-lambda/5.4.2-lambda-analyzer/ title="Deploy Lambda Analyzer" class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.4-deploy-lambda/5.4.2-lambda-analyzer/><b>5.4.2 </b>Deploy Lambda Analyzer
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.5-monitoring/ title=Monitoring class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.5-monitoring/><b>5.5 </b>Monitoring
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.5-monitoring/5.5.1-lambda-alarm-error/ title="Configure CloudWatch Alarms for Lambda" class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.5-monitoring/5.5.1-lambda-alarm-error/><b>5.5.1 </b>Configure CloudWatch Alarms for Lambda
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.5-monitoring/5.5.2-lambda-dlq-error/ title="Configure CloudWatch Alarms for the Dead Letter Queue" class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.5-monitoring/5.5.2-lambda-dlq-error/><b>5.5.2 </b>Configure CloudWatch Alarms for the Dead Letter Queue
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.5-monitoring/5.5.3-deploy/ title=Deployment class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.5-monitoring/5.5.3-deploy/><b>5.5.3 </b>Deployment
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.6-dashboard/ title="Web Dashboard" class="dd-item
+parent"><a href=/workshop-fcaj-intern/5-workshop/5.6-dashboard/><b>5.6. </b>Web Dashboard
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.6-dashboard/5.6.1-backend/ title=Backend class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.6-dashboard/5.6.1-backend/><b>5.6.1 </b>Backend
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.6-dashboard/5.6.2-frontend/ title=Frontend class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.6-dashboard/5.6.2-frontend/><b>5.6.2 </b>Frontend
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.6-dashboard/5.6.3-authentication-cognito/ title="Authentication with Amazon Cognito" class="dd-item
+active"><a href=/workshop-fcaj-intern/5-workshop/5.6-dashboard/5.6.3-authentication-cognito/><b>5.6.3 </b>Authentication with Amazon Cognito
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.7-testing/ title="System Testing" class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.7-testing/><b>5.7 </b>System Testing
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.8-ci-cd/ title=CI/CD class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.8-ci-cd/><b>5.8. </b>CI/CD
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/5-workshop/5.9-cleanup/ title="Clean Up Resources" class=dd-item><a href=/workshop-fcaj-intern/5-workshop/5.9-cleanup/><b>5.9. </b>Clean Up Resources
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/workshop-fcaj-intern/6-self-evaluation/ title=Self-Assessment class=dd-item><a href=/workshop-fcaj-intern/6-self-evaluation/><b>6. </b>Self-Assessment
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/workshop-fcaj-intern/7-feedback/ title="Feedback and Suggestions" class=dd-item><a href=/workshop-fcaj-intern/7-feedback/><b>7. </b>Feedback and Suggestions
+<i class="fas fa-check read-icon"></i></a></li></ul><section id=shortcuts><h3>More</h3><ul><li><a class=padding href=https://awsstudygroup.com><i class='fab fa-aws'></i> AWS Study Group - Blog</a></li><li><a class=padding href=https://www.facebook.com/groups/awsstudygroupfcj><i class='fab fa-facebook'></i> AWS Study Group - FB Group</a></li></ul></section><section id=prefooter><hr><ul><li><a class=padding><i class="fas fa-language fa-fw"></i><div class=select-style><select id=select-language onchange="location=this.value"><option id=en value=https://thienthuan25.github.io/workshop-fcaj-intern/5-workshop/5.6-dashboard/5.6.3-authentication-cognito/ selected>English</option><option id=vi value=https://thienthuan25.github.io/workshop-fcaj-intern/vi/5-workshop/5.6-dashboard/5.6.3-authentication-cognito/>Tiếng Việt</option></select><svg id="Capa_1" xmlns:xlink="http://www.w3.org/1999/xlink" width="255" height="255" viewBox="0 0 255 255" style="enable-background:new 0 0 255 255"><g><g id="arrow-drop-down"><polygon points="0,63.75 127.5,191.25 255,63.75"/></g></g></svg></div></a></li><li><a class=padding href=# data-clear-history-toggle><i class="fas fa-history fa-fw"></i> Clear History</a></li></ul></section><section id=footer><left><br><br><b>Last Updated</b><br><i><font color=orange>14-08-2026</font>
+</i></left><left><br><br><b>Member</b><br><i><a href=https://www.facebook.com/groups/660548818043427 style=color:orange>Nguyễn Thiên Thuận</a>
+</i></left><script async defer src=https://buttons.github.io/buttons.js></script></section></div></nav><section id=body><div id=overlay></div><div class="padding highlightable"><div><div id=top-bar><div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb><span id=sidebar-toggle-span><a href=# id=sidebar-toggle data-sidebar-toggle><i class="fas fa-bars"></i>
+</a></span><span id=toc-menu><i class="fas fa-list-alt"></i></span>
+<span class=links><a href=/workshop-fcaj-intern/>Internship Report</a> > <a href=/workshop-fcaj-intern/5-workshop/>Workshop</a> > <a href=/workshop-fcaj-intern/5-workshop/5.6-dashboard/>Web Dashboard</a> > Authentication with Amazon Cognito</span></div><div class=progress><div class=wrapper><nav id=TableOfContents><ul><li><ul><li><a href=#authentication-architecture>Authentication Architecture</a></li><li><a href=#objectives>Objectives</a></li><li><a href=#restrict-cors-to-the-exact-cloudfront-dashboard>Restrict CORS to the exact CloudFront Dashboard</a></li><li><a href=#create-cognito-user-pool>Create Cognito User Pool</a></li><li><a href=#attach-the-jwt-authorizer-to-the-api-route>Attach the JWT authorizer to the API route</a></li><li><a href=#create-cognito-domain>Create Cognito Domain</a></li><li><a href=#integrate-authentication-into-the-web-dashboard>Integrate authentication into the Web Dashboard</a></li><li><a href=#next-steps>Next steps</a></li></ul></li></ul></nav></div></div></div></div><div id=head-tags></div><div id=body-inner><h1>Authentication with Amazon Cognito</h1><p>In this section, we will protect the CloudCost Insight Dashboard using <strong>Amazon Cognito</strong>. After completion, only authenticated users will be able to call <strong>API Gateway</strong> to view AWS cost data.</p><h3 id=authentication-architecture>Authentication Architecture</h3><p>The authentication flow works as follows:</p><ol><li>The user accesses the <strong>CloudFront Dashboard</strong>.</li><li><strong>Cognito</strong> returns the login page (managed UI).</li><li>The user enters their username/password -> <strong>Cognito</strong> authenticates.</li><li><strong>Cognito</strong> issues <strong>JWTs</strong> (ID Token, Access Token).</li><li>The Dashboard calls <strong>API Gateway</strong> with the <strong>JWT</strong>.</li><li><strong>API Gateway</strong> validates the JWT -> <strong>Lambda</strong> reads cost data from <strong>S3</strong>.</li></ol><p>The frontend uses <strong>Authorization Code Flow with PKCE</strong>. This mechanism is suitable for browser-based applications because it does not require storing a client secret in JavaScript.</p><h3 id=objectives>Objectives</h3><ul><li>Create an <strong>Amazon Cognito User Pool</strong> to manage users.</li><li>Create an <strong>App Client</strong> for the Web Dashboard.</li><li>Create a <strong>Cognito Domain</strong> to provide the login page.</li><li>Integrate <strong>Cognito</strong> into the Frontend.</li><li>Configure an <strong>API Gateway JWT Authorizer</strong>.</li><li>Allow only valid access tokens to call <strong>GET /costs</strong>.</li></ul><p><strong>CORS</strong> only restricts where a browser is allowed to call an API; it does not prevent someone from calling the API using <strong>curl/Postman</strong>. Therefore, we will restrict <strong>CORS</strong> and add <strong>JWT authentication</strong> with <strong>Cognito</strong>.</p><h3 id=restrict-cors-to-the-exact-cloudfront-dashboard>Restrict CORS to the exact CloudFront Dashboard</h3><p>Open the <code>terraform/api_gateway.tf</code> file, find and replace the following code:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-hcl data-lang=hcl><span style=display:flex><span>allow_origins <span style=color:#f92672>=</span> [<span style=color:#e6db74>&#34;*&#34;</span>]
+</span></span></code></pre></div><p>Change it to:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-hcl data-lang=hcl><span style=display:flex><span>allow_origins <span style=color:#f92672>=</span> [<span style=color:#e6db74>&#34;https://${aws_cloudfront_distribution.web.domain_name}&#34;</span>]
+</span></span><span style=display:flex><span>allow_methods <span style=color:#f92672>=</span> [<span style=color:#e6db74>&#34;GET&#34;, &#34;OPTIONS&#34;</span>]
+</span></span><span style=display:flex><span>allow_headers <span style=color:#f92672>=</span> [<span style=color:#e6db74>&#34;Content-Type&#34;, &#34;Authorization&#34;</span>]
+</span></span></code></pre></div><p>The configuration above tightens CORS security for API Gateway. It allows only the project&rsquo;s <strong>CloudFront</strong> domain to call the API, limits access to read-only operations (<strong>GET</strong>), and allows the frontend to include an authentication token through the <strong>Authorization</strong> header.</p><h3 id=create-cognito-user-pool>Create Cognito User Pool</h3><p>We will create the <code>terraform/cognito.tf</code> file:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-hcl data-lang=hcl><span style=display:flex><span><span style=color:#66d9ef>resource</span> <span style=color:#e6db74>&#34;aws_cognito_user_pool&#34; &#34;dashboard&#34;</span> {
+</span></span><span style=display:flex><span>  name <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;${var.project_name}-dashboard-users&#34;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>  # Configure login using email
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  username_attributes      <span style=color:#f92672>=</span> [<span style=color:#e6db74>&#34;email&#34;</span>]
+</span></span><span style=display:flex><span>  auto_verified_attributes <span style=color:#f92672>=</span> [<span style=color:#e6db74>&#34;email&#34;</span>]<span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>  # Apply strong password policy
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  <span style=color:#66d9ef>password_policy</span> {
+</span></span><span style=display:flex><span>    minimum_length    <span style=color:#f92672>=</span> <span style=color:#ae81ff>12</span>
+</span></span><span style=display:flex><span>    require_lowercase <span style=color:#f92672>=</span> <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>    require_uppercase <span style=color:#f92672>=</span> <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>    require_numbers   <span style=color:#f92672>=</span> <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>    require_symbols   <span style=color:#f92672>=</span> <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>resource</span> <span style=color:#e6db74>&#34;aws_cognito_user_pool_client&#34; &#34;dashboard&#34;</span> {<span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>  # Create App Client for the Frontend to communicate with Cognito
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  name         <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;${var.project_name}-dashboard-web&#34;</span>
+</span></span><span style=display:flex><span>  user_pool_id <span style=color:#f92672>=</span> <span style=color:#66d9ef>aws_cognito_user_pool</span>.<span style=color:#66d9ef>dashboard</span>.<span style=color:#66d9ef>id</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  generate_secret <span style=color:#f92672>=</span> <span style=color:#66d9ef>false</span><span style=color:#75715e> # Do not use a Secret key
+</span></span></span><span style=display:flex><span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>  # Enable necessary secure authentication flows
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  explicit_auth_flows <span style=color:#f92672>=</span> [
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;ALLOW_USER_SRP_AUTH&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;ALLOW_REFRESH_TOKEN_AUTH&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;ALLOW_USER_PASSWORD_AUTH&#34;</span>
+</span></span><span style=display:flex><span>  ]
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=attach-the-jwt-authorizer-to-the-api-route>Attach the JWT authorizer to the API route</h3><p><strong>1.</strong> Open the <code>terraform/api_gateway.tf</code> file and add the following code:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-hcl data-lang=hcl><span style=display:flex><span><span style=color:#75715e># Configure JWT Authorizer for API Gateway to authenticate users with AWS Cognito
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>resource</span> <span style=color:#e6db74>&#34;aws_apigatewayv2_authorizer&#34; &#34;dashboard_jwt&#34;</span> {
+</span></span><span style=display:flex><span>  api_id          <span style=color:#f92672>=</span> <span style=color:#66d9ef>aws_apigatewayv2_api</span>.<span style=color:#66d9ef>dashboard</span>.<span style=color:#66d9ef>id</span>
+</span></span><span style=display:flex><span>  name            <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;${var.project_name}-jwt&#34;</span>
+</span></span><span style=display:flex><span>  authorizer_type <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;JWT&#34;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>  # Specify where API Gateway will extract the token from the request (from the &#34;Authorization&#34; Header)
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  identity_sources <span style=color:#f92672>=</span> [
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;$request.header.Authorization&#34;</span>
+</span></span><span style=display:flex><span>  ]<span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>  # Detailed JWT configuration so API Gateway knows how to verify the token&#39;s validity
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  <span style=color:#66d9ef>jwt_configuration</span> {<span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>    # The token must be issued for this Client ID (Cognito App Client)
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    audience <span style=color:#f92672>=</span> [<span style=color:#66d9ef>aws_cognito_user_pool_client</span>.<span style=color:#66d9ef>dashboard</span>.<span style=color:#66d9ef>id</span>]<span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>    # The URL of the token issuer (the project&#39;s Cognito User Pool)
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    issuer <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;https://cognito-idp.${var.aws_region}.amazonaws.com/${aws_cognito_user_pool.dashboard.id}&#34;</span>
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Update the <code>aws_apigatewayv2_route.costs</code> resource:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-hcl data-lang=hcl><span style=display:flex><span><span style=color:#75715e># Requests calling &#34;GET /costs&#34; must have a valid JWT
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>resource</span> <span style=color:#e6db74>&#34;aws_apigatewayv2_route&#34; &#34;costs&#34;</span> {
+</span></span><span style=display:flex><span>  api_id             <span style=color:#f92672>=</span> <span style=color:#66d9ef>aws_apigatewayv2_api</span>.<span style=color:#66d9ef>dashboard</span>.<span style=color:#66d9ef>id</span>
+</span></span><span style=display:flex><span>  route_key          <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;GET /costs&#34;</span>
+</span></span><span style=display:flex><span>  target             <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;integrations/${aws_apigatewayv2_integration.api.id}&#34;</span>
+</span></span><span style=display:flex><span>  authorization_type <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;JWT&#34;</span>
+</span></span><span style=display:flex><span>  authorizer_id      <span style=color:#f92672>=</span> <span style=color:#66d9ef>aws_apigatewayv2_authorizer</span>.<span style=color:#66d9ef>dashboard_jwt</span>.<span style=color:#66d9ef>id</span>
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Now, <strong>API Gateway</strong> will only forward requests to Lambda when the Cognito token is valid.</p><p><strong>2.</strong> Update output in the <code>terraform/outputs.tf</code> file:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-hcl data-lang=hcl><span style=display:flex><span><span style=color:#66d9ef>output</span> <span style=color:#e6db74>&#34;user_pool_id&#34;</span> {
+</span></span><span style=display:flex><span>  value <span style=color:#f92672>=</span> <span style=color:#66d9ef>aws_cognito_user_pool</span>.<span style=color:#66d9ef>dashboard</span>.<span style=color:#66d9ef>id</span>
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>output</span> <span style=color:#e6db74>&#34;user_pool_client_id&#34;</span> {
+</span></span><span style=display:flex><span>  value <span style=color:#f92672>=</span> <span style=color:#66d9ef>aws_cognito_user_pool_client</span>.<span style=color:#66d9ef>dashboard</span>.<span style=color:#66d9ef>id</span>
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>output</span> <span style=color:#e6db74>&#34;cognito_hosted_ui_url&#34;</span> {
+</span></span><span style=display:flex><span>  description <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Cognito Hosted UI sign-in endpoint for the dashboard&#34;</span>
+</span></span><span style=display:flex><span>  value       <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;https://${aws_cognito_user_pool_domain.dashboard.domain}.auth.${var.aws_region}.amazoncognito.com/login&#34;</span>
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=create-cognito-domain>Create Cognito Domain</h3><p>To use the Cognito Hosted UI, we need to register a unique domain name. This domain will be the redirection destination when users click the <strong>Sign In</strong> button.</p><p>Open the file <code>terraform/cognito.tf</code> and update <code>resource "aws_cognito_user_pool_client.dashboard"</code> as follows:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-hcl data-lang=hcl><span style=display:flex><span><span style=color:#66d9ef>resource</span> <span style=color:#e6db74>&#34;aws_cognito_user_pool_client&#34; &#34;dashboard&#34;</span> {
+</span></span><span style=display:flex><span>  name         <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;${var.project_name}-dashboard-web&#34;</span>
+</span></span><span style=display:flex><span>  user_pool_id <span style=color:#f92672>=</span> <span style=color:#66d9ef>aws_cognito_user_pool</span>.<span style=color:#66d9ef>dashboard</span>.<span style=color:#66d9ef>id</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  generate_secret <span style=color:#f92672>=</span> <span style=color:#66d9ef>false</span>
+</span></span><span style=display:flex><span>  explicit_auth_flows <span style=color:#f92672>=</span> [
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;ALLOW_USER_SRP_AUTH&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;ALLOW_REFRESH_TOKEN_AUTH&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;ALLOW_USER_PASSWORD_AUTH&#34;</span>
+</span></span><span style=display:flex><span>  ]<span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>  # Hosted UI uses OAuth authorization-code flow. Public browser clients
+</span></span></span><span style=display:flex><span><span style=color:#75715e>  # don&#39;t have a client secret; the frontend generates a PKCE verifier for each login.
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  allowed_oauth_flows_user_pool_client <span style=color:#f92672>=</span> <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>  allowed_oauth_flows                  <span style=color:#f92672>=</span> [<span style=color:#e6db74>&#34;code&#34;</span>]
+</span></span><span style=display:flex><span>  allowed_oauth_scopes                 <span style=color:#f92672>=</span> [<span style=color:#e6db74>&#34;openid&#34;, &#34;email&#34;, &#34;profile&#34;</span>]
+</span></span><span style=display:flex><span>  supported_identity_providers         <span style=color:#f92672>=</span> [<span style=color:#e6db74>&#34;COGNITO&#34;</span>]
+</span></span><span style=display:flex><span>  callback_urls <span style=color:#f92672>=</span> [
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;https://${aws_cloudfront_distribution.web.domain_name}/&#34;</span>
+</span></span><span style=display:flex><span>  ]
+</span></span><span style=display:flex><span>  logout_urls <span style=color:#f92672>=</span> [
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;https://${aws_cloudfront_distribution.web.domain_name}/&#34;</span>
+</span></span><span style=display:flex><span>  ]
+</span></span><span style=display:flex><span>}<span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e># Amazon Cognito managed login (Hosted UI) domain.
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>resource</span> <span style=color:#e6db74>&#34;aws_cognito_user_pool_domain&#34; &#34;dashboard&#34;</span> {
+</span></span><span style=display:flex><span>  domain       <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;${var.project_name}-${data.aws_caller_identity.current.account_id}&#34;</span>
+</span></span><span style=display:flex><span>  user_pool_id <span style=color:#f92672>=</span> <span style=color:#66d9ef>aws_cognito_user_pool</span>.<span style=color:#66d9ef>dashboard</span>.<span style=color:#66d9ef>id</span>
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=integrate-authentication-into-the-web-dashboard>Integrate authentication into the Web Dashboard</h3><p>To allow the Frontend to automatically redirect users to the <strong>Cognito</strong> login page and attach the Token when calling APIs, we need to update the <code>terraform/web_hosting.tf</code> file and modify the <code>local</code> block as follows for Terraform to inject these variables into <code>script.js</code>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-hcl data-lang=hcl><span style=display:flex><span><span style=color:#75715e># upload script.js to S3
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>locals</span> {
+</span></span><span style=display:flex><span>  rendered_script <span style=color:#f92672>=</span> <span style=color:#66d9ef>replace</span>(
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>replace</span>(
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>replace</span>(
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>file</span>(<span style=color:#e6db74>&#34;${path.module}/web/script.js&#34;</span>),
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;REPLACE_MY_API_ENDPOINT&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;${trim(aws_apigatewayv2_stage.default.invoke_url, &#34;/&#34;)}/costs&#34;</span>
+</span></span><span style=display:flex><span>      ),
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#34;REPLACE_MY_COGNITO_DOMAIN&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#34;https://${aws_cognito_user_pool_domain.dashboard.domain}.auth.${var.aws_region}.amazoncognito.com&#34;</span>
+</span></span><span style=display:flex><span>    ),
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;REPLACE_MY_COGNITO_CLIENT_ID&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>aws_cognito_user_pool_client</span>.<span style=color:#66d9ef>dashboard</span>.<span style=color:#66d9ef>id</span>
+</span></span><span style=display:flex><span>  )
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Open the <code>index.html</code> file and add <strong>Sign in</strong> and <strong>Sign out</strong> buttons to the Web page:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span>&lt;<span style=color:#f92672>button</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;login-button&#34;</span>&gt;Sign in&lt;/<span style=color:#f92672>button</span>&gt;
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>button</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;logout-button&#34;</span> <span style=color:#a6e22e>style</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;display:none;&#34;</span>&gt;Sign out&lt;/<span style=color:#f92672>button</span>&gt;
+</span></span></code></pre></div><p>The exact content of the <code>index.html</code> file is as follows:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span><span style=color:#75715e>&lt;!DOCTYPE html&gt;</span>
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>html</span> <span style=color:#a6e22e>lang</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;vi&#34;</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>head</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>meta</span> <span style=color:#a6e22e>charset</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;UTF-8&#34;</span> /&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>meta</span> <span style=color:#a6e22e>name</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;viewport&#34;</span> <span style=color:#a6e22e>content</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;width=device-width, initial-scale=1.0&#34;</span> /&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>title</span>&gt;CloudCost Insight — Dashboard&lt;/<span style=color:#f92672>title</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;stylesheet&#34;</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;style.css&#34;</span> /&gt;
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>head</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>body</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>header</span>&gt;
+</span></span><span style=display:flex><span>        &lt;<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>            &lt;<span style=color:#f92672>h1</span>&gt;☁️ CloudCost Insight&lt;/<span style=color:#f92672>h1</span>&gt;
+</span></span><span style=display:flex><span>            &lt;<span style=color:#f92672>p</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;header-subtitle&#34;</span>&gt;AWS Cost Monitoring &amp;amp; Alert Dashboard — Near Real-Time&lt;/<span style=color:#f92672>p</span>&gt;
+</span></span><span style=display:flex><span>        &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>        &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;header-controls&#34;</span>&gt;
+</span></span><span style=display:flex><span>            &lt;<span style=color:#f92672>button</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;login-button&#34;</span>&gt;Sign in&lt;/<span style=color:#f92672>button</span>&gt;
+</span></span><span style=display:flex><span>            &lt;<span style=color:#f92672>button</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;logout-button&#34;</span> <span style=color:#a6e22e>style</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;display:none;&#34;</span>&gt;Sign out&lt;/<span style=color:#f92672>button</span>&gt;
+</span></span><span style=display:flex><span>            &lt;<span style=color:#f92672>button</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;lang-toggle&#34;</span>&gt;🇻🇳 VI&lt;/<span style=color:#f92672>button</span>&gt;
+</span></span><span style=display:flex><span>            &lt;<span style=color:#f92672>button</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;theme-toggle&#34;</span>&gt;🌙&lt;/<span style=color:#f92672>button</span>&gt;
+</span></span><span style=display:flex><span>        &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>    &lt;/<span style=color:#f92672>header</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;status&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;status&#34;</span>&gt;Loading cost data...&lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;content&#34;</span> <span style=color:#a6e22e>style</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;display:none;&#34;</span>&gt;
+</span></span><span style=display:flex><span>        <span style=color:#75715e>&lt;!-- KPI --&gt;</span>
+</span></span><span style=display:flex><span>        &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;kpi-row&#34;</span>&gt;
+</span></span><span style=display:flex><span>            &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;kpi-card&#34;</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;label&#34;</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;label-total&#34;</span>&gt;Total Cost (Period)&lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;value&#34;</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;kpi-total&#34;</span>&gt;$0.00&lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>            &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>            &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;kpi-card&#34;</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;label&#34;</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;label-threshold&#34;</span>&gt;Alert Threshold/Day&lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;value&#34;</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;kpi-threshold&#34;</span>&gt;$0.00&lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>            &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>            &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;kpi-card&#34;</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;label&#34;</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;label-days&#34;</span>&gt;Monitored Days&lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;value&#34;</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;kpi-days&#34;</span>&gt;0&lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>            &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>            &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;kpi-card&#34;</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;label&#34;</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;label-anomalies&#34;</span>&gt;Anomalous Days&lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;value danger&#34;</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;kpi-anomalies&#34;</span>&gt;0&lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>            &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>        &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>&lt;!-- Charts --&gt;</span>
+</span></span><span style=display:flex><span>        &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;chart-grid&#34;</span>&gt;
+</span></span><span style=display:flex><span>            &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;chart-card full-width&#34;</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>h3</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;title-trend&#34;</span>&gt;📈 Daily Cost Trend (Threshold Line + Anomaly Markers)&lt;/<span style=color:#f92672>h3</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>canvas</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;trendChart&#34;</span> <span style=color:#a6e22e>height</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;90&#34;</span>&gt;&lt;/<span style=color:#f92672>canvas</span>&gt;
+</span></span><span style=display:flex><span>            &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>            &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;chart-card&#34;</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>h3</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;title-service&#34;</span>&gt;🍩 Cost Share by Service&lt;/<span style=color:#f92672>h3</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;chart-small&#34;</span>&gt;
+</span></span><span style=display:flex><span>                    &lt;<span style=color:#f92672>canvas</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;serviceChart&#34;</span>&gt;&lt;/<span style=color:#f92672>canvas</span>&gt;
+</span></span><span style=display:flex><span>                &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>            &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>            &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;chart-card&#34;</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>h3</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;title-top&#34;</span>&gt;📊 Top Cost Services&lt;/<span style=color:#f92672>h3</span>&gt;
+</span></span><span style=display:flex><span>                &lt;<span style=color:#f92672>canvas</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;topChart&#34;</span>&gt;&lt;/<span style=color:#f92672>canvas</span>&gt;
+</span></span><span style=display:flex><span>            &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>        &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>    &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!-- JavaScript riêng --&gt;</span>
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;script.js&#34;</span>&gt;&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>body</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>html</span>&gt;
+</span></span></code></pre></div><p>Update CSS for the <strong>Sign in</strong> and <strong>Sign out</strong> buttons as follows:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-css data-lang=css><span style=display:flex><span>#login-button<span style=color:#f92672>,</span>
+</span></span><span style=display:flex><span>#logout-button {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>background</span>: rgba(<span style=color:#ae81ff>255</span>, <span style=color:#ae81ff>255</span>, <span style=color:#ae81ff>255</span>, <span style=color:#ae81ff>0.2</span>);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>border</span>: <span style=color:#66d9ef>none</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>color</span>: <span style=color:#66d9ef>white</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>padding</span>: <span style=color:#ae81ff>8</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>16</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>border-radius</span>: <span style=color:#ae81ff>6</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>cursor</span>: <span style=color:#66d9ef>pointer</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>font-weight</span>: <span style=color:#66d9ef>bold</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>transition</span>: <span style=color:#66d9ef>background</span> <span style=color:#ae81ff>0.2</span><span style=color:#66d9ef>s</span>;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>The content of the <code>style.css</code> file is exactly as follows:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-css data-lang=css><span style=display:flex><span><span style=color:#f92672>*</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>box-sizing</span>: <span style=color:#66d9ef>border-box</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>margin</span>: <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>padding</span>: <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>:<span style=color:#a6e22e>root</span> {
+</span></span><span style=display:flex><span>    --bg-color: <span style=color:#ae81ff>#f0f2f5</span>;
+</span></span><span style=display:flex><span>    --text-color: <span style=color:#ae81ff>#1a202c</span>;
+</span></span><span style=display:flex><span>    --card-bg: <span style=color:#ae81ff>#fff</span>;
+</span></span><span style=display:flex><span>    --label-color: <span style=color:#ae81ff>#718096</span>;
+</span></span><span style=display:flex><span>    --heading-color: <span style=color:#ae81ff>#2d3748</span>;
+</span></span><span style=display:flex><span>    --border-color: <span style=color:#ae81ff>#e2e8f0</span>;
+</span></span><span style=display:flex><span>    --table-head-bg: <span style=color:#ae81ff>#f7fafc</span>;
+</span></span><span style=display:flex><span>    --shadow-color: rgba(<span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>0.08</span>);
+</span></span><span style=display:flex><span>    --header-bg: linear-gradient(<span style=color:#ae81ff>135</span><span style=color:#66d9ef>deg</span>, <span style=color:#ae81ff>#232f3e</span>, <span style=color:#ae81ff>#ff9900</span>);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>body</span>.<span style=color:#a6e22e>dark-mode</span> {
+</span></span><span style=display:flex><span>    --bg-color: <span style=color:#ae81ff>#1a202c</span>;
+</span></span><span style=display:flex><span>    --text-color: <span style=color:#ae81ff>#ffffff</span>;
+</span></span><span style=display:flex><span>    --card-bg: <span style=color:#ae81ff>#2d3748</span>;
+</span></span><span style=display:flex><span>    --label-color: <span style=color:#ae81ff>#a0aec0</span>;
+</span></span><span style=display:flex><span>    --heading-color: <span style=color:#ae81ff>#ffffff</span>;
+</span></span><span style=display:flex><span>    --border-color: <span style=color:#ae81ff>#4a5568</span>;
+</span></span><span style=display:flex><span>    --table-head-bg: <span style=color:#ae81ff>#374151</span>;
+</span></span><span style=display:flex><span>    --shadow-color: rgba(<span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>0.3</span>);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>body</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>font-family</span>: <span style=color:#e6db74>&#34;Segoe UI&#34;</span>, Arial, <span style=color:#66d9ef>sans-serif</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>background</span>: <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>bg<span style=color:#f92672>-</span><span style=color:#66d9ef>color</span>);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>color</span>: <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span><span style=color:#66d9ef>text</span><span style=color:#f92672>-</span><span style=color:#66d9ef>color</span>);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>padding</span>: <span style=color:#ae81ff>24</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>transition</span>: <span style=color:#66d9ef>background</span> <span style=color:#ae81ff>0.3</span><span style=color:#66d9ef>s</span>, <span style=color:#66d9ef>color</span> <span style=color:#ae81ff>0.3</span><span style=color:#66d9ef>s</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>header</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>background</span>: <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>header<span style=color:#f92672>-</span>bg);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>color</span>: <span style=color:#ae81ff>#fff</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>padding</span>: <span style=color:#ae81ff>20</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>28</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>border-radius</span>: <span style=color:#ae81ff>12</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>margin-bottom</span>: <span style=color:#ae81ff>24</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>display</span>: <span style=color:#66d9ef>flex</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>justify-content</span>: <span style=color:#66d9ef>space-between</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>align-items</span>: <span style=color:#66d9ef>center</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>header-controls</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>display</span>: <span style=color:#66d9ef>flex</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>gap</span>: <span style=color:#ae81ff>10</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>align-items</span>: <span style=color:#66d9ef>center</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>#theme-toggle<span style=color:#f92672>,</span>
+</span></span><span style=display:flex><span>#lang-toggle<span style=color:#f92672>,</span>
+</span></span><span style=display:flex><span>#login-button<span style=color:#f92672>,</span>
+</span></span><span style=display:flex><span>#logout-button {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>background</span>: rgba(<span style=color:#ae81ff>255</span>, <span style=color:#ae81ff>255</span>, <span style=color:#ae81ff>255</span>, <span style=color:#ae81ff>0.2</span>);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>border</span>: <span style=color:#66d9ef>none</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>color</span>: <span style=color:#66d9ef>white</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>padding</span>: <span style=color:#ae81ff>8</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>16</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>border-radius</span>: <span style=color:#ae81ff>6</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>cursor</span>: <span style=color:#66d9ef>pointer</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>font-weight</span>: <span style=color:#66d9ef>bold</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>transition</span>: <span style=color:#66d9ef>background</span> <span style=color:#ae81ff>0.2</span><span style=color:#66d9ef>s</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>#theme-toggle:<span style=color:#a6e22e>hover</span><span style=color:#f92672>,</span>
+</span></span><span style=display:flex><span>#lang-toggle:<span style=color:#a6e22e>hover</span><span style=color:#f92672>,</span>
+</span></span><span style=display:flex><span>#login-button:<span style=color:#a6e22e>hover</span><span style=color:#f92672>,</span>
+</span></span><span style=display:flex><span>#logout-button:<span style=color:#a6e22e>hover</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>background</span>: rgba(<span style=color:#ae81ff>255</span>, <span style=color:#ae81ff>255</span>, <span style=color:#ae81ff>255</span>, <span style=color:#ae81ff>0.3</span>);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>header</span> <span style=color:#f92672>h1</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>font-size</span>: <span style=color:#ae81ff>24</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>header</span> <span style=color:#f92672>p</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>opacity</span>: <span style=color:#ae81ff>0.9</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>font-size</span>: <span style=color:#ae81ff>14</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>margin-top</span>: <span style=color:#ae81ff>4</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>kpi-row</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>display</span>: <span style=color:#66d9ef>flex</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>gap</span>: <span style=color:#ae81ff>16</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>margin-bottom</span>: <span style=color:#ae81ff>24</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>flex-wrap</span>: <span style=color:#66d9ef>wrap</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>kpi-card</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>background</span>: <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>card<span style=color:#f92672>-</span>bg);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>border-radius</span>: <span style=color:#ae81ff>12</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>padding</span>: <span style=color:#ae81ff>20</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>24</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>flex</span>: <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>min-width</span>: <span style=color:#ae81ff>200</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>box-shadow</span>: <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>1</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>4</span><span style=color:#66d9ef>px</span> <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>shadow<span style=color:#f92672>-</span><span style=color:#66d9ef>color</span>);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>transition</span>: <span style=color:#66d9ef>background</span> <span style=color:#ae81ff>0.3</span><span style=color:#66d9ef>s</span>, <span style=color:#66d9ef>box-shadow</span> <span style=color:#ae81ff>0.3</span><span style=color:#66d9ef>s</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>kpi-card</span> .<span style=color:#a6e22e>label</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>font-size</span>: <span style=color:#ae81ff>13</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>color</span>: <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>label<span style=color:#f92672>-</span><span style=color:#66d9ef>color</span>);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>kpi-card</span> .<span style=color:#a6e22e>value</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>font-size</span>: <span style=color:#ae81ff>28</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>font-weight</span>: <span style=color:#ae81ff>700</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>margin-top</span>: <span style=color:#ae81ff>6</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>kpi-card</span> .<span style=color:#a6e22e>value</span>.<span style=color:#a6e22e>danger</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>color</span>: <span style=color:#ae81ff>#e53e3e</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>chart-grid</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>display</span>: <span style=color:#66d9ef>grid</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>grid-template-columns</span>: <span style=color:#ae81ff>1</span>fr <span style=color:#ae81ff>1</span>fr;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>gap</span>: <span style=color:#ae81ff>24</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>chart-card</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>background</span>: <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>card<span style=color:#f92672>-</span>bg);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>border-radius</span>: <span style=color:#ae81ff>12</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>padding</span>: <span style=color:#ae81ff>20</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>box-shadow</span>: <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>1</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>4</span><span style=color:#66d9ef>px</span> <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>shadow<span style=color:#f92672>-</span><span style=color:#66d9ef>color</span>);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>transition</span>: <span style=color:#66d9ef>background</span> <span style=color:#ae81ff>0.3</span><span style=color:#66d9ef>s</span>, <span style=color:#66d9ef>box-shadow</span> <span style=color:#ae81ff>0.3</span><span style=color:#66d9ef>s</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>chart-card</span> <span style=color:#f92672>h3</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>font-size</span>: <span style=color:#ae81ff>16</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>margin-bottom</span>: <span style=color:#ae81ff>16</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>color</span>: <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>heading<span style=color:#f92672>-</span><span style=color:#66d9ef>color</span>);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>full-width</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>grid-column</span>: <span style=color:#ae81ff>1</span> <span style=color:#f92672>/</span> <span style=color:#ae81ff>-1</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>alert-history</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>min-height</span>: <span style=color:#ae81ff>250</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>table-wrapper</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>overflow-x</span>: <span style=color:#66d9ef>auto</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>table</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>width</span>: <span style=color:#ae81ff>100</span><span style=color:#66d9ef>%</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>border-collapse</span>: <span style=color:#66d9ef>collapse</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>font-size</span>: <span style=color:#ae81ff>14</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>th</span><span style=color:#f92672>,</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>td</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>padding</span>: <span style=color:#ae81ff>12</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>10</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>text-align</span>: <span style=color:#66d9ef>left</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>border-bottom</span>: <span style=color:#ae81ff>1</span><span style=color:#66d9ef>px</span> <span style=color:#66d9ef>solid</span> <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>border<span style=color:#f92672>-</span><span style=color:#66d9ef>color</span>);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>th</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>color</span>: <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>label<span style=color:#f92672>-</span><span style=color:#66d9ef>color</span>);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>background</span>: <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span><span style=color:#66d9ef>table</span><span style=color:#f92672>-</span>head<span style=color:#f92672>-</span>bg);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>font-size</span>: <span style=color:#ae81ff>12</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>text-transform</span>: <span style=color:#66d9ef>uppercase</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>status-badge</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>display</span>: <span style=color:#66d9ef>inline-block</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>padding</span>: <span style=color:#ae81ff>4</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>8</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>border-radius</span>: <span style=color:#ae81ff>999</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>color</span>: <span style=color:#ae81ff>#fff</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>font-size</span>: <span style=color:#ae81ff>11</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>font-weight</span>: <span style=color:#ae81ff>700</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>status-badge</span>.<span style=color:#a6e22e>warning</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>background</span>: <span style=color:#ae81ff>#dd6b20</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>status-badge</span>.<span style=color:#a6e22e>critical</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>background</span>: <span style=color:#ae81ff>#e53e3e</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>no-alerts</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>color</span>: <span style=color:#ae81ff>#38a169</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>padding</span>: <span style=color:#ae81ff>16</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>status</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>text-align</span>: <span style=color:#66d9ef>center</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>padding</span>: <span style=color:#ae81ff>40</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>color</span>: <span style=color:#ae81ff>#718096</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>@<span style=color:#66d9ef>media</span> <span style=color:#f92672>(</span><span style=color:#f92672>max-width</span><span style=color:#f92672>:</span> <span style=color:#f92672>900px</span><span style=color:#f92672>)</span> {
+</span></span><span style=display:flex><span>    <span style=color:#f92672>body</span> {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>padding</span>: <span style=color:#ae81ff>16</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>header</span> {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>padding</span>: <span style=color:#ae81ff>18</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>align-items</span>: <span style=color:#66d9ef>flex-start</span>;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>flex-direction</span>: <span style=color:#66d9ef>column</span>;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>gap</span>: <span style=color:#ae81ff>16</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    .<span style=color:#a6e22e>chart-grid</span> {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>grid-template-columns</span>: <span style=color:#ae81ff>1</span>fr;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Then, update the <code>scripts.js</code> file with the exact content as follows:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-JavaScript data-lang=JavaScript><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>API_ENDPOINT</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;REPLACE_MY_API_ENDPOINT&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>COGNITO_DOMAIN</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;REPLACE_MY_COGNITO_DOMAIN&#34;</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>COGNITO_CLIENT_ID</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;REPLACE_MY_COGNITO_CLIENT_ID&#34;</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>REDIRECT_URI</span> <span style=color:#f92672>=</span> window.<span style=color:#a6e22e>location</span>.<span style=color:#a6e22e>origin</span> <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;/&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>loginButton</span> <span style=color:#f92672>=</span> document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#34;login-button&#34;</span>);
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>logoutButton</span> <span style=color:#f92672>=</span> document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#34;logout-button&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>base64Url</span>(<span style=color:#a6e22e>bytes</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>let</span> <span style=color:#a6e22e>value</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;&#34;</span>;
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>bytes</span>.<span style=color:#a6e22e>forEach</span>((<span style=color:#66d9ef>byte</span>) =&gt; {
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>value</span> <span style=color:#f92672>+=</span> String.<span style=color:#a6e22e>fromCharCode</span>(<span style=color:#66d9ef>byte</span>);
+</span></span><span style=display:flex><span>    });
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>btoa</span>(<span style=color:#a6e22e>value</span>)
+</span></span><span style=display:flex><span>        .<span style=color:#a6e22e>replace</span>(<span style=color:#e6db74>/\+/g</span>, <span style=color:#e6db74>&#34;-&#34;</span>)
+</span></span><span style=display:flex><span>        .<span style=color:#a6e22e>replace</span>(<span style=color:#e6db74>/\//g</span>, <span style=color:#e6db74>&#34;_&#34;</span>)
+</span></span><span style=display:flex><span>        .<span style=color:#a6e22e>replace</span>(<span style=color:#e6db74>/=+$/g</span>, <span style=color:#e6db74>&#34;&#34;</span>);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>randomValue</span>(<span style=color:#a6e22e>size</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>32</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>bytes</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>Uint8Array</span>(<span style=color:#a6e22e>size</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>crypto</span>.<span style=color:#a6e22e>getRandomValues</span>(<span style=color:#a6e22e>bytes</span>);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>base64Url</span>(<span style=color:#a6e22e>bytes</span>);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>async</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>createCodeChallenge</span>(<span style=color:#a6e22e>verifier</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>digest</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>await</span> <span style=color:#a6e22e>crypto</span>.<span style=color:#a6e22e>subtle</span>.<span style=color:#a6e22e>digest</span>(
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;SHA-256&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>TextEncoder</span>().<span style=color:#a6e22e>encode</span>(<span style=color:#a6e22e>verifier</span>),
+</span></span><span style=display:flex><span>    );
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>base64Url</span>(<span style=color:#66d9ef>new</span> <span style=color:#a6e22e>Uint8Array</span>(<span style=color:#a6e22e>digest</span>));
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>async</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>signIn</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>verifier</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>randomValue</span>(<span style=color:#ae81ff>64</span>);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>state</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>randomValue</span>(<span style=color:#ae81ff>32</span>);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>challenge</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>await</span> <span style=color:#a6e22e>createCodeChallenge</span>(<span style=color:#a6e22e>verifier</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>sessionStorage</span>.<span style=color:#a6e22e>setItem</span>(<span style=color:#e6db74>&#34;pkce_verifier&#34;</span>, <span style=color:#a6e22e>verifier</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>sessionStorage</span>.<span style=color:#a6e22e>setItem</span>(<span style=color:#e6db74>&#34;oauth_state&#34;</span>, <span style=color:#a6e22e>state</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>params</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>URLSearchParams</span>({
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>response_type</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;code&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>client_id</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>COGNITO_CLIENT_ID</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>redirect_uri</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>REDIRECT_URI</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>scope</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;openid email profile&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>state</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>code_challenge_method</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;S256&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>code_challenge</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>challenge</span>,
+</span></span><span style=display:flex><span>    });
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    window.<span style=color:#a6e22e>location</span>.<span style=color:#a6e22e>assign</span>(
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>`</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>COGNITO_DOMAIN</span><span style=color:#e6db74>}</span><span style=color:#e6db74>/oauth2/authorize?</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>params</span>.<span style=color:#a6e22e>toString</span>()<span style=color:#e6db74>}</span><span style=color:#e6db74>`</span>,
+</span></span><span style=display:flex><span>    );
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>async</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>exchangeAuthorizationCode</span>(<span style=color:#a6e22e>code</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>verifier</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>sessionStorage</span>.<span style=color:#a6e22e>getItem</span>(<span style=color:#e6db74>&#34;pkce_verifier&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span><span style=color:#a6e22e>verifier</span>) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>throw</span> <span style=color:#66d9ef>new</span> Error(<span style=color:#e6db74>&#34;Login session expired. Please sign in again.&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>body</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>URLSearchParams</span>({
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>grant_type</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;authorization_code&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>client_id</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>COGNITO_CLIENT_ID</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>code</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>redirect_uri</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>REDIRECT_URI</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>code_verifier</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>verifier</span>,
+</span></span><span style=display:flex><span>    });
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>response</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>await</span> <span style=color:#a6e22e>fetch</span>(<span style=color:#e6db74>`</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>COGNITO_DOMAIN</span><span style=color:#e6db74>}</span><span style=color:#e6db74>/oauth2/token`</span>, {
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>method</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;POST&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>headers</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#34;Content-Type&#34;</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;application/x-www-form-urlencoded&#34;</span>,
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>body</span>,
+</span></span><span style=display:flex><span>    });
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>tokens</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>await</span> <span style=color:#a6e22e>response</span>.<span style=color:#a6e22e>json</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span><span style=color:#a6e22e>response</span>.<span style=color:#a6e22e>ok</span>) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>throw</span> <span style=color:#66d9ef>new</span> Error(
+</span></span><span style=display:flex><span>            <span style=color:#a6e22e>tokens</span>.<span style=color:#a6e22e>error_description</span> <span style=color:#f92672>||</span> <span style=color:#a6e22e>tokens</span>.<span style=color:#a6e22e>error</span> <span style=color:#f92672>||</span> <span style=color:#e6db74>&#34;Token exchange failed&#34;</span>,
+</span></span><span style=display:flex><span>        );
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>sessionStorage</span>.<span style=color:#a6e22e>setItem</span>(<span style=color:#e6db74>&#34;id_token&#34;</span>, <span style=color:#a6e22e>tokens</span>.<span style=color:#a6e22e>id_token</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>sessionStorage</span>.<span style=color:#a6e22e>removeItem</span>(<span style=color:#e6db74>&#34;pkce_verifier&#34;</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>sessionStorage</span>.<span style=color:#a6e22e>removeItem</span>(<span style=color:#e6db74>&#34;oauth_state&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>tokens</span>.<span style=color:#a6e22e>id_token</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>async</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>getAuthenticatedToken</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>url</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>URL</span>(window.<span style=color:#a6e22e>location</span>.<span style=color:#a6e22e>href</span>);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>code</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>url</span>.<span style=color:#a6e22e>searchParams</span>.<span style=color:#a6e22e>get</span>(<span style=color:#e6db74>&#34;code&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span><span style=color:#a6e22e>code</span>) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>sessionStorage</span>.<span style=color:#a6e22e>getItem</span>(<span style=color:#e6db74>&#34;id_token&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>expectedState</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>sessionStorage</span>.<span style=color:#a6e22e>getItem</span>(<span style=color:#e6db74>&#34;oauth_state&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span><span style=color:#a6e22e>expectedState</span> <span style=color:#f92672>||</span> <span style=color:#a6e22e>url</span>.<span style=color:#a6e22e>searchParams</span>.<span style=color:#a6e22e>get</span>(<span style=color:#e6db74>&#34;state&#34;</span>) <span style=color:#f92672>!==</span> <span style=color:#a6e22e>expectedState</span>) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>throw</span> <span style=color:#66d9ef>new</span> Error(<span style=color:#e6db74>&#34;Invalid login state. Please sign in again.&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>token</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>await</span> <span style=color:#a6e22e>exchangeAuthorizationCode</span>(<span style=color:#a6e22e>code</span>);
+</span></span><span style=display:flex><span>    window.<span style=color:#a6e22e>history</span>.<span style=color:#a6e22e>replaceState</span>({}, document.<span style=color:#a6e22e>title</span>, <span style=color:#a6e22e>REDIRECT_URI</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>token</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>showAuthenticationState</span>(<span style=color:#a6e22e>isAuthenticated</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>loginButton</span>.<span style=color:#a6e22e>style</span>.<span style=color:#a6e22e>display</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>isAuthenticated</span> <span style=color:#f92672>?</span> <span style=color:#e6db74>&#34;none&#34;</span> <span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;inline-block&#34;</span>;
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>logoutButton</span>.<span style=color:#a6e22e>style</span>.<span style=color:#a6e22e>display</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>isAuthenticated</span> <span style=color:#f92672>?</span> <span style=color:#e6db74>&#34;inline-block&#34;</span> <span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;none&#34;</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>signOut</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>sessionStorage</span>.<span style=color:#a6e22e>removeItem</span>(<span style=color:#e6db74>&#34;id_token&#34;</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>sessionStorage</span>.<span style=color:#a6e22e>removeItem</span>(<span style=color:#e6db74>&#34;pkce_verifier&#34;</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>sessionStorage</span>.<span style=color:#a6e22e>removeItem</span>(<span style=color:#e6db74>&#34;oauth_state&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>params</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>URLSearchParams</span>({
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>client_id</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>COGNITO_CLIENT_ID</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>logout_uri</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>REDIRECT_URI</span>,
+</span></span><span style=display:flex><span>    });
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    window.<span style=color:#a6e22e>location</span>.<span style=color:#a6e22e>assign</span>(<span style=color:#e6db74>`</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>COGNITO_DOMAIN</span><span style=color:#e6db74>}</span><span style=color:#e6db74>/logout?</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>params</span>.<span style=color:#a6e22e>toString</span>()<span style=color:#e6db74>}</span><span style=color:#e6db74>`</span>);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// EN/VI
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>translations</span> <span style=color:#f92672>=</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>en</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>subtitle</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;AWS Cost Monitoring &amp; Alert Dashboard&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>labelTotal</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Total Cost (Period)&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>labelThreshold</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Alert Threshold/Day&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>labelDays</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Monitored Days&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>labelAnomalies</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Anomalous Days&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>titleTrend</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;📈 Daily Cost Trend (Threshold Line + Anomaly Markers)&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>titleAlert</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;🚨 Alert History&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>titleTop</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;📊 Top Cost Services&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>dailyCost</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Daily Cost&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>budgetThreshold</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Budget Threshold&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>cost</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Cost ($)&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>date</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Date&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>status</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Status&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>reason</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Reason&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>warningReason</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Budget threshold exceeded&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>criticalReason</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Cost spike detected&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>noAlerts</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;No abnormal cost days were detected.&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>error</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Error loading data: &#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>signIn</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Sign in&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>signOut</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Sign out&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>authenticationRequired</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Please sign in to view cost data.&#34;</span>,
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>vi</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>subtitle</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Bảng giám sát &amp; cảnh báo chi phí AWS&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>labelTotal</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Tổng chi phí (kỳ)&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>labelThreshold</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Ngưỡng cảnh báo/ngày&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>labelDays</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Số ngày theo dõi&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>labelAnomalies</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Số ngày bất thường&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>titleTrend</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;📈 Xu hướng chi phí theo ngày (đường ngưỡng + đánh dấu bất thường)&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>titleAlert</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;🚨 Lịch sử cảnh báo&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>titleTop</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;📊 Top dịch vụ tốn chi phí&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>dailyCost</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Chi phí/ngày&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>budgetThreshold</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Ngưỡng ngân sách&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>cost</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Chi phí ($)&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>date</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Ngày&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>status</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Trạng thái&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>reason</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Lý do&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>warningReason</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Vượt ngưỡng ngân sách&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>criticalReason</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Phát hiện chi phí tăng đột biến&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>noAlerts</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Không phát hiện ngày có chi phí bất thường.&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>error</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Lỗi tải dữ liệu: &#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>signIn</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Đăng nhập&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>signOut</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Đăng xuất&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>authenticationRequired</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Vui lòng đăng nhập để xem dữ liệu chi phí.&#34;</span>,
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>currentLang</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;en&#34;</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>latestData</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>null</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>charts</span> <span style=color:#f92672>=</span> {};
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>statusColor</span> <span style=color:#f92672>=</span> (<span style=color:#a6e22e>status</span>) =&gt;
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>status</span> <span style=color:#f92672>===</span> <span style=color:#e6db74>&#34;CRITICAL&#34;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>?</span> <span style=color:#e6db74>&#34;#e53e3e&#34;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>:</span> <span style=color:#a6e22e>status</span> <span style=color:#f92672>===</span> <span style=color:#e6db74>&#34;WARNING&#34;</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>?</span> <span style=color:#e6db74>&#34;#dd6b20&#34;</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;#38a169&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>applyStaticText</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>t</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>translations</span>[<span style=color:#a6e22e>currentLang</span>];
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#34;header-subtitle&#34;</span>).<span style=color:#a6e22e>textContent</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>t</span>.<span style=color:#a6e22e>subtitle</span>;
+</span></span><span style=display:flex><span>    document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#34;label-total&#34;</span>).<span style=color:#a6e22e>textContent</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>t</span>.<span style=color:#a6e22e>labelTotal</span>;
+</span></span><span style=display:flex><span>    document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#34;label-threshold&#34;</span>).<span style=color:#a6e22e>textContent</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>t</span>.<span style=color:#a6e22e>labelThreshold</span>;
+</span></span><span style=display:flex><span>    document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#34;label-days&#34;</span>).<span style=color:#a6e22e>textContent</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>t</span>.<span style=color:#a6e22e>labelDays</span>;
+</span></span><span style=display:flex><span>    document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#34;label-anomalies&#34;</span>).<span style=color:#a6e22e>textContent</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>t</span>.<span style=color:#a6e22e>labelAnomalies</span>;
+</span></span><span style=display:flex><span>    document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#34;title-trend&#34;</span>).<span style=color:#a6e22e>textContent</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>t</span>.<span style=color:#a6e22e>titleTrend</span>;
+</span></span><span style=display:flex><span>    document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#34;title-alert&#34;</span>).<span style=color:#a6e22e>textContent</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>t</span>.<span style=color:#a6e22e>titleAlert</span>;
+</span></span><span style=display:flex><span>    document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#34;title-top&#34;</span>).<span style=color:#a6e22e>textContent</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>t</span>.<span style=color:#a6e22e>titleTop</span>;
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>loginButton</span>.<span style=color:#a6e22e>textContent</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>t</span>.<span style=color:#a6e22e>signIn</span>;
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>logoutButton</span>.<span style=color:#a6e22e>textContent</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>t</span>.<span style=color:#a6e22e>signOut</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>status</span> <span style=color:#f92672>=</span> document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#34;status&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>status</span>.<span style=color:#a6e22e>dataset</span>.<span style=color:#a6e22e>translationKey</span> <span style=color:#f92672>===</span> <span style=color:#e6db74>&#34;authenticationRequired&#34;</span>) {
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>status</span>.<span style=color:#a6e22e>textContent</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>t</span>.<span style=color:#a6e22e>authenticationRequired</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>renderCharts</span>(<span style=color:#a6e22e>data</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>t</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>translations</span>[<span style=color:#a6e22e>currentLang</span>];
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    Object.<span style=color:#a6e22e>values</span>(<span style=color:#a6e22e>charts</span>).<span style=color:#a6e22e>forEach</span>((<span style=color:#a6e22e>chart</span>) =&gt; <span style=color:#a6e22e>chart</span> <span style=color:#f92672>&amp;&amp;</span> <span style=color:#a6e22e>chart</span>.<span style=color:#a6e22e>destroy</span>());
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>charts</span> <span style=color:#f92672>=</span> {};
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>labels</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>daily_costs</span>.<span style=color:#a6e22e>map</span>((<span style=color:#a6e22e>day</span>) =&gt; <span style=color:#a6e22e>day</span>.<span style=color:#a6e22e>date</span>);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>totals</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>daily_costs</span>.<span style=color:#a6e22e>map</span>((<span style=color:#a6e22e>day</span>) =&gt; <span style=color:#a6e22e>day</span>.<span style=color:#a6e22e>total</span>);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>colors</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>daily_costs</span>.<span style=color:#a6e22e>map</span>((<span style=color:#a6e22e>day</span>) =&gt; <span style=color:#a6e22e>statusColor</span>(<span style=color:#a6e22e>day</span>.<span style=color:#a6e22e>status</span>));
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>threshold</span> <span style=color:#f92672>=</span> Number(<span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>threshold</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>charts</span>.<span style=color:#a6e22e>trend</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>Chart</span>(document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#34;trendChart&#34;</span>), {
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>type</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;line&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>data</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>            <span style=color:#a6e22e>labels</span>,
+</span></span><span style=display:flex><span>            <span style=color:#a6e22e>datasets</span><span style=color:#f92672>:</span> [
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                    <span style=color:#a6e22e>label</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>t</span>.<span style=color:#a6e22e>dailyCost</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#a6e22e>data</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>totals</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#a6e22e>borderColor</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;#3182ce&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#a6e22e>backgroundColor</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;rgba(49, 130, 206, 0.1)&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#a6e22e>fill</span><span style=color:#f92672>:</span> <span style=color:#66d9ef>true</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#a6e22e>tension</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>0.3</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#a6e22e>pointBackgroundColor</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>colors</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#a6e22e>pointRadius</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>5</span>,
+</span></span><span style=display:flex><span>                },
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                    <span style=color:#a6e22e>label</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>t</span>.<span style=color:#a6e22e>budgetThreshold</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#a6e22e>data</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>labels</span>.<span style=color:#a6e22e>map</span>(() =&gt; <span style=color:#a6e22e>threshold</span>),
+</span></span><span style=display:flex><span>                    <span style=color:#a6e22e>borderColor</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;#e53e3e&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#a6e22e>borderDash</span><span style=color:#f92672>:</span> [<span style=color:#ae81ff>6</span>, <span style=color:#ae81ff>4</span>],
+</span></span><span style=display:flex><span>                    <span style=color:#a6e22e>pointRadius</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>0</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#a6e22e>fill</span><span style=color:#f92672>:</span> <span style=color:#66d9ef>false</span>,
+</span></span><span style=display:flex><span>                },
+</span></span><span style=display:flex><span>            ],
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>options</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>            <span style=color:#a6e22e>responsive</span><span style=color:#f92672>:</span> <span style=color:#66d9ef>true</span>,
+</span></span><span style=display:flex><span>            <span style=color:#a6e22e>plugins</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>                <span style=color:#a6e22e>legend</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>                    <span style=color:#a6e22e>position</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;top&#34;</span>,
+</span></span><span style=display:flex><span>                },
+</span></span><span style=display:flex><span>                <span style=color:#a6e22e>tooltip</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>                    <span style=color:#a6e22e>callbacks</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>                        <span style=color:#a6e22e>label</span>(<span style=color:#a6e22e>context</span>) {
+</span></span><span style=display:flex><span>                            <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>label</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>context</span>.<span style=color:#a6e22e>dataset</span>.<span style=color:#a6e22e>label</span> <span style=color:#f92672>||</span> <span style=color:#e6db74>&#34;&#34;</span>;
+</span></span><span style=display:flex><span>                            <span style=color:#66d9ef>return</span> <span style=color:#e6db74>`</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>label</span><span style=color:#e6db74>}</span><span style=color:#e6db74>: $</span><span style=color:#e6db74>${</span>Number(<span style=color:#a6e22e>context</span>.<span style=color:#a6e22e>parsed</span>.<span style=color:#a6e22e>y</span>).<span style=color:#a6e22e>toFixed</span>(<span style=color:#ae81ff>2</span>)<span style=color:#e6db74>}</span><span style=color:#e6db74>`</span>;
+</span></span><span style=display:flex><span>                        },
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                },
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>    });
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>charts</span>.<span style=color:#a6e22e>top</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>Chart</span>(document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#34;topChart&#34;</span>), {
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>type</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;bar&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>data</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>            <span style=color:#a6e22e>labels</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>top_services</span>.<span style=color:#a6e22e>map</span>((<span style=color:#a6e22e>service</span>) =&gt; <span style=color:#a6e22e>service</span>.<span style=color:#a6e22e>service</span>),
+</span></span><span style=display:flex><span>            <span style=color:#a6e22e>datasets</span><span style=color:#f92672>:</span> [
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                    <span style=color:#a6e22e>label</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>t</span>.<span style=color:#a6e22e>cost</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#a6e22e>data</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>top_services</span>.<span style=color:#a6e22e>map</span>((<span style=color:#a6e22e>service</span>) =&gt; <span style=color:#a6e22e>service</span>.<span style=color:#a6e22e>cost</span>),
+</span></span><span style=display:flex><span>                    <span style=color:#a6e22e>backgroundColor</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;#ff9900&#34;</span>,
+</span></span><span style=display:flex><span>                },
+</span></span><span style=display:flex><span>            ],
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>options</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>            <span style=color:#a6e22e>indexAxis</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;y&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#a6e22e>responsive</span><span style=color:#f92672>:</span> <span style=color:#66d9ef>true</span>,
+</span></span><span style=display:flex><span>            <span style=color:#a6e22e>plugins</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>                <span style=color:#a6e22e>legend</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>                    <span style=color:#a6e22e>display</span><span style=color:#f92672>:</span> <span style=color:#66d9ef>false</span>,
+</span></span><span style=display:flex><span>                },
+</span></span><span style=display:flex><span>                <span style=color:#a6e22e>tooltip</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>                    <span style=color:#a6e22e>callbacks</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>                        <span style=color:#a6e22e>label</span>(<span style=color:#a6e22e>context</span>) {
+</span></span><span style=display:flex><span>                            <span style=color:#66d9ef>return</span> <span style=color:#e6db74>`</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>t</span>.<span style=color:#a6e22e>cost</span><span style=color:#e6db74>}</span><span style=color:#e6db74>: $</span><span style=color:#e6db74>${</span>Number(<span style=color:#a6e22e>context</span>.<span style=color:#a6e22e>parsed</span>.<span style=color:#a6e22e>x</span>).<span style=color:#a6e22e>toFixed</span>(<span style=color:#ae81ff>2</span>)<span style=color:#e6db74>}</span><span style=color:#e6db74>`</span>;
+</span></span><span style=display:flex><span>                        },
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                },
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>    });
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>renderAlertHistory</span>(<span style=color:#a6e22e>data</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>t</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>translations</span>[<span style=color:#a6e22e>currentLang</span>];
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>container</span> <span style=color:#f92672>=</span> document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#34;alert-history&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>anomalies</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>daily_costs</span>.<span style=color:#a6e22e>filter</span>(
+</span></span><span style=display:flex><span>        (<span style=color:#a6e22e>day</span>) =&gt; <span style=color:#a6e22e>day</span>.<span style=color:#a6e22e>status</span> <span style=color:#f92672>!==</span> <span style=color:#e6db74>&#34;NORMAL&#34;</span>,
+</span></span><span style=display:flex><span>    );
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>anomalies</span>.<span style=color:#a6e22e>length</span> <span style=color:#f92672>===</span> <span style=color:#ae81ff>0</span>) {
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>container</span>.<span style=color:#a6e22e>innerHTML</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>`&lt;p class=&#34;no-alerts&#34;&gt;✅ </span><span style=color:#e6db74>${</span><span style=color:#a6e22e>t</span>.<span style=color:#a6e22e>noAlerts</span><span style=color:#e6db74>}</span><span style=color:#e6db74>&lt;/p&gt;`</span>;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>rows</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>anomalies</span>
+</span></span><span style=display:flex><span>        .<span style=color:#a6e22e>slice</span>()
+</span></span><span style=display:flex><span>        .<span style=color:#a6e22e>reverse</span>()
+</span></span><span style=display:flex><span>        .<span style=color:#a6e22e>map</span>((<span style=color:#a6e22e>day</span>) =&gt; {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>reason</span> <span style=color:#f92672>=</span>
+</span></span><span style=display:flex><span>                <span style=color:#a6e22e>day</span>.<span style=color:#a6e22e>status</span> <span style=color:#f92672>===</span> <span style=color:#e6db74>&#34;CRITICAL&#34;</span>
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>?</span> <span style=color:#a6e22e>t</span>.<span style=color:#a6e22e>criticalReason</span>
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>:</span> <span style=color:#a6e22e>t</span>.<span style=color:#a6e22e>warningReason</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>return</span> <span style=color:#e6db74>`
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                &lt;tr&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                    &lt;td&gt;</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>day</span>.<span style=color:#a6e22e>date</span><span style=color:#e6db74>}</span><span style=color:#e6db74>&lt;/td&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                    &lt;td&gt;$</span><span style=color:#e6db74>${</span>Number(<span style=color:#a6e22e>day</span>.<span style=color:#a6e22e>total</span>).<span style=color:#a6e22e>toFixed</span>(<span style=color:#ae81ff>2</span>)<span style=color:#e6db74>}</span><span style=color:#e6db74>&lt;/td&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                    &lt;td&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                        &lt;span class=&#34;status-badge </span><span style=color:#e6db74>${</span><span style=color:#a6e22e>day</span>.<span style=color:#a6e22e>status</span>.<span style=color:#a6e22e>toLowerCase</span>()<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                            </span><span style=color:#e6db74>${</span><span style=color:#a6e22e>day</span>.<span style=color:#a6e22e>status</span><span style=color:#e6db74>}</span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                        &lt;/span&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                    &lt;/td&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                    &lt;td&gt;</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>reason</span><span style=color:#e6db74>}</span><span style=color:#e6db74>&lt;/td&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                &lt;/tr&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>            `</span>;
+</span></span><span style=display:flex><span>        })
+</span></span><span style=display:flex><span>        .<span style=color:#a6e22e>join</span>(<span style=color:#e6db74>&#34;&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>container</span>.<span style=color:#a6e22e>innerHTML</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>`
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        &lt;div class=&#34;table-wrapper&#34;&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>            &lt;table&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                &lt;thead&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                    &lt;tr&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                        &lt;th&gt;</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>t</span>.<span style=color:#a6e22e>date</span><span style=color:#e6db74>}</span><span style=color:#e6db74>&lt;/th&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                        &lt;th&gt;</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>t</span>.<span style=color:#a6e22e>cost</span><span style=color:#e6db74>}</span><span style=color:#e6db74>&lt;/th&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                        &lt;th&gt;</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>t</span>.<span style=color:#a6e22e>status</span><span style=color:#e6db74>}</span><span style=color:#e6db74>&lt;/th&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                        &lt;th&gt;</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>t</span>.<span style=color:#a6e22e>reason</span><span style=color:#e6db74>}</span><span style=color:#e6db74>&lt;/th&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                    &lt;/tr&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                &lt;/thead&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                &lt;tbody&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                    </span><span style=color:#e6db74>${</span><span style=color:#a6e22e>rows</span><span style=color:#e6db74>}</span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                &lt;/tbody&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>            &lt;/table&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        &lt;/div&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    `</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>renderDashboard</span>(<span style=color:#a6e22e>data</span>) {
+</span></span><span style=display:flex><span>    document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#34;kpi-total&#34;</span>).<span style=color:#a6e22e>textContent</span> <span style=color:#f92672>=</span>
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>`$</span><span style=color:#e6db74>${</span>Number(<span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>grand_total</span>).<span style=color:#a6e22e>toFixed</span>(<span style=color:#ae81ff>2</span>)<span style=color:#e6db74>}</span><span style=color:#e6db74>`</span>;
+</span></span><span style=display:flex><span>    document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#34;kpi-threshold&#34;</span>).<span style=color:#a6e22e>textContent</span> <span style=color:#f92672>=</span>
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>`$</span><span style=color:#e6db74>${</span>Number(<span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>threshold</span>).<span style=color:#a6e22e>toFixed</span>(<span style=color:#ae81ff>2</span>)<span style=color:#e6db74>}</span><span style=color:#e6db74>`</span>;
+</span></span><span style=display:flex><span>    document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#34;kpi-days&#34;</span>).<span style=color:#a6e22e>textContent</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>days_count</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>anomalies</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>daily_costs</span>.<span style=color:#a6e22e>filter</span>(
+</span></span><span style=display:flex><span>        (<span style=color:#a6e22e>day</span>) =&gt; <span style=color:#a6e22e>day</span>.<span style=color:#a6e22e>status</span> <span style=color:#f92672>!==</span> <span style=color:#e6db74>&#34;NORMAL&#34;</span>,
+</span></span><span style=display:flex><span>    ).<span style=color:#a6e22e>length</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#34;kpi-anomalies&#34;</span>).<span style=color:#a6e22e>textContent</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>anomalies</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>applyStaticText</span>();
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>renderCharts</span>(<span style=color:#a6e22e>data</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>renderAlertHistory</span>(<span style=color:#a6e22e>data</span>);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>async</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>loadDashboard</span>(<span style=color:#a6e22e>idToken</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>try</span> {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>response</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>await</span> <span style=color:#a6e22e>fetch</span>(<span style=color:#a6e22e>API_ENDPOINT</span>, {
+</span></span><span style=display:flex><span>            <span style=color:#a6e22e>headers</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>                <span style=color:#a6e22e>Authorization</span><span style=color:#f92672>:</span> <span style=color:#e6db74>`Bearer </span><span style=color:#e6db74>${</span><span style=color:#a6e22e>idToken</span><span style=color:#e6db74>}</span><span style=color:#e6db74>`</span>,
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>        });
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span><span style=color:#a6e22e>response</span>.<span style=color:#a6e22e>ok</span>) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>throw</span> <span style=color:#66d9ef>new</span> Error(<span style=color:#e6db74>`HTTP </span><span style=color:#e6db74>${</span><span style=color:#a6e22e>response</span>.<span style=color:#a6e22e>status</span><span style=color:#e6db74>}</span><span style=color:#e6db74>`</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>latestData</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>await</span> <span style=color:#a6e22e>response</span>.<span style=color:#a6e22e>json</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#34;status&#34;</span>).<span style=color:#a6e22e>style</span>.<span style=color:#a6e22e>display</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;none&#34;</span>;
+</span></span><span style=display:flex><span>        document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#34;content&#34;</span>).<span style=color:#a6e22e>style</span>.<span style=color:#a6e22e>display</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;block&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>renderDashboard</span>(<span style=color:#a6e22e>latestData</span>);
+</span></span><span style=display:flex><span>    } <span style=color:#66d9ef>catch</span> (<span style=color:#a6e22e>error</span>) {
+</span></span><span style=display:flex><span>        document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#34;status&#34;</span>).<span style=color:#a6e22e>textContent</span> <span style=color:#f92672>=</span>
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>`❌ </span><span style=color:#e6db74>${</span><span style=color:#a6e22e>translations</span>[<span style=color:#a6e22e>currentLang</span>].<span style=color:#a6e22e>error</span><span style=color:#e6db74>}${</span><span style=color:#a6e22e>error</span>.<span style=color:#a6e22e>message</span><span style=color:#e6db74>}</span><span style=color:#e6db74>`</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>langToggle</span> <span style=color:#f92672>=</span> document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#34;lang-toggle&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>langToggle</span>.<span style=color:#a6e22e>addEventListener</span>(<span style=color:#e6db74>&#34;click&#34;</span>, () =&gt; {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>currentLang</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>currentLang</span> <span style=color:#f92672>===</span> <span style=color:#e6db74>&#34;vi&#34;</span> <span style=color:#f92672>?</span> <span style=color:#e6db74>&#34;en&#34;</span> <span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;vi&#34;</span>;
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>langToggle</span>.<span style=color:#a6e22e>textContent</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>currentLang</span> <span style=color:#f92672>===</span> <span style=color:#e6db74>&#34;vi&#34;</span> <span style=color:#f92672>?</span> <span style=color:#e6db74>&#34;EN&#34;</span> <span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;🇻🇳 VI&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>latestData</span>) {
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>renderDashboard</span>(<span style=color:#a6e22e>latestData</span>);
+</span></span><span style=display:flex><span>    } <span style=color:#66d9ef>else</span> {
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>applyStaticText</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>});
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>themeToggle</span> <span style=color:#f92672>=</span> document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#34;theme-toggle&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>themeToggle</span>.<span style=color:#a6e22e>addEventListener</span>(<span style=color:#e6db74>&#34;click&#34;</span>, () =&gt; {
+</span></span><span style=display:flex><span>    document.<span style=color:#a6e22e>body</span>.<span style=color:#a6e22e>classList</span>.<span style=color:#a6e22e>toggle</span>(<span style=color:#e6db74>&#34;dark-mode&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>themeToggle</span>.<span style=color:#a6e22e>textContent</span> <span style=color:#f92672>=</span> document.<span style=color:#a6e22e>body</span>.<span style=color:#a6e22e>classList</span>.<span style=color:#a6e22e>contains</span>(<span style=color:#e6db74>&#34;dark-mode&#34;</span>)
+</span></span><span style=display:flex><span>        <span style=color:#f92672>?</span> <span style=color:#e6db74>&#34;☀️&#34;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;🌙&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>Chart</span>.<span style=color:#a6e22e>defaults</span>.<span style=color:#a6e22e>color</span> <span style=color:#f92672>=</span> document.<span style=color:#a6e22e>body</span>.<span style=color:#a6e22e>classList</span>.<span style=color:#a6e22e>contains</span>(<span style=color:#e6db74>&#34;dark-mode&#34;</span>)
+</span></span><span style=display:flex><span>        <span style=color:#f92672>?</span> <span style=color:#e6db74>&#34;#ffffff&#34;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;#666&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    Object.<span style=color:#a6e22e>values</span>(<span style=color:#a6e22e>charts</span>).<span style=color:#a6e22e>forEach</span>((<span style=color:#a6e22e>chart</span>) =&gt; <span style=color:#a6e22e>chart</span> <span style=color:#f92672>&amp;&amp;</span> <span style=color:#a6e22e>chart</span>.<span style=color:#a6e22e>update</span>());
+</span></span><span style=display:flex><span>});
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>async</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>initializeDashboard</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>applyStaticText</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>try</span> {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>token</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>await</span> <span style=color:#a6e22e>getAuthenticatedToken</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>showAuthenticationState</span>(Boolean(<span style=color:#a6e22e>token</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span><span style=color:#a6e22e>token</span>) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>status</span> <span style=color:#f92672>=</span> document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#34;status&#34;</span>);
+</span></span><span style=display:flex><span>            <span style=color:#a6e22e>status</span>.<span style=color:#a6e22e>dataset</span>.<span style=color:#a6e22e>translationKey</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;authenticationRequired&#34;</span>;
+</span></span><span style=display:flex><span>            <span style=color:#a6e22e>status</span>.<span style=color:#a6e22e>textContent</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>translations</span>[<span style=color:#a6e22e>currentLang</span>].<span style=color:#a6e22e>authenticationRequired</span>;
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>return</span>;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>await</span> <span style=color:#a6e22e>loadDashboard</span>(<span style=color:#a6e22e>token</span>);
+</span></span><span style=display:flex><span>    } <span style=color:#66d9ef>catch</span> (<span style=color:#a6e22e>error</span>) {
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>sessionStorage</span>.<span style=color:#a6e22e>removeItem</span>(<span style=color:#e6db74>&#34;id_token&#34;</span>);
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>showAuthenticationState</span>(<span style=color:#66d9ef>false</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#34;status&#34;</span>).<span style=color:#a6e22e>textContent</span> <span style=color:#f92672>=</span>
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>`Authentication error: </span><span style=color:#e6db74>${</span><span style=color:#a6e22e>error</span>.<span style=color:#a6e22e>message</span><span style=color:#e6db74>}</span><span style=color:#e6db74>`</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>loginButton</span>.<span style=color:#a6e22e>addEventListener</span>(<span style=color:#e6db74>&#34;click&#34;</span>, <span style=color:#a6e22e>signIn</span>);
+</span></span><span style=display:flex><span><span style=color:#a6e22e>logoutButton</span>.<span style=color:#a6e22e>addEventListener</span>(<span style=color:#e6db74>&#34;click&#34;</span>, <span style=color:#a6e22e>signOut</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>initializeDashboard</span>();
+</span></span></code></pre></div><p>Here, we have completed setting up the security authentication mechanism with <strong>Amazon Cognito</strong> for the Web Dashboard. We need to redeploy via the command line:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>terraform apply
+</span></span></code></pre></div><h3 id=next-steps>Next steps</h3><ul><li><a href=/workshop-fcaj-intern/5-workshop/5.7-testing/>System Testing</a></li></ul><footer class=footline></footer></div></div><div id=navigation><a class="nav nav-prev" href=/workshop-fcaj-intern/5-workshop/5.6-dashboard/5.6.2-frontend/ title=Frontend><i class="fa fa-chevron-left"></i></a>
+<a class="nav nav-next" href=/workshop-fcaj-intern/5-workshop/5.7-testing/ title="System Testing" style=margin-right:0><i class="fa fa-chevron-right"></i></a></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/workshop-fcaj-intern/js/clipboard.min.js?1786693546></script><script src=/workshop-fcaj-intern/js/perfect-scrollbar.min.js?1786693546></script><script src=/workshop-fcaj-intern/js/perfect-scrollbar.jquery.min.js?1786693546></script><script src=/workshop-fcaj-intern/js/jquery.sticky.js?1786693546></script><script src=/workshop-fcaj-intern/js/featherlight.min.js?1786693546></script><script src=/workshop-fcaj-intern/js/highlight.pack.js?1786693546></script><script>hljs.initHighlightingOnLoad()</script><script src=/workshop-fcaj-intern/js/modernizr.custom-3.6.0.js?1786693546></script><script src=/workshop-fcaj-intern/js/learn.js?1786693546></script><script src=/workshop-fcaj-intern/js/hugo-learn.js?1786693546></script><link href=/workshop-fcaj-intern/mermaid/mermaid.css?1786693546 rel=stylesheet><script src=/workshop-fcaj-intern/mermaid/mermaid.js?1786693546></script><script>mermaid.initialize({startOnLoad:!0})</script><script>(function(e,t,n,s,o,i,a){e.GoogleAnalyticsObject=o,(e[o]=e[o]||function(){(e[o].q=e[o].q||[]).push(arguments)},e[o].l=1*new Date),(i=t.createElement(n),a=t.getElementsByTagName(n)[0]),i.async=1,i.src=s,a.parentNode.insertBefore(i,a)})(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-158079754-2","auto"),ga("send","pageview")</script></body></html>
