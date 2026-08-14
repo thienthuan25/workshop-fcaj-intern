@@ -139,7 +139,7 @@ def classify_severity(total: float, avg: float) -> tuple:
         severity = "WARNING"
 
     # tăng đột biến so với trung bình lịch sử
-    if avg > 0 and total > avg * SPIKE_MULTIPLIER:
+    if total > COST_THRESHOLD and avg > 0 and total > avg * SPIKE_MULTIPLIER:
         pct = ((total - avg) / avg) * 100
         reasons.append(
             f"Cost spike detected: {pct:.0f}% above historical average {HISTORY_DAYS} day (${avg:.2f})"
