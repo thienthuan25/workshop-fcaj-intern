@@ -1,6 +1,6 @@
 # Internship Report & Workshop Template
 
-This repository contains the source code for an Internship Report (Báo cáo thực tập) and a Workshop template, built using **Hugo** and **Terraform** for AWS infrastructure.
+This repository contains the source code for an Internship Report and a Workshop template, built using **Hugo** and **Terraform** for AWS infrastructure.
 
 ## Overview
 
